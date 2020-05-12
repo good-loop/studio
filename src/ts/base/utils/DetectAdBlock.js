@@ -1,1 +1,0 @@
-/home/n/winterwell/wwappbase.js/base/utils/DetectAdBlock.js
