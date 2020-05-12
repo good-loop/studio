@@ -1,1 +1,0 @@
-/home/n/winterwell/my-loop/src/js/components/MyGLSocialShare.jsx
