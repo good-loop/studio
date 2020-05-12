@@ -11,10 +11,10 @@ const WizardProgress: FC = () => {
 			<WizardStage title='Hello!'>
 				<h3>This is the first stage!</h3>
 			</WizardStage>
-			<WizardStage title='Claim your site'>
+			<WizardStage title='Middle section'>
 				<h3>And the second!</h3>
 			</WizardStage>
-			<WizardStage title='Thank you'>
+			<WizardStage title='Thank you!'>
 				<h3>Hurray! Finished!</h3>
 			</WizardStage>
 		</Wizard>
