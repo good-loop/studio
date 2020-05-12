@@ -1,1 +1,1 @@
-/home/n/winterwell/wwappbase.js/.eslintrc.js
+../wwappbase.js/.eslintrc.js
