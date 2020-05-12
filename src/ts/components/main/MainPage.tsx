@@ -1,33 +1,31 @@
 import React, { FC } from 'react';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 import ShareWidgetWrapper from '../widgets/ShareWidget.w';
 import WizardProgress from '../widgets/WizardProgressWidget.w';
 import BasicAccountPage from '../widgets/BasicAccountPage.w';
 
-const SearchForm = () => {
-	return (
-		<Form>
-			<FormGroup>
-				<Label>Search component:</Label>
-				<Input type="text" name="search" placeholder="Type the component's name here..." />
-			</FormGroup>
-		</Form>
-	);
-};
+import { ShareLink } from '../../../base/components/ShareWidget';
+import DataStore from '../../../base/plumbing/DataStore';
+import SearchForm from './SearchForm';
+
 
 const MainPage: FC = () => {
-
 	//TODO depending on user input we'll map widgets, propcontrol or others based on search query, returning the component wrapper
 	const widgets = [
-		{name: 'wizardprogress', component: <WizardProgress />}
+		{name: 'wizardprogress', component: <WizardProgress />},
+		{name: 'basicaccountpage', component: <BasicAccountPage />}
 	];
+
+	const searchQuery = DataStore.getValue(['misc', 'searchValue']) as unknown as string || '';
+
+	const widgetsToRender = widgets
+		.filter( widget => widget.name.includes(searchQuery) )
+		.map( widget => widget.component);
 
 	return (
 		<>
 			<SearchForm />
-			<WizardProgress />
-			<BasicAccountPage />
+			{ widgetsToRender }
 		</>
 	);
 };
