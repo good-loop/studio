@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-import MainPage from './components/main/MainPage';
+import MainDiv from './components/main/MainDiv';
 
 window.$ = $;
 
 ReactDOM.render(
-	<MainPage />,
+	<MainDiv />,
 	document.getElementById('mainDiv')
 );

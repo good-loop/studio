@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import LoginWidget, { getShowLogin, setShowLogin } from '../../base/components/LoginWidget';
+import LoginWidget, { getShowLogin, setShowLogin } from '../../../base/components/LoginWidget';
 
 const SocialLinksWidgetWrapper: FC = () => {
 

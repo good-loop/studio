@@ -1,6 +1,6 @@
 import Enum from 'easy-enums';
-import C from '../base/CBase';
-import Roles from '../base/Roles';
+import C from './base/CBase';
+import Roles from './base/Roles';
 // import LoginWidget from './base/components/LoginWidget';
 export default C;
 
