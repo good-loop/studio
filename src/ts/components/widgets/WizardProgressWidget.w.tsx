@@ -7,7 +7,7 @@ const stages = [{ title: 'hello one!'}, { title: 'Hello two!' }];
 
 const WizardProgress: FC = () => {
 	return <>
-		<Wizard stageNum={2} stages={stages} stagePath={['widget', 'stageWizard']}>
+		<Wizard stageNum={3} stages={stages} stagePath={['widget', 'stageWizard']}>
 			<WizardStage title='Hello!'>
 				<h3>This is the first stage!</h3>
 			</WizardStage>

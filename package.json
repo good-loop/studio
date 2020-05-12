@@ -55,6 +55,7 @@
     "md5": "^2.2.1",
     "promise-value": "^1.2.5",
     "react": "^16.13.1",
+    "react-autocomplete": "^1.8.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^8.1.0",
     "react-google-charts": "^3.0.15",
