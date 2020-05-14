@@ -15,15 +15,10 @@ import Profiler from '../base/Profiler';
 // Templates
 import MessageBar from '../base/components/MessageBar';
 import LoginWidget from '../base/components/LoginWidget';
-import NavBar from './MyLoopNavBar';
 
 // Pages
-import MyPage from './pages/MyPage';
-import CampaignPage from './campaignpage/CampaignPage';
-import {BasicAccountPage} from '../base/components/AccountPageWidgets';
-import E404Page from '../base/components/E404Page';
 import TestPage from '../base/components/TestPage';
-import AccountPage from './pages/AccountPage';
+import WidgetsPage from './WidgetsPage';
 import MainDivBase from '../base/components/MainDivBase';
 // import RedesignPage from './pages/RedesignPage';
 
@@ -32,7 +27,7 @@ C.setupDataStore();
 
 const PAGES = {
 	widgets: WidgetsPage,
-	scratch: ScratchPage,
+	scratch: TestPage,
 };
 
 Login.app = C.app.service;
