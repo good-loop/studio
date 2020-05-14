@@ -1,7 +1,7 @@
 {
-  "name": "G-L_Project_NPM_Skeleton",
-  "version": "0.0.5",
-  "description": "My app",
+  "name": "Good-Loop Widget Studio",
+  "version": "0.1.0",
+  "description": "For the design, test, and refactor of widgets",
   "author": "Daniel Winterstein",
   "repository": {
     "url": "https://github.com/winterstein/sogive-app",
@@ -10,9 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^2.8.0",
-    "data-pivot": "^1.0.2",
     "easy-enums": "^1.1.7",
-    "easyi18n": "^1.1.1",
     "hashmap": "^2.4.0",
     "intl": "^1.2.5",
     "jquery": "^3.5.0",
