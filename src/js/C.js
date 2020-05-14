@@ -10,7 +10,7 @@ export default C;
 C.app = {
 	name: "The Good-Loop Widget Studio",
 	service: "good-loop",
-	logo: "/img/logo.svg",
+	logo: "/img/logo.png",
 	website: "https://good-loop.com",
 	facebookAppId: "320927325010346", // https://developers.facebook.com/apps/320927325010346/dashboard/
 	privacyPolicy: "https://doc.good-loop.com/privacy-policy.html",

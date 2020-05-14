@@ -27,7 +27,7 @@ C.setupDataStore();
 
 const PAGES = {
 	widgets: WidgetsPage,
-	scratch: TestPage,
+	test: TestPage,
 };
 
 Login.app = C.app.service;
@@ -35,7 +35,7 @@ Login.app = C.app.service;
 const MainDiv = () => {
 	return <MainDivBase 
 		pageForPath={PAGES}
-		navbarPages={['widgets', 'scratch']}
+		navbarPages={['widgets', 'test']}
 		defaultPage='widgets'
 	/>;
 }; // ./MainDiv
