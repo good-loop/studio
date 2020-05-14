@@ -43,11 +43,14 @@ const MessageWidgets = ({filter}) => {
 };
 
 const PropControlWidgets = ({filter}) => {
-	if (filter && ! "propcontrolwidgets input text".includes(filter)) {
+	if (filter && ! "propcontrolwidgets input text basic".includes(filter)) {
 		return null;
 	}
 
-	return <><h4>PropControl Widgets</h4> <PropControl prop='testprop' label='Basic text input' help='Use this for text entry' /></>;
+	return (<><h4>PropControl Widgets</h4>
+		<PropControl prop='mybasictext' path={['widget','BasicTextPropControl']} 
+			label='Basic text input' help='Use this for text entry' />
+	</>);
 };
 
 export default WidgetsPage;

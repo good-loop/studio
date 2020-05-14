@@ -3,7 +3,7 @@ const shell = require('shelljs');
 const yargv = require('yargs').argv;
 
 let config = {
-	site: 'test',
+	site: 'local', // TODO can we sniff this?? // How do we set it??
 	unsafe: false,
 	vert: '',
 	head: true,
