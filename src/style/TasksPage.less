@@ -1,0 +1,83 @@
+
+#task-grid {
+	width: 100%;
+	text-align: center;
+
+	.row-user {
+		text-align: right;
+	}
+
+	border-spacing: 0.2em;
+	border-collapse: separate;
+
+	.task-row {
+		height: 3em; // works like min-height for td
+	}
+
+	.task-cell {
+		box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
+		min-width: 15%;
+		padding: 0.5em;
+	}
+	
+	.tasknote {
+		display: inline-block;
+		width: 45%;
+		height: 4em;
+		
+		font-size: 60%;
+		background-color: #eeee66;
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+		&:not(:last-child) {
+			margin-right: 0.5em;
+		}
+	}
+}
+
+// TaskListPage
+#mainDiv .BigTaskListItem {
+	background-color: @yellow;
+}
+
+
+#show-task {
+	.tags-list {
+		position: absolute;
+		left: 100%;
+		top: 0;
+		width: 10em;
+		list-style-type: none;
+		margin: 0.25em 0 0 -1em;
+		padding: 0;
+
+		.task-tag {
+			background-color: #6ae;
+			padding: 0.25em 1.5em 0.25em 1em;
+			border-top-left-radius: 1em;
+			border-bottom-left-radius: 1em;
+			box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+			position: relative; // allow absolute positioning remove button
+
+			form {
+				display: inline-block;
+				input { width: 100%; }
+			}
+			
+			&.assign {
+				background-color: #e6a;
+			}
+			&:not(:last-child) {
+				margin-bottom: 0.25em;
+			}
+			.tag-control {
+				border: none;
+				position: absolute;
+				right: 0;
+				margin-right: 0.25em;
+				padding: 0 0.25em;
+				font-weight: bold;
+				border-radius: 1em;
+			}
+		}
+	}
+}

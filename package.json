@@ -1,5 +1,5 @@
 {
-  "name": "Good-Loop Widget Studio",
+  "name": "good-loop-dev-studio",
   "version": "0.1.0",
   "description": "For the design, test, and refactor of widgets",
   "author": "Daniel Winterstein",
@@ -29,7 +29,13 @@
     "reactstrap": "^8.4.1",
     "sjtest": "^0.4.9",
     "wwutils": "^0.9.5",
-    "you-again": "^0.8.8"
+    "you-again": "^0.8.8",
+    "jest": "^25.1.0",
+    "shelljs": "^0.8.3",
+    "yargs": "^15.1.0",
+    "jest-puppeteer": "^4.4.0",
+    "puppeteer": "^2.0.0",
+    "puppet-theatre": "latest"
   },
   "scripts": {
     "compile": "webpack --config $PWD/webpack.config.js --progress --colors",
@@ -41,8 +47,9 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@babel/plugin-transform-typescript": "^7.9.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/plugin-transform-typescript": "^7.8.3",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
@@ -56,6 +63,7 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-const-enum": "^1.0.1",
+    "babel-plugin-transform-node-env-inline": "^0.4.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",
