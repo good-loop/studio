@@ -14,7 +14,7 @@ const SearchForm: FC = () => {
 	};
 
 	return (
-		<Form>
+		<Form data-testid="search-from">
 			<FormGroup>
 				<Label>Search component:</Label>
 				<Input
@@ -23,6 +23,7 @@ const SearchForm: FC = () => {
 					placeholder="Type the component's name here..."
 					value={value}
 					onChange={setSearchValue}
+					data-testid="search-input"
 				/>
 			</FormGroup>
 		</Form>

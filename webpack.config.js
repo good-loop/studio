@@ -34,7 +34,8 @@ const baseConfig = {
 					plugins: [
 						'@babel/plugin-transform-typescript',
 						'@babel/plugin-proposal-object-rest-spread',
-						'babel-plugin-const-enum'
+						'babel-plugin-const-enum',
+						'babel-plugin-dynamic-import-node'
 					]
 				}
 			},
@@ -49,7 +50,8 @@ const baseConfig = {
 					],
 					plugins: [
 						'@babel/plugin-proposal-class-properties',
-						'transform-node-env-inline'
+						'transform-node-env-inline',
+						'babel-plugin-dynamic-import-node'
 					]
 				}
 			}
