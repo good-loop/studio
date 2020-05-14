@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "compile": "webpack --config $PWD/webpack.config.js --progress --colors",
     "compile-watch": "webpack --config $PWD/webpack.config.js --progress --colors --watch",
