@@ -1,6 +1,0 @@
-/node_modules
-/src/js/base
-/web/buildconfig/studio.good-loop.com.nginx
-config/studio.good-loop.com.nginx
-web/build
-.vscode/
