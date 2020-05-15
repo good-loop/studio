@@ -8,6 +8,10 @@ printf "\nRemoving old 'base' symlink\n"
 rm -rf src/js/base
 printf "\nSymlinking 'base' from where TeamCity keeps it's wwappbase.js repo\n"
 ln -s /home/winterwell/TeamCity/buildAgent/work/9307b27f248c307/base src/js/base
+printf "\nFixing symlink for convert.less.sh script\n"
+rm -rf convert.less.sh
+ln -s /home/winterwell/TeamCity/buildAgent/work/9307b27f248c307/project/convert.less.sh convert.less.sh
+
 
 for sync_item in ${SYNC_LIST[@]}; do
 	rsync -rLhP $sync_item winterwell@$TARGET_SERVER:$TARGET_DIR
@@ -15,4 +19,4 @@ done
 
 ssh winterwell@$TARGET_SERVER "cd $TARGET_DIR && npm i"
 ssh winterwell@$TARGET_SERVER "cd $TARGET_DIR && npm run compile"
-#ssh winterwell@$TARGET_SERVER "cd $TARGET_DIR && bash ./convert.less.sh"
+ssh winterwell@$TARGET_SERVER "cd $TARGET_DIR && bash ./convert.less.sh"
