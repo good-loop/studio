@@ -84,6 +84,7 @@ const makeConfig = ({ filename, mode }) => {
 const configs = [
 	makeConfig({filename: 'bundle-debug.js', mode: 'development' }),
 ];
+// Allow debug-only compilation for faster iteration in dev
 if (process.env.NO_PROD !== 'true') {
 	configs.push(makeConfig({filename: 'bundle.js', mode: 'production' }));
 }
