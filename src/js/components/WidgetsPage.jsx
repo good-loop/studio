@@ -7,6 +7,7 @@ import PropControl, { FormControl } from '../base/components/PropControl';
 import ErrorAlert from '../base/components/ErrorAlert';
 import DataStore from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form } from 'reactstrap';
+import LayoutWidgets from './LayoutWidgets';
 
 const WidgetsPage = () => {
 
@@ -26,6 +27,7 @@ const WidgetsPage = () => {
 
 		<PropControlWidgets filter={f} />		
 
+		<LayoutWidgets filter={f} />
 	</>
 	);
 
