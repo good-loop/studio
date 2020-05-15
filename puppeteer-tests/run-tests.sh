@@ -17,7 +17,7 @@ fi
 ########
 ### Whom shall receive the emails?:: Add new recipients with a comma separating the addresses
 ########
-EMAIL_RECIPIENTS='sysadmin@good-loop.com.com'
+EMAIL_RECIPIENTS='sysadmin@good-loop.com,andris@good-loop.com'
 DELAY_SECONDS='10'
 
 ########
@@ -68,7 +68,7 @@ bash jest.sh $1
 
 function send_alert {
         TIME=$(date +%Y-%m-%dT%H:%M:%S-%Z)
-	message="Jest Detected Failure for -- $1 --myloop tests"
+	message="Jest Detected Failure(s) on Projects"
 	body="Hi,\nThe My-Loop jest/puppeteer script threw out a FAIL notice at $TIME:\n\n$line\n"
 	title="[$HOSTNAME] $message"
 	printf "$body" | mutt -s "$title" ${ATTACHMENTS[@]} -- $EMAIL_RECIPIENTS
