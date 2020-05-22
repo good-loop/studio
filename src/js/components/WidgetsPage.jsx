@@ -54,7 +54,7 @@ const PropControlWidgets = ({filter}) => {
 			label='Basic text input' help='Use this for text entry' />
 		
 		<PropControl type='radio' options={['Apples', 'Bananas', 'Pears']} prop='myradio' 
-			path={['widget','BasicTextPropControl']} help='Help would go here.' />
+			path={['widget','BasicTextPropControl']} help='Radio button help would go here.' />
 	</>);
 };
 
