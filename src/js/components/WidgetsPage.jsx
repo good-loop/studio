@@ -55,6 +55,12 @@ const PropControlWidgets = ({filter}) => {
 		
 		<PropControl type='radio' options={['Apples', 'Bananas', 'Pears']} prop='myradio' 
 			path={['widget','BasicTextPropControl']} help='Radio button help would go here.' />
+		
+		<PropControl type='yesNo' prop='yehnay' 
+			path={['widget','BasicTextPropControl']} help='Help for yes or no: pick one.' />
+
+		<PropControl label='We accept' type='checkboxes' options={['Cash', 'Cheque', 'Card']} prop='mycheckbox' 
+			path={['widget','BasicTextPropControl']} help='Checkboxes help would go here.' />
 	</>);
 };
 
