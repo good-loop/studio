@@ -72,6 +72,11 @@ const PropControlWidgets = () => {
 			<PropControl label='We accept' type='checkboxes' options={['Cash', 'Cheque', 'Card']} prop='mycheckbox' 
 				path={['widget','BasicTextPropControl']} help='Checkboxes help would go here.' />
 		</WidgetExample>
+
+		<WidgetExample name='MoneyControl' keywords={baseKeywords}>
+			<PropControl type='Money' prop='mymoney' currency="GBT" min={5} max={100}
+				path={['widget','BasicTextPropControl']} help='Money help would go here.' />
+		</WidgetExample>
 	</Card>);
 };
 
