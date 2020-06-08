@@ -46,16 +46,16 @@ Note: the studio repo contains some symlinks to folders in the `wwappbase.js` re
 
 6. Setup a local web-server. Let's use nginx, serving the `studio/web` folder, using a ready-made config file.
   
-	   sudo apt install nginx
-	   cd /etc/nginx/sites-available
-	   sudo ln -s /home/{myusername}/winterwell/stduio/config/studio.good-loop.com.nginx
-	   
-	   cd /etc/nginx/sites-enabled
-           sudo ln -s ../sites-available/studio.good-loop.com.nginx .
-	   
-	   sudo ln -s /home/{myusername}/winterwell /home/winterwell
-	   
-           sudo service nginx restart
+   sudo apt install nginx
+   cd /etc/nginx/sites-available
+   sudo ln -s /home/{myusername}/winterwell/stduio/config/studio.good-loop.com.nginx
+
+   cd /etc/nginx/sites-enabled
+   sudo ln -s ../sites-available/studio.good-loop.com.nginx .
+
+   sudo ln -s /home/{myusername}/winterwell /home/winterwell
+
+   sudo service nginx restart
 
 7. Modify your /etc/hosts to have `127.0.0.1 localstudio.good-loop.com`
 
