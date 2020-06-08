@@ -2,7 +2,7 @@
 server {
 	listen   80; ## listen for ipv4; this line is default and implied
 
-	root /home/team/winterwell/studio/web;
+	root /home/winterwell/studio/web;
 	index index.html;
 
 	server_name localstudio.good-loop.com;
