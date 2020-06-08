@@ -35,9 +35,9 @@ const WidgetsPage = () => {
 };
 
 // ??REfactor into separate files
-const MessageWidgets = () => {	
+const MessageWidgets = () => {
 	const err = new Error("Show this when something goes wrong.");
-	return (<Card body>		
+	return (<Card body>
 		<CardTitle><h3>Message Widgets</h3></CardTitle>
 		
 		<WidgetExample name='ErrorAlert' keywords='error alert' >
@@ -162,7 +162,7 @@ const PropControlWidgets = () => {
 
 			{/* TODO: Has no service prop, does it need one passed, and if so what? */}
 			<WidgetExample name='XId input' keywords={baseKeywords}>
-				<PropControl type='XId' prop='myxid'
+				<PropControl type='XId' prop='myxid' service="service"
 					path={['widget','BasicTextPropControl']} help='XId help goes here' />
 			</WidgetExample>
 
