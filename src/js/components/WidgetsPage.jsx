@@ -64,6 +64,7 @@ const PropControlWidgets = () => {
 
 			{/* TODO: The actual autocomplete box seems hidden or empty somehow? */}
 			<WidgetExample name='Autocomplete' keywords={baseKeywords}>
+				<ErrorAlert error={"Currently not working (9/6/2020)"} />
 				<PropControl type="autocomplete" prop='myautocomp' path={['widget','BasicTextPropControl']} 
 					help='Use this for text entry' />
 			</WidgetExample>
@@ -119,8 +120,7 @@ const PropControlWidgets = () => {
 					path={['widget','BasicTextPropControl']} help='Selection help: choose one' />
 			</WidgetExample>
 
-			{/* TODO: Throws warning that uncontrolled checkboxes are being changed to controlled, but multi select code looks like a temp workaround anyway? */}
-			<WidgetExample name='Selection control - multiple select' keywords={baseKeywords}>
+			<WidgetExample name='Multiselect control' keywords={baseKeywords}>
 				<PropControl type='select' prop='mymultselect' options={["fee", "fi", "fo", "fum"]} labels={["Fee", "Fi", "Fo", "Fum"]} multiple={true}
 					path={['widget','BasicTextPropControl']} help='Multiple selection help: choose some' />
 			</WidgetExample>
@@ -150,7 +150,7 @@ const PropControlWidgets = () => {
 
 		</Card>
 
-		{/* TODO: Throws error on mounting but is deprecated, so didn't dig any further */}
+		{/* TODO: Throws error on mounting but is deprecated in place of EntrySet, so didn't dig any further */}
 		{/*<WidgetExample name='Key value input' keywords={baseKeywords}>
 			<PropControl type='keyvalue' prop='mykeyvalue'
 				path={['widget','BasicTextPropControl']} help='Key value help goes here' />
@@ -160,7 +160,6 @@ const PropControlWidgets = () => {
 
 			<CardTitle><h4>Other</h4></CardTitle>
 
-			{/* TODO: Has no service prop, does it need one passed, and if so what? */}
 			<WidgetExample name='XId input' keywords={baseKeywords}>
 				<PropControl type='XId' prop='myxid' service="service"
 					path={['widget','BasicTextPropControl']} help='XId help goes here' />
@@ -168,16 +167,19 @@ const PropControlWidgets = () => {
 
 			{/* TODO: Behaviour is possibly a little iffy */}
 			<WidgetExample name='Array text input' keywords={baseKeywords}>
+				<ErrorAlert error={"Behaviour is inconsistent (9/6/2020)"} />
 				<PropControl type='arraytext' prop='myarraytext'
 					path={['widget','BasicTextPropControl']} help='Array text help goes here' />
 			</WidgetExample>
 
 			<WidgetExample name='Key set input' keywords={baseKeywords}>
+				<ErrorAlert error={"Does not update DataStore on removing key (9/6/2020)"} />
 				<PropControl type='keyset' prop='mykeyset'
 					path={['widget','BasicTextPropControl']} help='Key set help goes here' />
 			</WidgetExample>
 
 			<WidgetExample name='Entry set input' keywords={baseKeywords}>
+				<ErrorAlert error={"Does not update DataStore on removing entry (9/6/2020)"} />
 				<PropControl type='entryset' prop='myentryset'
 					path={['widget','BasicTextPropControl']} help='Entry set help goes here' />
 			</WidgetExample>
@@ -190,11 +192,11 @@ const PropControlWidgets = () => {
 
 			{/* TODO: Behaviour seems totally wack, unless its purpose is beyond my understanding */}
 			<WidgetExample name='HTML input' keywords={baseKeywords}>
+				<ErrorAlert error={"Currently doesn't work (9/6/2020)"} />
 				<PropControl type='html' prop='myhtml'
 					path={['widget','BasicTextPropControl']} help='HTML help: type some HTML' />
 			</WidgetExample>
 
-			{/* Laggy but works fine */}
 			<WidgetExample name='JSON input' keywords={baseKeywords}>
 				<PropControl type='json' prop='myjson'
 					path={['widget','BasicTextPropControl']} help='JSON help: type some JSON' />
