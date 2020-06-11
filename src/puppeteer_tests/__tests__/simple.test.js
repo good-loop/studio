@@ -377,7 +377,7 @@ describe('Studio - smoke test', () => {
 		expect(dv[1]).toBe("fo");
 	});
 
-	it("!!Broken!! - PropControl: Image URL", async () => {
+	it("PropControl: Image URL", async () => {
 		await page.goto(baseSite+'?f=image url');
 		await expect(page).toMatch('Image URL');
 		
@@ -386,7 +386,7 @@ describe('Studio - smoke test', () => {
 		// type in text
 		await page.type('[name=myimg]', url);
 
-		if (true) return;
+		//if (true) return;
 
 		// check image is loaded
 		const iv = await page.$eval('img.img-thumbnail', e => e.src);
@@ -667,6 +667,9 @@ describe('Studio - smoke test', () => {
 
 		// type in text
 		await page.type('[name=myjson]', text);
+		for (let i = 0; i < 2; i++) {
+			await page.keyboard.press('Delete');
+		}
 
 		// check screen updated
 		const iv = await page.$eval('[name=myjson]', e => e.value);
@@ -675,11 +678,14 @@ describe('Studio - smoke test', () => {
 		const dv = await page.$eval('body', 
 			e => window.DataStore.getValue(['widget','BasicTextPropControl','myjson'])
 		);
-		expect(dv).toBe(JSON.stringify({Hello:"World!"}));
+		expect(JSON.stringify(dv)).toBe(JSON.stringify({Hello:"World!"}));
 
 		// Clear field
 		for (let i = 0; i < iv.length; i++) {
 			await page.keyboard.press('Backspace');
+		}
+		for (let i = 0; i < 2; i++) {
+			await page.keyboard.press('ArrowLeft');
 		}
 
 		// check input works when replacing JSON
@@ -688,6 +694,9 @@ describe('Studio - smoke test', () => {
 
 		// type in text
 		await page.type('[name=myjson]', text2);
+		for (let i = 0; i < 2; i++) {
+			await page.keyboard.press('Delete');
+		}
 
 		// check screen updated
 		const iv2 = await page.$eval('[name=myjson]', e => e.value);
@@ -696,7 +705,7 @@ describe('Studio - smoke test', () => {
 		const dv2 = await page.$eval('body', 
 			e => window.DataStore.getValue(['widget','BasicTextPropControl','myjson'])
 		);
-		expect(dv2).toBe(JSON.stringify({foo:"bar"}));
+		expect(JSON.stringify(dv2)).toBe(JSON.stringify({foo:"bar"}));
 
 	});
 
