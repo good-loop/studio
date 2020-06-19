@@ -17,6 +17,7 @@ import LoginWidget from '../base/components/LoginWidget';
 
 // Pages
 import TestPage from '../base/components/TestPage';
+import CrudPage from './CrudPage';
 import WidgetsPage from './WidgetsPage';
 import MainDivBase from '../base/components/MainDivBase';
 // import RedesignPage from './pages/RedesignPage';
@@ -26,6 +27,7 @@ C.setupDataStore();
 
 const PAGES = {
 	widgets: WidgetsPage,
+	crud: CrudPage,
 	test: TestPage,
 };
 
@@ -34,7 +36,7 @@ Login.app = C.app.service;
 const MainDiv = () => {
 	return <MainDivBase 
 		pageForPath={PAGES}
-		navbarPages={['widgets', 'test']}
+		navbarPages={['widgets', 'test', 'crud']}
 		defaultPage='widgets'
 	/>;
 }; // ./MainDiv

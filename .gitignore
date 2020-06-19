@@ -7,3 +7,6 @@ project/web/build
 test-base/babeled-res/*web/build
 web/build
 web/style/*.css
+/bin/
+logs
+.settings
