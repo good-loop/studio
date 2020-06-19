@@ -14,13 +14,16 @@ import Misc from '../base/components/Misc';
 import SavePublishDeleteEtc from '../base/components/SavePublishDeleteEtc';
 import Crud from '../base/plumbing/Crud';
 import C from '../base/CBase';
+import ActionMan from '../plumbing/ActionMan';
 
 const CrudPage = () => {
 	const type = 'Testthingy';
 	let id = 'testid';
-	let status = C.KStatus.DRAFT;
-	let thingy = DataStore.getData({status, type, id});
+	let status = C.KStatus.DRAFT;	
 	const path = getDataPath({status, type, id});
+
+	let pvThingy = ActionMan.getDataItem({status, type, id});
+	let thingy = pvThingy.value;
 
 	return (<>
 		<h1>Test CRUD</h1>			
