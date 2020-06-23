@@ -30,6 +30,8 @@ const CrudPage = () => {
 
 		<PropControl path={path} prop='name' label='Name' />
 
+		<PropControl path={path} prop='description' label='Description' type='textarea' />
+
 		<pre><code>{JSON.stringify(thingy)}</code></pre>
 
 		saveAs
