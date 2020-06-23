@@ -10,7 +10,7 @@
 ## Set the Variables according to your project's name, directory path, git-checkout branches, etc.
 ## Set the preferences according to your project's needs
 #####
-PROJECT_NAME='stduio' #This name will be used to create/or/refer-to the directory of the project in /home/winterwell/
+PROJECT_NAME='studio' #This name will be used to create/or/refer-to the directory of the project in /home/winterwell/
 GIT_REPO_URL='github.com:/good-loop/studio' #
 PROJECT_USES_BOB='yes'  #yes or no :: If 'yes', then you must also supply the name of the service which is used to start,stop,or restart the jvm
 NAME_OF_SERVICE='' # This can be blank, but if your service uses a JVM, then you must put in the service name which is used to start,stop,or restart the JVM on the server.
