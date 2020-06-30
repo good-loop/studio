@@ -11,8 +11,6 @@ import LayoutWidgets from './LayoutWidgets';
 import WidgetExample, { getFilter } from './WidgetExample';
 import PropControlWidgets from './PropControlWidgets';
 
-cant compile this;
-
 const WidgetsPage = () => {
 
 	let f = getFilter();
