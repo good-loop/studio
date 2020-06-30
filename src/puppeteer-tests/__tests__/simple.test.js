@@ -7,6 +7,9 @@ const { ourServers} = require('../utils/testConfig');
 const baseSite = ourServers[config.site];
 
 describe('Studio - smoke test', () => {
+	/**
+	 * Hm: this seems to be slow - it can sometimes timeout (5 seconds) ^Dan W, June 2020
+	 */
 	it('should load a page', async () => {
 		console.log("goto "+baseSite+"...");
 		await page.goto(baseSite);
