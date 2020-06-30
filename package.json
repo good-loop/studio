@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^2.8.0",
+    "css-loader": "^3.6.0",
     "easy-enums": "^1.1.7",
     "hashmap": "^2.4.0",
     "intl": "^1.2.5",
