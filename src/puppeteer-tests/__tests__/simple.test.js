@@ -13,7 +13,12 @@ describe('Studio - smoke test', () => {
 	it('should load a page', async () => {
 		console.log("goto "+baseSite+"...");
 		await page.goto(baseSite);
-		await expect(page).toMatch('Studio XXXFAILXXX');
+		await expect(page).toMatch('Studio');
+	});
+
+	it('should Fail', async () => {
+		await page.goto(baseSite);
+		await expect(page).toMatch(IMPOSSIBLEWILLFAIL');
 	});
 
 	it("PropControl: Basic text input", async () => {

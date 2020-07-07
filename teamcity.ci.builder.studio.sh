@@ -337,8 +337,8 @@ function run_jest_tests {
         server="$TARGET_SERVERS" # probably wrong if the array has multiple items??
 
 		printf "\nRun tests...\n"
-		ssh winterwell@$server "cd $PROJECT_ROOT_ON_SERVER && node runtest.js &> $TESTS_LOGFILE"
-		
+		ssh winterwell@$server "cd $PROJECT_ROOT_ON_SERVER && node runtest.js &> $TESTS_LOGFILE"		
+		scp winterwell@$server:$TESTS_LOGFILE .
 		printf "\nChecking for errors that occurred during tests on $server ...\n"
 		if [[ $(ssh winterwell@$server "cat $TESTS_LOGFILE | grep 'ERR!'") = '' ]]; then
 			printf "\nNo Test errors detected on $server\n"
