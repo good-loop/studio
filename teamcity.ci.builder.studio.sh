@@ -19,6 +19,7 @@ PROJECT_USES_BOB='no'  #yes or no :: If 'yes', then you must also supply the nam
 NAME_OF_SERVICE='' # This can be blank, but if your service uses a JVM, then you must put in the service name which is used to start,stop,or restart the JVM on the server.
 PROJECT_USES_NPM='yes' # yes or no
 PROJECT_USES_WEBPACK='yes' #yes or no
+PROJECT_USES_JEST='yes' # yes or no
 PROJECT_USES_JERBIL='no' #yes or no
 PROJECT_USES_WWAPPBASE_SYMLINK='yes'
 
@@ -326,23 +327,37 @@ function start_service {
     fi
 }
 
+# Run Jest/Puppeteer tests
+function run_jest_tests {
+    if [[ $PROJECT_USES_JEST = 'yes' ]]; then
+		BUILD_PROCESS_NAME='jest'
+        BUILD_STEP='node was running jest tests'
+        NPM_LOG_DATE=$(date +%Y-%m-%d)
+        server="$TARGET_SERVERS" # probably wrong if the array has multiple items??
+		# Do it
+		ssh winterwell@$server "cd $PROJECT_ROOT_ON_SERVER && node runtest.js"
+		# TODO collect output and check for errors
+    fi
+}
+
 
 ################
 ### Run the Functions in Order
 ################
-check_repo_exists
-check_bob_exists
-check_jerbil_exists
-check_maven_exists
-check_nodejs_version
-check_for_wwappbasejs_location
-check_for_code_repo_in_bobwarehouse
-cleanup_repo
-cleanup_wwappbasejs_repo
-cleanup_bobwarehouse_repos
-stop_service
-use_bob
-use_npm
-use_webpack
-use_jerbil
-start_service
+# check_repo_exists
+# check_bob_exists
+# check_jerbil_exists
+# check_maven_exists
+# check_nodejs_version
+# check_for_wwappbasejs_location
+# check_for_code_repo_in_bobwarehouse
+# cleanup_repo
+# cleanup_wwappbasejs_repo
+# cleanup_bobwarehouse_repos
+# stop_service
+# use_bob
+# use_npm
+# use_webpack
+# use_jerbil
+# start_service
+run_jest_tests
