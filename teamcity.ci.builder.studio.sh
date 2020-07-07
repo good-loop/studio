@@ -353,20 +353,20 @@ function run_jest_tests {
 ################
 ### Run the Functions in Order
 ################
-# check_repo_exists
-# check_bob_exists
-# check_jerbil_exists
-# check_maven_exists
-# check_nodejs_version
-# check_for_wwappbasejs_location
-# check_for_code_repo_in_bobwarehouse
-# cleanup_repo
-# cleanup_wwappbasejs_repo
-# cleanup_bobwarehouse_repos
-# stop_service
-# use_bob
-# use_npm
-# use_webpack
-# use_jerbil
-# start_service
+check_repo_exists
+check_bob_exists
+check_jerbil_exists
+check_maven_exists
+check_nodejs_version
+check_for_wwappbasejs_location
+check_for_code_repo_in_bobwarehouse
+cleanup_repo
+cleanup_wwappbasejs_repo
+cleanup_bobwarehouse_repos
+stop_service
+use_bob
+use_npm
+use_webpack
+use_jerbil
+start_service
 run_jest_tests
