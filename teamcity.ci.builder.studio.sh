@@ -346,7 +346,9 @@ function run_jest_tests {
 			printf "\n\nOne or more errors were recorded during testing. Stop the build here with an error\n\n"
 			# Get the logfile TODO should we use TeamCity artifacts to get this instead??
             scp winterwell@$server:$TESTS_LOGFILE tests.log
-			cat tests.log
+			# Let's NOT send an email - tests fail lots; it'd be more noise than signal
+			## But we can see when tests started failing in TeamCity
+			cat tests.log			
 			throw_an_error
 		fi
     fi
