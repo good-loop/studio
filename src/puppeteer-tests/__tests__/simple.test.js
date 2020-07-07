@@ -18,7 +18,7 @@ describe('Studio - smoke test', () => {
 
 	it('should Fail', async () => {
 		await page.goto(baseSite);
-		await expect(page).toMatch(IMPOSSIBLEWILLFAIL');
+		await expect(page).toMatch(XXXIMPOSSIBLEWILLFAIL');
 	});
 
 	it("PropControl: Basic text input", async () => {
