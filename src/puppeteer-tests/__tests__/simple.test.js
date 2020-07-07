@@ -16,10 +16,11 @@ describe('Studio - smoke test', () => {
 		await expect(page).toMatch('Studio');
 	});
 
-	it('should Fail', async () => {
-		await page.goto(baseSite);
-		await expect(page).toMatch(XXXIMPOSSIBLEWILLFAIL');
-	});
+	// This failing test is for testing CI
+	// it('should Fail', async () => {
+	// 	await page.goto(baseSite);
+	// 	await expect(page).toMatch(XXXIMPOSSIBLEWILLFAIL');
+	// });
 
 	it("PropControl: Basic text input", async () => {
 		await page.goto(baseSite+'?f=basic');

@@ -343,7 +343,10 @@ function run_jest_tests {
 		if [[ $(ssh winterwell@$server "cat $TESTS_LOGFILE | grep 'ERR!'") = '' ]]; then
 			printf "\nNo Test errors detected on $server\n"
 		else
-			printf "\nOne or more errors were recorded during testing. Stop the build here with an error\n"
+			printf "\n\nOne or more errors were recorded during testing. Stop the build here with an error\n\n"
+			# Get the logfile TODO should we use TeamCity artifacts to get this instead??
+            scp winterwell@$server:$TESTS_LOGFILE tests.log
+			cat tests.log
 			throw_an_error
 		fi
     fi
