@@ -43,6 +43,7 @@ BOB_BUILD_PROJECT_NAME='' #If the project name isn't automatically sensed by bob
 NPM_CLEANOUT='no' #yes/no , will nuke the node_modules directory if 'yes', and then get brand-new packages.
 NPM_I_LOGFILE="/home/winterwell/.npm/_logs/npm.i.for.$PROJECT_NAME.log"
 NPM_RUN_COMPILE_LOGFILE="/home/winterwell/.npm/_logs/npm.run.compile.for.$PROJECT_NAME.log"
+TESTS_LOGFILE="/home/winterwell/.npm/_logs/node.run.tests.for.$PROJECT_NAME.log"
 BOBWAREHOUSE_PATH='/home/winterwell/bobwarehouse'
 
 ##### FUNCTIONS
@@ -334,9 +335,17 @@ function run_jest_tests {
         BUILD_STEP='node was running jest tests'
         NPM_LOG_DATE=$(date +%Y-%m-%d)
         server="$TARGET_SERVERS" # probably wrong if the array has multiple items??
-		# Do it
-		ssh winterwell@$server "cd $PROJECT_ROOT_ON_SERVER && node runtest.js"
-		# TODO collect output and check for errors
+
+		printf "\nRun tests...\n"
+		ssh winterwell@$server "cd $PROJECT_ROOT_ON_SERVER && node runtest.js &> $TESTS_LOGFILE"
+		
+		printf "\nChecking for errors that occurred during tests on $server ...\n"
+		if [[ $(ssh winterwell@$server "cat $TESTS_LOGFILE | grep 'ERR!'") = '' ]]; then
+			printf "\nNo Test errors detected on $server\n"
+		else
+			printf "\nOne or more errors were recorded during testing. Stop the build here with an error\n"
+			throw_an_error
+		fi
     fi
 }
 
