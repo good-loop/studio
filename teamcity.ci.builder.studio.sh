@@ -5,7 +5,7 @@
 # Versions of this script are usually run by TeamCity, in response to a git commit.
 # The script uses ssh remote commands to target a server -- it does not affect the local machine.
 # For testing, the script can also be run from your local computer.
-#Version 1.4.0
+#Version 1.4.1
 # Latest Change -- Adding new dependency checks -- Attempting to create parity with production publisher template script
 
 #####  GENERAL SETTINGS
@@ -19,7 +19,6 @@ PROJECT_USES_BOB='no'  #yes or no :: If 'yes', then you must also supply the nam
 NAME_OF_SERVICE='' # This can be blank, but if your service uses a JVM, then you must put in the service name which is used to start,stop,or restart the JVM on the server.
 PROJECT_USES_NPM='yes' # yes or no
 PROJECT_USES_WEBPACK='yes' #yes or no
-PROJECT_USES_JEST='yes' # yes or no
 PROJECT_USES_JERBIL='no' #yes or no
 PROJECT_USES_WWAPPBASE_SYMLINK='yes'
 
@@ -43,7 +42,6 @@ BOB_BUILD_PROJECT_NAME='' #If the project name isn't automatically sensed by bob
 NPM_CLEANOUT='no' #yes/no , will nuke the node_modules directory if 'yes', and then get brand-new packages.
 NPM_I_LOGFILE="/home/winterwell/.npm/_logs/npm.i.for.$PROJECT_NAME.log"
 NPM_RUN_COMPILE_LOGFILE="/home/winterwell/.npm/_logs/npm.run.compile.for.$PROJECT_NAME.log"
-TESTS_LOGFILE="/home/winterwell/.npm/_logs/node.run.tests.for.$PROJECT_NAME.log"
 BOBWAREHOUSE_PATH='/home/winterwell/bobwarehouse'
 
 ##### FUNCTIONS
@@ -206,7 +204,7 @@ function stop_service {
     fi
 }
 
-# Bob -- Evaluate and Use - This Function's Version is 0.02
+# Bob -- Evaluate and Use - This Function's Version is 0.03
 function use_bob {
     if [[ $PROJECT_USES_BOB = 'yes' ]]; then
         BUILD_PROCESS_NAME='bob'
@@ -223,14 +221,24 @@ function use_bob {
                 printf "\nNo failures recorded in bob.log on $server in first bob.log sweep.\n"
             else
                 printf "\nFailure or failures detected in latest bob.log. Sending Alert Emails and Breaking Operation\n"
+                # Get the bob.log
+                scp winterwell@$server:$PROJECT_ROOT_ON_SERVER/bob.log .
+                ATTACHMENTS+=("-a bob.log")
                 send_alert_email
+                # remove bob.log from the teamcity server's disk
+                rm bob.log
                 exit 0
             fi
             if [[ $(ssh winterwell@$server "grep -i 'ERROR EXIT' $PROJECT_ROOT_ON_SERVER/bob.log") = '' ]]; then
                 printf "\nBob reported a clean exit from it's process.  Continuing to next task.\n"
             else
                 printf "\nFailure or failures detected in latest bob.log. Sending Alert Emails and Breaking Operation\n"
+                # Get the bob.log
+                scp winterwell@$server:$PROJECT_ROOT_ON_SERVER/bob.log .
+                ATTACHMENTS+=("-a bob.log")
                 send_alert_email
+                # remove bob.log from the teamcity server's disk
+                rm bob.log
                 exit 0
             fi
         done
@@ -328,32 +336,6 @@ function start_service {
     fi
 }
 
-# Run Jest/Puppeteer tests
-function run_jest_tests {
-    if [[ $PROJECT_USES_JEST = 'yes' ]]; then
-		BUILD_PROCESS_NAME='jest'
-        BUILD_STEP='node was running jest tests'
-        NPM_LOG_DATE=$(date +%Y-%m-%d)
-        server="$TARGET_SERVERS" # probably wrong if the array has multiple items??
-
-		printf "\nRun tests...\n"
-		ssh winterwell@$server "cd $PROJECT_ROOT_ON_SERVER && node runtest.js &> $TESTS_LOGFILE"		
-		scp winterwell@$server:$TESTS_LOGFILE .
-		printf "\nChecking for errors that occurred during tests on $server ...\n"
-		if [[ $(ssh winterwell@$server "cat $TESTS_LOGFILE | grep 'ERR!'") = '' ]]; then
-			printf "\nNo Test errors detected on $server\n"
-		else
-			printf "\n\nOne or more errors were recorded during testing. Stop the build here with an error\n\n"
-			# Get the logfile TODO should we use TeamCity artifacts to get this instead??
-            scp winterwell@$server:$TESTS_LOGFILE tests.log
-			# Let's NOT send an email - tests fail lots; it'd be more noise than signal
-			## But we can see when tests started failing in TeamCity
-			cat tests.log			
-			throw_an_error
-		fi
-    fi
-}
-
 
 ################
 ### Run the Functions in Order
@@ -374,4 +356,3 @@ use_npm
 use_webpack
 use_jerbil
 start_service
-run_jest_tests
