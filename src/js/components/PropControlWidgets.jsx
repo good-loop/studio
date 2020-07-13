@@ -20,7 +20,6 @@ const PropControlWidgets = () => {
 
 		<Selectors />
 
-
 		<Card body>
 
 			<CardTitle><h4>Files</h4></CardTitle>
@@ -98,6 +97,8 @@ const PropControlWidgets = () => {
 
 		</Card>
 
+		<Sizes />
+		
 	</Card>);
 };
 
@@ -186,6 +187,35 @@ const Selectors = () => {
 			</WidgetExample>
 
 		</Card>);
+};
+
+const Sizes = () => {
+	return (
+		<Card body>
+			<CardTitle><h4>Sizes</h4></CardTitle>
+
+			<WidgetExample name='Small text input' keywords={baseKeywords+" size small"}>
+				<PropControl 
+					size='sm'
+					prop='mysmalltext' path={['widget', 'BasicTextPropControl']}
+					label='Favourite Mouse' help='Use this for text entry' />
+			</WidgetExample>
+
+			<WidgetExample name='Normal text input' keywords={baseKeywords+" size normal"}>
+				<PropControl 
+					prop='mynormaltext' path={['widget', 'BasicTextPropControl']}
+					label='Favourite Cat' help='Use this for text entry' />
+			</WidgetExample>
+
+			<WidgetExample name='Large text input' keywords={baseKeywords+" size large"}>
+				<PropControl 
+					size='lg'
+					prop='mylargetext' path={['widget', 'BasicTextPropControl']}
+					label='Favourite Elephant' help='Use this for text entry' />
+			</WidgetExample>
+
+		</Card>
+	);
 };
 
 export default PropControlWidgets;
