@@ -8,6 +8,7 @@ import ErrorAlert from '../base/components/ErrorAlert';
 import DataStore from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, CardTitle, Card } from 'reactstrap';
 import LayoutWidgets from './LayoutWidgets';
+import FunctionWidgets from './FunctionWidgets';
 import WidgetExample, { getFilter } from './WidgetExample';
 import PropControlWidgets from './PropControlWidgets';
 
@@ -30,6 +31,8 @@ const WidgetsPage = () => {
 		<MessageWidgets />
 
 		<LayoutWidgets />
+
+		<FunctionWidgets />
 	</>
 	);
 
