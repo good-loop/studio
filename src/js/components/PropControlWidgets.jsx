@@ -87,7 +87,7 @@ const PropControlWidgets = () => {
 			<WidgetExample name='HTML input' keywords={baseKeywords}>
 				<ErrorAlert error={"Currently doesn't work (9/6/2020)"} />
 				<PropControl type='html' prop='myhtml'
-					path={['widget', 'BasicTextPropControl']} help='HTML help: type some HTML' />
+					path={['widget', 'BasicTextPropControl']} help='HTML help: Try pasting in some formatted text from a web page or word processor' />
 			</WidgetExample>
 
 			<WidgetExample name='JSON input' keywords={baseKeywords}>
