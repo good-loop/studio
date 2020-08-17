@@ -214,6 +214,17 @@ const Sizes = () => {
 					label='Favourite Elephant' help='Use this for text entry' />
 			</WidgetExample>
 
+			<WidgetExample name='Small checkbox' keywords={baseKeywords+" size small checkbox"}>
+				<PropControl className='mr-2' size="sm" type="checkbox" label="Wibble?" prop="wibble" path={['widget', 'SmallCheckbox']} value="foo" />
+				<code>Value: {DataStore.getValue(['widget', 'SmallCheckbox','wibble'])}</code>
+			</WidgetExample>
+			<WidgetExample name='Normal checkbox' keywords={baseKeywords+" size normal checkbox"}>
+				<PropControl className='mr-2' type="checkbox" label="Wibble?" prop="wibble" path={['widget', 'SmallCheckbox']} value="foo" />
+			</WidgetExample>
+			<WidgetExample name='Large checkbox' keywords={baseKeywords+" size large checkbox"}>
+				<PropControl className='mr-2' size="lg" type="checkbox" label="Wibble?" prop="wibble" path={['widget', 'SmallCheckbox']} value="foo" />
+			</WidgetExample>
+
 		</Card>
 	);
 };
