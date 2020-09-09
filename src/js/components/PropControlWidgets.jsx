@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
+import PropControlPills from '../base/components/PropControlPills';
 import DataStore, { getValue } from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, Card, CardTitle } from 'reactstrap';
 import Wizard, { WizardStage } from '../base/components/WizardProgressWidget';
@@ -98,7 +99,19 @@ const PropControlWidgets = () => {
 
 		<DataManipulation />
 		
+		<CustomControls />
+
 	</Card>);
+};
+
+const CustomControls = () => {
+	return (<SubCard title="Custom Controls">
+		<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
+			<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
+			<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
+			Known issues: styling, add-pill if you leave the control
+		</WidgetExample>
+	</SubCard>);
 };
 
 
