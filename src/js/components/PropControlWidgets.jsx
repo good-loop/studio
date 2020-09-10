@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
 import PropControlPills from '../base/components/PropControlPills';
 import DataStore, { getValue } from '../base/plumbing/DataStore';
@@ -131,6 +131,7 @@ const DataManipulation = () => {
 	</SubCard>;
 };
 
+DataStore.setValue(['widget', 'BlankMoneyBug','damoney'], {currency:'GBP'});
 
 const SimpleInputs = () => {
 	return (
@@ -152,7 +153,14 @@ const SimpleInputs = () => {
 
 			<WidgetExample name="MoneyControl" keywords={baseKeywords}>
 				<PropControl type="Money" prop="mymoney" currency="GBT" min={new Money(5)} max={new Money(100)}
-					path={['widget', 'BasicTextPropControl']} help="Money help would go here." />
+					path={['widget', 'BasicMoneyPropControl']} help="Money help would go here." />
+					<code>{JSON.stringify(DataStore.getValue("widget",'BasicMoneyPropControl','mymoney'))}</code>
+			</WidgetExample>
+
+			<WidgetExample name="BlankMoneyControl" keywords={baseKeywords}>
+				<PropControl type="Money" prop="damoney" currency="GBT" min={new Money(5)} max={new Money(100)}
+					path={['widget', 'BlankMoneyBug']} />
+					<code>{JSON.stringify(DataStore.getValue("widget",'BlankMoneyBug','damoney'))}</code>
 			</WidgetExample>
 
 			<WidgetExample name="URL input" keywords={baseKeywords}>
