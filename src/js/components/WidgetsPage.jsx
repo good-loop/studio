@@ -26,7 +26,7 @@ const WidgetsPage = () => {
 
 		<hr/>
 
-		<PropControlWidgets />		
+		<PropControlWidgets />
 
 		<MessageWidgets />
 

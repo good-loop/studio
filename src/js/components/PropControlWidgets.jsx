@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
 import DataStore, { getValue } from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, Card, CardTitle } from 'reactstrap';
@@ -80,11 +80,10 @@ const PropControlWidgets = () => {
 
 			<CardTitle><h4>Code</h4></CardTitle>
 
-			{/* TODO: Behaviour seems totally wack, unless its purpose is beyond my understanding */}
 			<WidgetExample name="HTML input" keywords={baseKeywords}>
-				<ErrorAlert error={"Currently doesn't work (9/6/2020)"} />
 				<PropControl type="html" prop="myhtml"
-					path={['widget', 'BasicTextPropControl']} help="HTML help: Try pasting in some formatted text from a web page or word processor" />
+					path={['widget', 'BasicTextPropControl']} help="HTML help: Try pasting in some formatted text from a web page or word processor"
+				/>
 			</WidgetExample>
 
 			<WidgetExample name="JSON input" keywords={baseKeywords}>
@@ -102,21 +101,34 @@ const PropControlWidgets = () => {
 };
 
 
+const prepath = ['widget', 'dflt', 'already'];
+const blankpath = ['widget', 'dflt', 'blank'];
+
 const DataManipulation = () => {
-	const prepath = ['widget', 'dflt', 'already'];
-	const blankpath = ['widget', 'dflt', 'blank'];
-	if ( ! DataStore.getValue(prepath)) DataStore.setValue(prepath, "We already have some text from DataStore");
-	return <SubCard title="Data Manipulation in PropControl">
-		<WidgetExample name="dflt with a pre-existing value" keywords={baseKeywords}>
-			<PropControl prop="already" path={['widget','dflt']} label="Already set" dflt="default text provided :)" />
-			DS value: {DataStore.getValue(prepath)}
-		</WidgetExample>
-		<WidgetExample name="dflt providing initial value" keywords={baseKeywords}>
-			<PropControl prop="blank" path={['widget','dflt']} label="Blank" dflt="default text provided :)" />
-			DS value: {DataStore.getValue(blankpath)}
-		</WidgetExample>
-	</SubCard>;
+	// Set a value for the "dflt, but val"
+	useEffect(() => {
+		DataStore.setValue(prepath, "Text from DataStore which should override dflt");
+	}, []);
+
+	return (
+		<SubCard title="Data Manipulation in PropControl">
+			<WidgetExample name="Component given dflt, but a value is already present at its path+prop in DataStore." keywords={baseKeywords}>
+				<PropControl prop="already" path={['widget','dflt']} label="Already set" dflt="default text provided :)" />
+				DS value: {DataStore.getValue(prepath)}
+			</WidgetExample>
+			<WidgetExample name="Component given dflt, and no pre-existing value in DataStore. " keywords={baseKeywords}>
+				<PropControl prop="blank" path={['widget','dflt']} label="Blank" dflt="default text provided :)" />
+				DS value: {DataStore.getValue(blankpath)}
+			</WidgetExample>
+		</SubCard>
+	);
 };
+
+const autocompleteOptions = ['Able', 'Alpha', 'Baker', 'Bravo', 'Charlie', 'Delta', 'Dog', 'Easy', 'Echo',
+	'Fox', 'Foxtrot', 'George', 'Golf', 'Hotel', 'How', 'India', 'Item', 'Jig', 'Juliet', 'Kilo', 'King',
+	'Lima', 'Love', 'Mike', 'Nan', 'November', 'Oboe', 'Oscar', 'Papa', 'Peter', 'Quebec', 'Queen', 'Roger',
+	'Romeo', 'Sierra', 'Sugar', 'Tango', 'Tare', 'Uncle', 'Uniform', 'Victor', 'Whiskey', 'William', 'X-ray',
+	'Yankee', 'Yoke', 'Zebra', 'Zulu'];
 
 
 const SimpleInputs = () => {
@@ -130,11 +142,11 @@ const SimpleInputs = () => {
 					label="Favourite Pizza" help="Use this for text entry" />
 			</WidgetExample>
 
-			{/* TODO: The actual autocomplete box seems hidden or empty somehow? */}
 			<WidgetExample name="Autocomplete" keywords={baseKeywords}>
-				<ErrorAlert error={"Currently not working (9/6/2020)"} />
-				<PropControl type="autocomplete" prop="myautocomp" path={['widget', 'BasicTextPropControl']}
-					help="Use this for text entry" />
+				<PropControl type="autocomplete" prop="myautocomp" path={['widget', 'BasicTextPropControl']} staticOptions
+					options={autocompleteOptions}
+					help="Type a letter and get an autocomplete option"
+				/>
 			</WidgetExample>
 
 			<WidgetExample name="MoneyControl" keywords={baseKeywords}>
