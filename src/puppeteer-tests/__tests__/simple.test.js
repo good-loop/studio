@@ -131,28 +131,31 @@ describe('Studio - smoke test', () => {
 		expect(iv).toBe("50");		
 		// check datastore updated
 		const dv = await page.$eval('body', 
-			e => window.DataStore.getValue(['widget','BasicTextPropControl','mymoney'])
+			e => window.DataStore.getValue(['widget','BasicMoneyPropControl','mymoney'])
 		);
+		if ( ! dv) throw new Error("No widget.BasicMoneyPropControl.mymoney in DataStore?");
 		expect(dv.value).toBe(50);
 		expect(dv.currency).toBe("GBP");
+	});
 
-		// Clear field
-		for (let i = 0; i < iv.length; i++) {
-			await page.keyboard.press('Backspace');
-		}
+	it("PropControl: MoneyControl min-max", async () => {
+		await page.goto(baseSite+'?f=min');
+		await expect(page).toMatch('Money');
 
 		// ERROR CHECK - min value
 
 		// type in text
-		await page.type('[name=mymoney]', "2.5");
+		let name = "minmaxmoney";
+		const evalFn = page.$eval('body', 
+			e => window.DataStore.getValue(['widget','MoneyControl','minmaxmoney'])
+		);
+		await page.type('[name='+name+']', "2.5");
 
 		// check screen updated
-		const iv2 = await page.$eval('[name=mymoney]', e => e.value);
+		const iv2 = await page.$eval('[name='+name+']', e => e.value);
 		expect(iv2).toBe("2.5");		
 		// check datastore updated
-		const dv2 = await page.$eval('body', 
-			e => window.DataStore.getValue(['widget','BasicTextPropControl','mymoney'])
-		);
+		const dv2 = await evalFn;
 		expect(dv2.value).toBe(2.5);
 		expect(dv2.currency).toBe("GBP");
 		// check error is generated
@@ -167,15 +170,13 @@ describe('Studio - smoke test', () => {
 		// ERROR CHECK - max value
 
 		// type in text
-		await page.type('[name=mymoney]', "105");
+		await page.type('[name='+name+']', "105");
 
 		// check screen updated
-		const iv3 = await page.$eval('[name=mymoney]', e => e.value);
+		const iv3 = await page.$eval('[name='+name+']', e => e.value);
 		expect(iv3).toBe("105");		
 		// check datastore updated
-		const dv3 = await page.$eval('body', 
-			e => window.DataStore.getValue(['widget','BasicTextPropControl','mymoney'])
-		);
+		const dv3 = await evalFn;
 		expect(dv3.value).toBe(105);
 		expect(dv3.currency).toBe("GBP");
 		// check error is generated

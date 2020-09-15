@@ -5,15 +5,16 @@ import { Card, CardTitle } from 'reactstrap';
 
 const getFilter = () => (DataStore.getUrlValue('f') || '').toLowerCase();
 
-const WidgetExample = ({name, keywords, children}) => {
+const WidgetExample = ({name, keywords, children, setShow}) => {
 	let filter = getFilter();
 	if (filter) {
 		let fs = (name+" "+keywords).toLowerCase();
 		if ( ! fs.includes(filter)) {
 			return null;
 		}
-	}
-
+	}	
+	if (setShow) setShow(true);
+	
 	return (<Card body>
 		<CardTitle>{name}</CardTitle>
 		{children}

@@ -16,6 +16,7 @@ import LoginWidget from '../base/components/LoginWidget';
 
 // Pages
 import TestPage from '../base/components/TestPage';
+import BGPage from './BGPage';
 import CrudPage from './CrudPage';
 import WidgetsPage from './WidgetsPage';
 import MainDivBase from '../base/components/MainDivBase';
@@ -28,6 +29,7 @@ const PAGES = {
 	widgets: WidgetsPage,
 	crud: CrudPage,
 	test: TestPage,
+	bg: BGPage,
 };
 
 Login.app = C.app.service;
