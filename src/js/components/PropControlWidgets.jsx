@@ -152,7 +152,7 @@ const SimpleInputs = () => {
 			</WidgetExample>
 
 			<WidgetExample name="MoneyControl" keywords={baseKeywords}>
-				<PropControl type="Money" prop="mymoney" currency="GBT" min={new Money(5)} max={new Money(100)}
+				<PropControl type="Money" prop="mymoney" currency="GBT"
 					path={['widget', 'BasicMoneyPropControl']} help="Money help would go here." />
 					<code>{JSON.stringify(DataStore.getValue("widget",'BasicMoneyPropControl','mymoney'))}</code>
 			</WidgetExample>
@@ -161,6 +161,12 @@ const SimpleInputs = () => {
 				<PropControl type="Money" prop="damoney" currency="GBT" min={new Money(5)} max={new Money(100)}
 					path={['widget', 'BlankMoneyBug']} />
 					<code>{JSON.stringify(DataStore.getValue("widget",'BlankMoneyBug','damoney'))}</code>
+			</WidgetExample>
+
+			<WidgetExample name="Money with min:5 max:100" keywords={baseKeywords}>
+				<PropControl type="Money" prop="minmaxmoney" currency="GBT" min={new Money(5)} max={new Money(100)}
+					path={['widget', 'MoneyControl']} />
+					<code>{JSON.stringify(DataStore.getValue("widget",'MoneyControl','minmaxmoney'))}</code>
 			</WidgetExample>
 
 			<WidgetExample name="URL input" keywords={baseKeywords}>

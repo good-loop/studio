@@ -17,7 +17,7 @@ const SubCard = ({title,children}) => {
 	// 		return React.cloneElement(Kid, {setShow});
 	// 	});
 	// }
-	return <Card body className={false&&'d-none'}><CardTitle><h4>{title}</h4></CardTitle>{children}</Card>;
+	return <Card body><CardTitle><h4>{title}</h4></CardTitle>{children}</Card>;
 };
 
 export default SubCard;
