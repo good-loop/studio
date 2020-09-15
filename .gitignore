@@ -10,3 +10,4 @@ web/style/*.css
 /bin/
 logs
 .settings
+node.run.tests.for.studio.log
