@@ -2,9 +2,9 @@
 // TODO for help on this see <doc??>
 
 const config = JSON.parse(process.env.__CONFIGURATION);
-const { ourServers} = require('../utils/testConfig');
+const { targetServer} = require('../utils/TestConfig');
 
-const baseSite = ourServers[config.site];
+const baseSite = targetServer[config.site];
 
 describe('Studio - smoke test', () => {
 	/**
