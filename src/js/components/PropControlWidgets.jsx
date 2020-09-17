@@ -291,10 +291,11 @@ const Performance = () => {
 	return (<SubCard title="Performance">
 		<WidgetExample name="fast no-update textarea" keywords={baseKeywords}>
 			<PropControl 
-					prop="myfasttext" path={['widget', 'FastPropControl']}
-					label="Type fast" help="Only the propcontrol should re-render as you type." />			
+				fast
+				prop="myfasttext" path={['widget', 'FastPropControl']}
+				label="Type fast" help="Only the propcontrol should re-render as you type." />			
 			<RenderCounter />
-			<p>Last update of DataStore: <code>{DataStore.getValue("widget","FastPropControl","myfasttest")}</code></p>
+			<p>Last update of DataStore: <code>{DataStore.getValue("widget","FastPropControl","myfasttext")}</code></p>
 		</WidgetExample>
 	</SubCard>);
 };
