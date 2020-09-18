@@ -194,7 +194,7 @@ async function watchAdvertAndDonate({page, type}) {
 	await page.waitFor(5000);//Generally needs a second to register that donation has been made
 }
 
-async function filterProps ({filter, Selectors=CommonSelectors}) {
+async function filterProps ({filter, name, Selectors=CommonSelectors}) {
 	// wait for filter then type string with delay per key
 	await page.waitForSelector(Selectors.Filter);
 	// 3 clicks selects all text - aka clear last input
@@ -202,7 +202,7 @@ async function filterProps ({filter, Selectors=CommonSelectors}) {
 	await page.keyboard.press("Backspace");
 	await page.type(Selectors.Filter, filter, {delay: 5});
 	// Case insensitive query
-	await page.waitForSelector('[class~=' + filter + ' i]');
+	await page.waitForSelector('[class~=' + (name ? name : filter) + ' i]');
 }
 
 const eventIdFromName = ({name}) => idByName({name, type: 'event'});

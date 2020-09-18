@@ -83,12 +83,12 @@ describe('PropControlTest tests', () => {
 		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "yehnay"])).toBe(false);
 	}, 99999);
 
-	test('Img prop works properly', async () => {
+	test('Img upload prop works properly', async () => {
 		const secureUrl = 'https://cdn2.iconfinder.com/data/icons/drugs-15/48/37-128.png';
 		const insecureUrl = 'http://cdn2.iconfinder.com/data/icons/drugs-15/48/37-128.png';
 		const invalidUrl = 'thisIsGibberish...';
 
-		await filterPage({filter:"imgUpload"});
+		await filterProps({filter:"image upload", name:"imgUpload"});
 
 		// Test using a secure url
 		await page.type('[name=myimgupload]', secureUrl);
