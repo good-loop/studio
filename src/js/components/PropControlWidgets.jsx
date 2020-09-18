@@ -96,6 +96,8 @@ const PropControlWidgets = () => {
 
 		<Sizes />
 
+		<Performance />
+
 		<DataManipulation />
 		
 		<CustomControls />
@@ -278,6 +280,24 @@ const Sizes = () => {
 		</WidgetExample>
 	</SubCard>
 	);
+};
+
+const RenderCounter = () => {
+	let updates = React.useRef(0);
+	return <div>Renders: {updates.current++}</div>;
+};
+
+const Performance = () => {
+	return (<SubCard title="Performance">
+		<WidgetExample name="fast no-update textarea" keywords={baseKeywords}>
+			<PropControl 
+				fast
+				prop="myfasttext" path={['widget', 'FastPropControl']}
+				label="Type fast" help="Only the propcontrol should re-render as you type." />			
+			<RenderCounter />
+			<p>Last update of DataStore: <code>{DataStore.getValue("widget","FastPropControl","myfasttext")}</code></p>
+		</WidgetExample>
+	</SubCard>);
 };
 
 export default PropControlWidgets;

@@ -11,6 +11,7 @@ import LayoutWidgets from './LayoutWidgets';
 import FunctionWidgets from './FunctionWidgets';
 import WidgetExample, { getFilter } from './WidgetExample';
 import PropControlWidgets from './PropControlWidgets';
+import DisplayWidgets from './DisplayWidgets';
 
 const WidgetsPage = () => {
 
@@ -33,6 +34,8 @@ const WidgetsPage = () => {
 		<LayoutWidgets />
 
 		<FunctionWidgets />
+
+		<DisplayWidgets />
 	</>
 	);
 
