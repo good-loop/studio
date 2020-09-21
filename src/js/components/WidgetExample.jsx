@@ -5,7 +5,7 @@ import { Card, CardTitle } from 'reactstrap';
 
 const getFilter = () => (DataStore.getUrlValue('f') || '').toLowerCase();
 
-const WidgetExample = ({name, keywords, children, setShow}) => {
+const WidgetExample = ({name, keywords, children, setShow, className}) => {
 	let filter = getFilter();
 	if (filter) {
 		let fs = (name+" "+keywords).toLowerCase();
@@ -15,7 +15,7 @@ const WidgetExample = ({name, keywords, children, setShow}) => {
 	}	
 	if (setShow) setShow(true);
 	
-	return (<Card body>
+	return (<Card className={className} name={name.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase()} body>
 		<CardTitle>{name}</CardTitle>
 		{children}
 	</Card>);
