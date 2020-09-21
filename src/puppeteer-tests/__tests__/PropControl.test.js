@@ -15,14 +15,14 @@ describe('PropControlTest tests', () => {
 	const loadPage = async () => {
 		await page.goto(APIBASE);
 		expect(page.title()).resolves.toMatch('Good-Loop Design Studio');
-	}
+	};
 
 	const getDataStoreVal = async (valPath) => {
-		return await page.evaluate( 
-			(valPath) => window.DataStore.getValue(valPath),
+		return page.evaluate( 
+			(path) => window.DataStore.getValue(path),
 			valPath
 		);
-	}
+	};
 
 	test('Can open PropControlTest and login', async () => {
 		await loadPage();
@@ -32,7 +32,7 @@ describe('PropControlTest tests', () => {
 
 	test('Can filter props through text input', async () => {
 		
-		await filterProps({filter:"money"});
+		await filterProps({filter:"money", name:"mymoney"});
 
 		const cardArray = await page.$$('.Money.form-group');
 
@@ -44,11 +44,13 @@ describe('PropControlTest tests', () => {
 		// This tests the updating state of the search box through the page location -
 		// Not a direct test of state, but I haven't been introduced to DataStore yet
 		// and this works for now. - Ben 17/09/2020
-		await filterProps({filter:"money"});
+		await filterProps({filter:"money", name:"mymoney"});
 		let dataStoreVal = await getDataStoreVal(["location", "params", "f"]);
 		await expect(dataStoreVal).toBe('money');
 	}, 99999);
 
+	// We use HTML5 number inputs - thus there is no need for a custom test anymore
+	/*
 	test('Number prop only accepts, well... ints', async () => {
 		await loadPage();
 
@@ -57,9 +59,8 @@ describe('PropControlTest tests', () => {
 		await page.type('[name=prop]', '21', {delay: 10});
 
 		await page.waitForSelector('.card-item');
-		await updateDataStore();
 
-		await expect(dataStore.prop).toBe(21);
+		//await expect(dataStore.prop).toBe(21);
 
 		// Invalid Input
 		// Triple click on input box to select content and then overwrite it, simulating proper user interaction
@@ -67,28 +68,51 @@ describe('PropControlTest tests', () => {
 		await propField.click({ clickCount: 3 });
 		await page.type('[name=prop]', 'string', {delay: 10});
 
-		await updateDataStore();
-
 		// Since we wrote an invalid value the Store stores an empty string instead of the previous int
-		await expect(dataStore.prop).toBe('');
-	}, 99999);
+		//await expect(dataStore.prop).toBe('');
+	}, 99999);*/
 
 	test('yesNo radial displays properly and registers right interaction', async () => {
-		await filterProps({filter:"yesNo"});
+		await filterProps({filter:"yesNo", name:"yehnay"});
 		// When clicking an option, it should be registered in DataStore. If you click the other, it gets overwritten.
-		await page.click('[value=yes]');
+		await page.click('[name=yehnay][value=yes]');
 		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "yehnay"])).toBe(true);
 
-		await page.click('[value=no]');
+		await page.click('[name=yehnay][value=no]');
 		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "yehnay"])).toBe(false);
 	}, 99999);
+
+	test('Img URL prop works properly', async () => {
+		const secureUrl = 'https://cdn2.iconfinder.com/data/icons/drugs-15/48/37-128.png';
+		const insecureUrl = 'http://cdn2.iconfinder.com/data/icons/drugs-15/48/37-128.png';
+		const invalidUrl = 'thisIsGibberish...';
+
+		await filterProps({filter:"image url", name:"myimg"});
+
+		// Test using a secure url
+		await page.type('[name=myimg]', secureUrl);
+		let thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		await expect(thumbnail).toBe(secureUrl);
+
+		// Test using insecure url
+		await page.click('[name=myimg]', { clickCount: 3 });
+		await page.type('[name=myimg]', insecureUrl);
+		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		await expect(thumbnail).toBe(insecureUrl);
+
+		// Test using invalid url
+		await page.click('[name=myimg]', { clickCount: 3 });
+		await page.type('[name=myimg]', invalidUrl);
+		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		await expect(thumbnail).toBe(invalidUrl);
+	});
 
 	test('Img upload prop works properly', async () => {
 		const secureUrl = 'https://cdn2.iconfinder.com/data/icons/drugs-15/48/37-128.png';
 		const insecureUrl = 'http://cdn2.iconfinder.com/data/icons/drugs-15/48/37-128.png';
 		const invalidUrl = 'thisIsGibberish...';
 
-		await filterProps({filter:"image upload", name:"imgUpload"});
+		await filterProps({filter:"image upload", name:"myimgUpload"});
 
 		// Test using a secure url
 		await page.type('[name=myimgupload]', secureUrl);
@@ -96,26 +120,34 @@ describe('PropControlTest tests', () => {
 		await expect(thumbnail).toBe(secureUrl);
 
 		// Test using insecure url
-		await page.click('[name=img]', { clickCount: 3 });
+		await page.click('[name=myimgupload]', { clickCount: 3 });
 		await page.type('[name=myimgupload]', insecureUrl);
 		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(insecureUrl);
+
+		// Test using invalid url
+		await page.click('[name=myimgupload]', { clickCount: 3 });
+		await page.type('[name=myimgupload]', invalidUrl);
+		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		await expect(thumbnail).toBe(invalidUrl);
 	});
 
 	test('Url prop offers open link/warns about secure link', async () => {
 		const secureUrl = 'https://blah.fakedomain/';
 		const insecureUrl = 'http://blah.fakedomain/';
 
-		await page.type('[name=url]', secureUrl);
+		await filterProps({filter:"url input", name:"myurl"});
+
+		await page.type('[name=myurl]', secureUrl);
 		const link = await page.$eval('.url a', e => e.href);
 
 		await expect(link).toBe(secureUrl);
 
-		await page.click('[name=url]', { clickCount: 3 });
-		await page.type('[name=url]', insecureUrl);
-		const warning = await page.$eval('.url .help-block', e => e.innerHTML);
-
-		await expect(warning).toBe('Please use https for secure urls');
+		await page.click('[name=myurl]', { clickCount: 3 });
+		await page.type('[name=myurl]', insecureUrl);
+		const warning = await page.$eval('.url .help-block.text-warning', e => e.innerHTML);
+		// Use generalised version of warning message
+		await expect(warning.includes('https')).toBe(true);
 	});
 
 	test('Date prop should process input correctly', async () => {
@@ -123,111 +155,125 @@ describe('PropControlTest tests', () => {
 		const invalidDate = 'totalgibberish';
 		let output;
 
-		await page.type('[name=date]', validDate);
+		await filterProps({filter:"date", name:"mydate"});
+
+		await page.type('[name=mydate]', validDate);
 		output = await page.$eval('.date .pull-right i', e => e.innerHTML);
 		await expect(output).toBe('22 Apr 2354');
 
-		await page.type('[name=date]', invalidDate);
+		await page.click('[name=mydate]', { clickCount: 3 });
+		await page.type('[name=mydate]', invalidDate);
 		output = await page.$eval('.date .pull-right i', e => e.innerHTML);
 		await expect(output).toBe('Invalid Date');
 
-		const helpMessage = await page.$eval('.date .help-block', e => e.innerHTML);
-		await expect(helpMessage).toBe('Please use the date format yyyy-mm-dd');
+		const helpMessage = await page.$eval('.date .help-block.text-danger', e => e.innerHTML);
+		await expect(helpMessage.includes('yyy-mm-dd')).toBe(true);
 	});
 
-	test('Select displays/stores correctly', async () => {
-		await page.select('[name=select]', 'apple');
-		await updateDataStore();
+	test('Select normal displays/stores correctly', async () => {
 
-		await expect(dataStore.select).toBe('apple');
+		await filterProps({filter:"selection control", name:"myselect"});
 
-		await page.select('[name=select]', 'pear');
-		await updateDataStore();
+		await page.select('[name=myselect]', 'fi');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myselect'])).toBe('fi');
 
-		await expect(dataStore.select).toBe('pear');
+		await page.select('[name=myselect]', 'fo');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myselect'])).toBe('fo');
 	});
 
-	test('Year accepts/stores only numbers; null otherwise', async () => {
-		const validYear = '2014';
-		const invalidYear = 'invalidyear';
+	test('Select default unset displays/stores correctly', async () => {
 
-		await page.type('[name=year]', validYear);
-		await updateDataStore();
-		await expect(dataStore.year).toBe(2014);
+		await filterProps({filter:"selection default and unset", name:"myselect_default_unset"});
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myselect_default_unset'])).toBe('fi');
 
-		await page.click('[name=year]', { clickCount: 3 });
-		await page.type('[name=year]', invalidYear);
-		await updateDataStore();
-		await expect(dataStore.year).toBe(null);
+		await page.select('[name=myselect_default_unset]', 'fo');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myselect_default_unset'])).toBe('fo');
+
+		await page.select('[name=myselect_default_unset]', 'fee');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myselect_default_unset'])).toBe('fee');
+	});
+
+	test('Multiselect displays/stores correctly', async () => {
+
+		await filterProps({filter:"multiselect", name:"multiselectcontrol"});
+
+		await page.click('[name=multiselectcontrol] input[value=fee]');
+		await page.click('[name=multiselectcontrol] input[value=fo]');
+		await page.click('[name=multiselectcontrol] input[value=fum]');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mymultselect'])).toEqual(['fee', 'fo', 'fum']);
 	});
 
 	// TODO: Replace hardcoded values and update PropControlTest in order to better test different choices.
 	test('Radio (passing function for labels) displays/stores correctly', async () => {
-		await page.click('[name=radio-function]');
-		await updateDataStore();
 
-		let expected = await page.$eval('[name=radio-function]', e => e.value);
-		await expect(dataStore['radio-function']).toBe(expected);
+		await filterProps({filter:"radio", name:"myradio"});
 
-		await page.click('[name=radio-map]');
-		await updateDataStore();
+		await page.click('[name=myradio][value=Apples]');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myradio'])).toBe("Apples");
 
-		expected = await page.$eval('[name=radio-map]', e => e.value);
-		await expect(dataStore['radio-map']).toBe('a');
+		await page.click('[name=myradio][value=Pears]');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myradio'])).toBe("Pears");
 	});
 
 	test('Checkbox performs as expected', async () => {
-		await expect(dataStore.checkbox).toBe(undefined);
+		await filterProps({filter:"checkboxes"});
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mycheckbox'])).toBe(null);
 
-		await page.click('[type=checkbox]');
-		await updateDataStore();
+		await page.click('[name=mycheckbox][value=Cheque]');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mycheckbox'])).toBe("Cheque");
 
-		await expect(dataStore.checkbox).toBe(true);
-
-		await page.click('[type=checkbox]');
-		await updateDataStore();
-
-		await expect(dataStore.checkbox).toBe(false);
+		await page.click('[name=mycheckbox][value=Cash]');
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mycheckbox'])).toBe("Cash");
 	});
 
 	test('Arraytext performs as expected', async() => {
 		const testString = 'This is a string with spaces';
 		const stringArr = testString.split(' ');
-        
-		await page.type('[name=arraytext]', testString);
-		await updateDataStore();
+		
+		await filterProps({filter:"array text input"});
+
+		await page.type('[name=myarraytext]', testString);
 
 		// If we compare content the arrs should be equal. Notice that other comparisons will result in a failure.
-		await expect(dataStore.arraytext).toEqual(stringArr);
+		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "myarraytext"])).toEqual(stringArr);
 	});
 
 	test('Entryset performs as expected', async () => {
 		const key = 'key1';
 		const value = 'value1';
-		await page.type('[placeholder=key]', key);
-		await page.type('[placeholder=value]', value);
-		await page.click('.entryset button');
-		await updateDataStore();
+		let keyValObj = {};
+		keyValObj[key] = value;
 
-		await page.waitForSelector(`[value=${value}]`); // If this tag gets generated, prop is storing and displaying sets as intended.
+		await filterProps({filter:"entry set input"});
 
+		await page.type('[name=entrysetinput] [placeholder=key]', key);
+		await page.type('[name=entrysetinput] [placeholder=value]', value);
+		await page.click('[name=entrysetinput] button.btn-primary');
+
+		await page.waitForSelector(`input[name=${key}][value=${value}]`); // If this tag gets generated, prop is storing and displaying sets as intended.
+		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "myentryset"])).toEqual(keyValObj);
+		
 		// Make sure user can remove sets by clicking on the delete button.
 		// If the .entried div is empty, then we have succeeded.
-		await page.click('.remove-entry');
-
-		const entriesArr = Array.from(await page.$$('.entry'));
+		await page.click('button.remove-entry');
+		
+		keyValObj[key] = false;
+		const entriesArr = Array.from(await page.$$('[name=entrysetinput] .entry'));
 		await expect(entriesArr.length).toBeFalsy();
+		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "myentryset"])).toEqual(keyValObj);
 	});
 
 	test('Money saves data correctly based on input', async () => {
 		const input = '23.41';
 
-		await page.type('[name=money]', input);
-		await updateDataStore();
+		await filterProps({filter: "moneycontrol"});
 
-		await expect(dataStore.money['@type']).toBe('Money');
-		await expect(dataStore.money.currency).toEqual('GBP');
-		await expect(dataStore.money.value).toEqual(23.41);
-		await expect(dataStore.money.value100p).toBe(234100);
+		await page.type('[name=mymoney]', input);
+		let money = await getDataStoreVal(["widget", "BasicMoneyPropControl", "mymoney"]);
+
+		await expect(money['@type']).toBe('Money');
+		await expect(money.currency).toEqual('GBP');
+		await expect(money.value).toEqual(23.41);
+		await expect(money.value100p).toBe(234100);
 	});
 });

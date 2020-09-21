@@ -82,6 +82,7 @@
     "preset": "jest-puppeteer",
     "globals": {
       "window": {}
-    }
+    },
+    "testTimeout":10000
   }
 }
