@@ -1,5 +1,5 @@
 const $ = require('jquery');
-const {login, filterProps} = require('../utils/UtilityFunctions');
+const {login, filterProps, getValue, getDataStoreVal, enterVal} = require('../utils/UtilityFunctions');
 const {password, username} = require('../utils/Credentials');
 const {CommonSelectors} = require('../utils/Selectors');
 
@@ -14,26 +14,38 @@ describe('PropControlTest tests', () => {
 
 	const loadPage = async () => {
 		await page.goto(APIBASE);
-		expect(page.title()).resolves.toMatch('Good-Loop Design Studio');
+		await expect(page.title()).resolves.toMatch('Good-Loop Design Studio');
 	};
 
-	const getDataStoreVal = async (valPath) => {
-		return page.evaluate( 
-			(path) => window.DataStore.getValue(path),
-			valPath
-		);
-	};
-
+	// THIS TEST MUST BE FIRST SO THE PAGE IS LOADED
+	// Loading the page every test causes timeouts
 	test('Can open PropControlTest and login', async () => {
 		await loadPage();
 		await login({ page, username, password, service: 'email' });
 		await page.reload(); // Reload to see content
 	}, 99999);
 
-	test('Can filter props through text input', async () => {
+	test("Basic text input displays/stores correctly", async () => {
+		await filterProps({filter:'basic text input'});
 		
-		await filterProps({filter:"money", name:"mymoney"});
+		// type in text
+		await enterVal("[name=mybasictext]", "Hello World");
+		// check datastore updated 
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mybasictext'])).toBe("Hello World");				
+	});
 
+	test("Text area input displays/stores correctly", async () => {
+		await filterProps({filter:'text area input'});
+		
+		// type in text
+		await enterVal("[name=mytextarea]", "Hello World");
+		// check datastore updated 
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mytextarea'])).toBe("Hello World");				
+	});
+
+	test('Can filter props through text input', async () => {
+		await filterProps({filter:"money", name:"mymoney"});
+		await expect(await getValue(CommonSelectors.Filter)).toBe("money");
 		const cardArray = await page.$$('.Money.form-group');
 
 		// If we filter by 'money' we should be able to see 3 different PropControl cards.
@@ -41,6 +53,7 @@ describe('PropControlTest tests', () => {
 	}, 99999);
 
 	test('Simple text field communicates correctly with DataStore', async () => {
+		// TODO: Replace with BasicTextPropControl
 		// This tests the updating state of the search box through the page location -
 		// Not a direct test of state, but I haven't been introduced to DataStore yet
 		// and this works for now. - Ben 17/09/2020
@@ -90,19 +103,17 @@ describe('PropControlTest tests', () => {
 		await filterProps({filter:"image url", name:"myimg"});
 
 		// Test using a secure url
-		await page.type('[name=myimg]', secureUrl);
+		await enterVal("[name=myimg]", secureUrl);
 		let thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(secureUrl);
 
 		// Test using insecure url
-		await page.click('[name=myimg]', { clickCount: 3 });
-		await page.type('[name=myimg]', insecureUrl);
+		await enterVal("[name=myimg]", insecureUrl);
 		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(insecureUrl);
 
 		// Test using invalid url
-		await page.click('[name=myimg]', { clickCount: 3 });
-		await page.type('[name=myimg]', invalidUrl);
+		await enterVal("[name=myimg]", invalidUrl);
 		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(invalidUrl);
 	});
@@ -115,19 +126,17 @@ describe('PropControlTest tests', () => {
 		await filterProps({filter:"image upload", name:"myimgUpload"});
 
 		// Test using a secure url
-		await page.type('[name=myimgupload]', secureUrl);
+		await enterVal("[name=myimgupload]", secureUrl);
 		let thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(secureUrl);
 
 		// Test using insecure url
-		await page.click('[name=myimgupload]', { clickCount: 3 });
-		await page.type('[name=myimgupload]', insecureUrl);
+		await enterVal("[name=myimgupload]", insecureUrl);
 		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(insecureUrl);
 
 		// Test using invalid url
-		await page.click('[name=myimgupload]', { clickCount: 3 });
-		await page.type('[name=myimgupload]', invalidUrl);
+		await enterVal("[name=myimgupload]", invalidUrl);
 		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
 		await expect(thumbnail).toBe(invalidUrl);
 	});
@@ -138,13 +147,12 @@ describe('PropControlTest tests', () => {
 
 		await filterProps({filter:"url input", name:"myurl"});
 
-		await page.type('[name=myurl]', secureUrl);
+		await enterVal("[name=myurl]", secureUrl);
 		const link = await page.$eval('.url a', e => e.href);
 
 		await expect(link).toBe(secureUrl);
 
-		await page.click('[name=myurl]', { clickCount: 3 });
-		await page.type('[name=myurl]', insecureUrl);
+		await enterVal("[name=myurl]", insecureUrl);
 		const warning = await page.$eval('.url .help-block.text-warning', e => e.innerHTML);
 		// Use generalised version of warning message
 		await expect(warning.includes('https')).toBe(true);
@@ -157,12 +165,11 @@ describe('PropControlTest tests', () => {
 
 		await filterProps({filter:"date", name:"mydate"});
 
-		await page.type('[name=mydate]', validDate);
+		await enterVal("[name=mydate]", validDate);
 		output = await page.$eval('.date .pull-right i', e => e.innerHTML);
 		await expect(output).toBe('22 Apr 2354');
 
-		await page.click('[name=mydate]', { clickCount: 3 });
-		await page.type('[name=mydate]', invalidDate);
+		await enterVal("[name=mydate]", invalidDate);
 		output = await page.$eval('.date .pull-right i', e => e.innerHTML);
 		await expect(output).toBe('Invalid Date');
 
@@ -232,7 +239,7 @@ describe('PropControlTest tests', () => {
 		
 		await filterProps({filter:"array text input"});
 
-		await page.type('[name=myarraytext]', testString);
+		await enterVal("[name=myarraytext]", testString);
 
 		// If we compare content the arrs should be equal. Notice that other comparisons will result in a failure.
 		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "myarraytext"])).toEqual(stringArr);
@@ -245,9 +252,9 @@ describe('PropControlTest tests', () => {
 		keyValObj[key] = value;
 
 		await filterProps({filter:"entry set input"});
-
-		await page.type('[name=entrysetinput] [placeholder=key]', key);
-		await page.type('[name=entrysetinput] [placeholder=value]', value);
+		
+		await enterVal('[name=entrysetinput] [placeholder=key]', key);
+		await enterVal('[name=entrysetinput] [placeholder=value]', value);
 		await page.click('[name=entrysetinput] button.btn-primary');
 
 		await page.waitForSelector(`input[name=${key}][value=${value}]`); // If this tag gets generated, prop is storing and displaying sets as intended.
@@ -268,7 +275,7 @@ describe('PropControlTest tests', () => {
 
 		await filterProps({filter: "moneycontrol"});
 
-		await page.type('[name=mymoney]', input);
+		await enterVal('[name=mymoney]', input);
 		let money = await getDataStoreVal(["widget", "BasicMoneyPropControl", "mymoney"]);
 
 		await expect(money['@type']).toBe('Money');

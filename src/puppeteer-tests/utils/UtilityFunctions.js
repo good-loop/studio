@@ -194,6 +194,14 @@ async function watchAdvertAndDonate({page, type}) {
 	await page.waitFor(5000);//Generally needs a second to register that donation has been made
 }
 
+// Filters through prop controls on the Studio page
+/**
+ * Studio page must be loaded before this is called
+ * @param { string } filter what to search for
+ * @param { string } name specify a custom name to confirm the search with - overrides filter
+ * @param { string } confirmSelector specify a custom selector to confirm the search with - overrides name and filter
+ * @param { object } Selectors reserve of common GL selectors to use
+ */
 async function filterProps ({filter, name, confirmSelector, Selectors=CommonSelectors}) {
 	// wait for filter then type string with delay per key
 	await page.waitForSelector(Selectors.Filter);
@@ -209,6 +217,38 @@ async function filterProps ({filter, name, confirmSelector, Selectors=CommonSele
 	}
 }
 
+/**
+ * Get the value attribute of an element
+ * @param { string } selector the element to get the value from
+ */
+async function getValue (selector) {
+	await page.waitForSelector(selector);
+	const iv = await page.$eval(selector, e => e.value);
+	return iv;
+}
+
+/**
+ * Type a string into an input
+ * @param { string } sel the selector to type to
+ * @param { string } text what to type
+ */
+const enterVal = async (sel, text) => {
+	await page.click(sel, { clickCount: 3 });
+	await page.type(sel, text);
+	await expect(await getValue(sel)).toBe(text);
+};
+
+/**
+ * Retrieve a value from the DataStore
+ * @param { Array } valPath the DataStore path of the value
+ */
+const getDataStoreVal = async (valPath) => {
+	return page.evaluate( 
+		(path) => window.DataStore.getValue(path),
+		valPath
+	);
+};
+
 const eventIdFromName = ({name}) => idByName({name, type: 'event'});
 
 const fundIdByName = ({name}) => idByName({name, type: 'fundraiser'});
@@ -222,5 +262,8 @@ module.exports = {
 	vertiserIdByName,
 	fillInForm,
 	watchAdvertAndDonate,
-	filterProps
+	filterProps,
+	getValue,
+	getDataStoreVal,
+	enterVal
 };
