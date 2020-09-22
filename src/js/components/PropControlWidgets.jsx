@@ -58,19 +58,17 @@ const PropControlWidgets = () => {
 
 			{/* TODO: Behaviour is possibly a little iffy */}
 			<WidgetExample name="Array text input" keywords={baseKeywords}>
-				<ErrorAlert error={"Behaviour is inconsistent (9/6/2020)"} />
 				<PropControl type="arraytext" prop="myarraytext"
 					path={['widget', 'BasicTextPropControl']} help="Array text help goes here" />
 			</WidgetExample>
 
 			<WidgetExample name="Key set input" keywords={baseKeywords}>
-				<ErrorAlert error={"Does not update DataStore on removing key (9/6/2020)"} />
+				<ErrorAlert error="Can add entry before entering a value, yielding undefined key 22/09/2020" />
 				<PropControl type="keyset" prop="mykeyset"
 					path={['widget', 'BasicTextPropControl']} help="Key set help goes here" />
 			</WidgetExample>
 
 			<WidgetExample name="Entry set input" keywords={baseKeywords}>
-				<ErrorAlert error={"Does not update DataStore on removing entry (9/6/2020)"} />
 				<PropControl type="entryset" prop="myentryset"
 					path={['widget', 'BasicTextPropControl']} help="Entry set help goes here" />
 			</WidgetExample>
@@ -88,6 +86,7 @@ const PropControlWidgets = () => {
 			</WidgetExample>
 
 			<WidgetExample name="JSON input" keywords={baseKeywords}>
+				<ErrorAlert error="Throws error on attempting to edit 22/09/2020" />
 				<PropControl type="json" prop="myjson"
 					path={['widget', 'BasicTextPropControl']} help="JSON help: type some JSON" />
 			</WidgetExample>
@@ -108,9 +107,9 @@ const PropControlWidgets = () => {
 const CustomControls = () => {
 	return (<SubCard title="Custom Controls">
 		<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
+			<ErrorAlert error="Known issues: styling, add-pill if you leave the control, cannot add pill 22/09/2020" />
 			<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
 			<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
-			Known issues: styling, add-pill if you leave the control
 		</WidgetExample>
 	</SubCard>);
 };
@@ -131,6 +130,7 @@ const DataManipulation = () => {
 				DS value: {DataStore.getValue(prepath)}
 			</WidgetExample>
 			<WidgetExample name="Component given dflt, and no pre-existing value in DataStore. " keywords={baseKeywords}>
+				<ErrorAlert error="Default value is provided to DataStore 22/09/2020" />
 				<PropControl prop="blank" path={['widget','dflt']} label="Blank" dflt="default text provided :)" />
 				DS value: {DataStore.getValue(blankpath)}
 			</WidgetExample>
@@ -269,13 +269,16 @@ const Sizes = () => {
 		</WidgetExample>
 
 		<WidgetExample name="Small checkbox" keywords={baseKeywords+" size small checkbox"}>
+			<ErrorAlert error="Affects state of other 2 checkboxes 22/09/2020" />
 			<PropControl className="mr-2" size="sm" type="checkbox" label="Wibble?" prop="wibble" path={['widget', 'SmallCheckbox']} value="foo" />
 			<code>Value: {DataStore.getValue(['widget', 'SmallCheckbox','wibble'])}</code>
 		</WidgetExample>
 		<WidgetExample name="Normal checkbox" keywords={baseKeywords+" size normal checkbox"}>
+			<ErrorAlert error="Affects state of other 2 checkboxes 22/09/2020" />
 			<PropControl className="mr-2" type="checkbox" label="Wibble?" prop="wibble" path={['widget', 'SmallCheckbox']} value="foo" />
 		</WidgetExample>
 		<WidgetExample name="Large checkbox" keywords={baseKeywords+" size large checkbox"}>
+			<ErrorAlert error="Affects state of other 2 checkboxes 22/09/2020" />
 			<PropControl className="mr-2" size="lg" type="checkbox" label="Wibble?" prop="wibble" path={['widget', 'SmallCheckbox']} value="foo" />
 		</WidgetExample>
 	</SubCard>
