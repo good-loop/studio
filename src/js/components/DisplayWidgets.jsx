@@ -48,7 +48,10 @@ onClick="alert('gotcha');">mwhaha again
 </button>
 
 
-			`} />			
+			`} />
+		</WidgetExample>
+		<WidgetExample name="MDText line-break parsing" keywords={baseKeywords}>
+			<MDText source="This line ends in br-slash<br/>This line ends in br with no slash<br>This line ends in br-space-slash<br />This is the last line" />
 		</WidgetExample>
 	</SubCard>);
 };
