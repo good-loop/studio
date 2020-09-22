@@ -5,7 +5,7 @@ import { Card, CardTitle } from 'reactstrap';
 
 const getFilter = () => (DataStore.getUrlValue('f') || '').toLowerCase();
 
-const WidgetExample = ({name, keywords, children, setShow, className}) => {
+const WidgetExample = ({name, keywords, children, setShow}) => {
 	let filter = getFilter();
 	if (filter) {
 		let fs = (name+" "+keywords).toLowerCase();
@@ -15,7 +15,9 @@ const WidgetExample = ({name, keywords, children, setShow, className}) => {
 	}	
 	if (setShow) setShow(true);
 	
-	return (<Card className={className} name={name.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase()} body>
+	// The name is added as a "name" attribute to each prop to ensure a unique identifier for testing
+	// Having the unique selector derive from the searchable term helps confirm search success in pupetteer too
+	return (<Card name={name.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase()} body>
 		<CardTitle>{name}</CardTitle>
 		{children}
 	</Card>);

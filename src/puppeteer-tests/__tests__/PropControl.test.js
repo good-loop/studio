@@ -1,11 +1,23 @@
 const $ = require('jquery');
-const {login, filterProps, getValue, getDataStoreVal, enterVal} = require('../utils/UtilityFunctions');
+const {
+	login,
+	getValue,
+	getDataStoreVal,
+	enterVal,
+	expectInnerHTML,
+	expectMoneyVal,
+	getInnerHTML,
+	getAttr,
+	elementExists,
+	countElement
+} = require('../utils/UtilityFunctions');
+const { filterProps } = require('../utils/StudioUtilityFunctions');
 const {password, username} = require('../utils/Credentials');
 const {CommonSelectors} = require('../utils/Selectors');
 
 const config = JSON.parse(process.env.__CONFIGURATION);
 const { targetServer } = require('../utils/TestConfig');
-const UtilityFunctions = require('../utils/UtilityFunctions');
+const TestConfig = require('../utils/TestConfig');
 
 //    o<| : o ) --|--<
 const APIBASE = targetServer[config.site];
@@ -17,12 +29,24 @@ describe('PropControlTest tests', () => {
 		await expect(page.title()).resolves.toMatch('Good-Loop Design Studio');
 	};
 
+	// This failing test is for testing CI
+	// it('should Fail', async () => {
+	// 	await page.goto(baseSite);
+	// 	await expect(page).toMatch(XXXIMPOSSIBLEWILLFAIL');
+	// });
+
 	// THIS TEST MUST BE FIRST SO THE PAGE IS LOADED
 	// Loading the page every test causes timeouts
 	test('Can open PropControlTest and login', async () => {
 		await loadPage();
 		await login({ page, username, password, service: 'email' });
 		await page.reload(); // Reload to see content
+	}, 99999);
+
+	test('Can filter props through text input', async () => {
+		await filterProps({filter:"money", name:"mymoney"});
+		await expect(await getValue(CommonSelectors.Filter)).toBe("money");
+		await expect(await countElement(".Money.form-group")).toBe(3);
 	}, 99999);
 
 	test("Basic text input displays/stores correctly", async () => {
@@ -43,24 +67,46 @@ describe('PropControlTest tests', () => {
 		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mytextarea'])).toBe("Hello World");				
 	});
 
-	test('Can filter props through text input', async () => {
-		await filterProps({filter:"money", name:"mymoney"});
-		await expect(await getValue(CommonSelectors.Filter)).toBe("money");
-		const cardArray = await page.$$('.Money.form-group');
+	// TODO: Add in auto-correcting test when functionality is working again
+	test("Autocomplete displays/stores correctly", async () => {
+		// Expected options for autocomplete, copied from PropControlWidgets.jsx
+		const autocompleteOptions = ['Able', 'Alpha', 'Baker', 'Bravo', 'Charlie', 'Delta', 'Dog', 'Easy', 'Echo',
+			'Fox', 'Foxtrot', 'George', 'Golf', 'Hotel', 'How', 'India', 'Item', 'Jig', 'Juliet', 'Kilo', 'King',
+			'Lima', 'Love', 'Mike', 'Nan', 'November', 'Oboe', 'Oscar', 'Papa', 'Peter', 'Quebec', 'Queen', 'Roger',
+			'Romeo', 'Sierra', 'Sugar', 'Tango', 'Tare', 'Uncle', 'Uniform', 'Victor', 'Whiskey', 'William', 'X-ray',
+			'Yankee', 'Yoke', 'Zebra', 'Zulu'];
+		
+		await filterProps({filter: "autocomplete"});
+		
+		// Check options show up on initial click
+		await page.click('.autocomplete input.form-control');
+		await expect(await countElement('.autocomplete .dropdown-item')).toBe(autocompleteOptions.length);
 
-		// If we filter by 'money' we should be able to see 3 different PropControl cards.
-		await expect(cardArray.length).toBe(3);
-	}, 99999);
+		let htmlTests = [];
+		for (let i = 0; i < autocompleteOptions.length; i++) {
+			htmlTests.push(expectInnerHTML(".autocomplete .dropdown-item", autocompleteOptions[i]));
+		}
+		await Promise.all(htmlTests);
+		
+		// Check autocomplete filter works
+		const expectedEValues = ['Easy', 'Echo'];
+		// type in text
+		await enterVal('.autocomplete input.form-control', "E");
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myautocomp'])).toBe("E");
+		await expect(await countElement('.autocomplete .dropdown-item')).toBe(expectedEValues.length);
 
-	test('Simple text field communicates correctly with DataStore', async () => {
-		// TODO: Replace with BasicTextPropControl
-		// This tests the updating state of the search box through the page location -
-		// Not a direct test of state, but I haven't been introduced to DataStore yet
-		// and this works for now. - Ben 17/09/2020
-		await filterProps({filter:"money", name:"mymoney"});
-		let dataStoreVal = await getDataStoreVal(["location", "params", "f"]);
-		await expect(dataStoreVal).toBe('money');
-	}, 99999);
+		htmlTests = [];
+		for (let i = 0; i < expectedEValues.length; i++) {
+			htmlTests.push(expectInnerHTML(".autocomplete .dropdown-item", expectedEValues[i]));
+		}
+		await Promise.all(htmlTests);
+
+		// Click first autcomplete option: 'Easy'
+		await page.click('.autocomplete .dropdown-item');
+		await expect(await getValue('.autocomplete input.form-control')).toBe(expectedEValues[0]);
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myautocomp'])).toBe(expectedEValues[0]);
+		await expect(await elementExists(".autocomplete .dropdown-item")).toBeFalsy();
+	});
 
 	// We use HTML5 number inputs - thus there is no need for a custom test anymore
 	/*
@@ -104,17 +150,17 @@ describe('PropControlTest tests', () => {
 
 		// Test using a secure url
 		await enterVal("[name=myimg]", secureUrl);
-		let thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		let thumbnail = await getAttr('img.img-thumbnail[src]', 'src');
 		await expect(thumbnail).toBe(secureUrl);
 
 		// Test using insecure url
 		await enterVal("[name=myimg]", insecureUrl);
-		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		thumbnail = await getAttr('img.img-thumbnail[src]', 'src');
 		await expect(thumbnail).toBe(insecureUrl);
 
 		// Test using invalid url
 		await enterVal("[name=myimg]", invalidUrl);
-		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		thumbnail = await getAttr('img.img-thumbnail[src]', 'src');
 		await expect(thumbnail).toBe(invalidUrl);
 	});
 
@@ -127,17 +173,17 @@ describe('PropControlTest tests', () => {
 
 		// Test using a secure url
 		await enterVal("[name=myimgupload]", secureUrl);
-		let thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		let thumbnail = await getAttr('img.img-thumbnail[src]', 'src');
 		await expect(thumbnail).toBe(secureUrl);
 
 		// Test using insecure url
 		await enterVal("[name=myimgupload]", insecureUrl);
-		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		thumbnail = await getAttr('img.img-thumbnail[src]', 'src');
 		await expect(thumbnail).toBe(insecureUrl);
 
 		// Test using invalid url
 		await enterVal("[name=myimgupload]", invalidUrl);
-		thumbnail = await page.$eval('img.img-thumbnail[src]', img => img.getAttribute('src'));
+		thumbnail = await getAttr('img.img-thumbnail[src]', 'src');
 		await expect(thumbnail).toBe(invalidUrl);
 	});
 
@@ -148,12 +194,12 @@ describe('PropControlTest tests', () => {
 		await filterProps({filter:"url input", name:"myurl"});
 
 		await enterVal("[name=myurl]", secureUrl);
-		const link = await page.$eval('.url a', e => e.href);
+		const link = await getAttr('.url a', 'href');
 
 		await expect(link).toBe(secureUrl);
 
 		await enterVal("[name=myurl]", insecureUrl);
-		const warning = await page.$eval('.url .help-block.text-warning', e => e.innerHTML);
+		const warning = await getInnerHTML('.url .help-block.text-warning');
 		// Use generalised version of warning message
 		await expect(warning.includes('https')).toBe(true);
 	});
@@ -166,19 +212,18 @@ describe('PropControlTest tests', () => {
 		await filterProps({filter:"date", name:"mydate"});
 
 		await enterVal("[name=mydate]", validDate);
-		output = await page.$eval('.date .pull-right i', e => e.innerHTML);
+		output = await getInnerHTML('.date .pull-right i');
 		await expect(output).toBe('22 Apr 2354');
 
 		await enterVal("[name=mydate]", invalidDate);
-		output = await page.$eval('.date .pull-right i', e => e.innerHTML);
+		output = await getInnerHTML('.date .pull-right i');
 		await expect(output).toBe('Invalid Date');
 
-		const helpMessage = await page.$eval('.date .help-block.text-danger', e => e.innerHTML);
+		const helpMessage = await getInnerHTML('.date .help-block.text-danger');
 		await expect(helpMessage.includes('yyy-mm-dd')).toBe(true);
 	});
 
 	test('Select normal displays/stores correctly', async () => {
-
 		await filterProps({filter:"selection control", name:"myselect"});
 
 		await page.select('[name=myselect]', 'fi');
@@ -189,7 +234,6 @@ describe('PropControlTest tests', () => {
 	});
 
 	test('Select default unset displays/stores correctly', async () => {
-
 		await filterProps({filter:"selection default and unset", name:"myselect_default_unset"});
 		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myselect_default_unset'])).toBe('fi');
 
@@ -201,7 +245,6 @@ describe('PropControlTest tests', () => {
 	});
 
 	test('Multiselect displays/stores correctly', async () => {
-
 		await filterProps({filter:"multiselect", name:"multiselectcontrol"});
 
 		await page.click('[name=multiselectcontrol] input[value=fee]');
@@ -212,7 +255,6 @@ describe('PropControlTest tests', () => {
 
 	// TODO: Replace hardcoded values and update PropControlTest in order to better test different choices.
 	test('Radio (passing function for labels) displays/stores correctly', async () => {
-
 		await filterProps({filter:"radio", name:"myradio"});
 
 		await page.click('[name=myradio][value=Apples]');
@@ -241,7 +283,6 @@ describe('PropControlTest tests', () => {
 
 		await enterVal("[name=myarraytext]", testString);
 
-		// If we compare content the arrs should be equal. Notice that other comparisons will result in a failure.
 		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "myarraytext"])).toEqual(stringArr);
 	});
 
@@ -265,22 +306,126 @@ describe('PropControlTest tests', () => {
 		await page.click('button.remove-entry');
 		
 		keyValObj[key] = false;
-		const entriesArr = Array.from(await page.$$('[name=entrysetinput] .entry'));
-		await expect(entriesArr.length).toBeFalsy();
+		await expect(await elementExists('[name=entrysetinput] .entry')).toBeFalsy();
 		await expect(await getDataStoreVal(["widget", "BasicTextPropControl", "myentryset"])).toEqual(keyValObj);
 	});
 
 	test('Money saves data correctly based on input', async () => {
-		const input = '23.41';
+		const input = 23.41;
 
 		await filterProps({filter: "moneycontrol"});
 
 		await enterVal('[name=mymoney]', input);
-		let money = await getDataStoreVal(["widget", "BasicMoneyPropControl", "mymoney"]);
 
-		await expect(money['@type']).toBe('Money');
-		await expect(money.currency).toEqual('GBP');
-		await expect(money.value).toEqual(23.41);
-		await expect(money.value100p).toBe(234100);
+		await expectMoneyVal(['widget','BasicMoneyPropControl','mymoney'], input);
+	});
+
+	test("PropControl: MoneyControl min-max", async () => {
+		await filterProps({filter:"Money with min:5 max:100"});
+
+		let littleMoney = 2.5;
+		let goodMoney = 65.4;
+		let bigMoney = 132.85;
+
+		// ERROR CHECK - min value
+
+		await enterVal('[name=minmaxmoney]', littleMoney);	
+		await expectMoneyVal(['widget','MoneyControl','minmaxmoney'], littleMoney);
+		// check error is generated
+		await expect(await elementExists('[name=moneywithmin5max100] .help-block.text-danger')).toBeTruthy();
+		let ev = await getInnerHTML('[name=moneywithmin5max100] .help-block.text-danger');
+		await expect(ev.includes("minimum")).toBeTruthy();
+
+		// ERROR CHECK - max value
+
+		await enterVal('[name=minmaxmoney]', bigMoney);	
+		await expectMoneyVal(['widget','MoneyControl','minmaxmoney'], bigMoney);
+		// check error is generated
+		await expect(await elementExists('[name=moneywithmin5max100] .help-block.text-danger')).toBeTruthy();
+		ev = await getInnerHTML('[name=moneywithmin5max100] .help-block.text-danger');
+		await expect(ev.includes("maximum")).toBeTruthy();
+
+		// PASS CHECK - good value
+
+		await enterVal('[name=minmaxmoney]', goodMoney);	
+		await expectMoneyVal(['widget','MoneyControl','minmaxmoney'], goodMoney);
+		await expect(await elementExists('[name=moneywithmin5max100] .help-block.text-danger')).toBeFalsy();
+	});
+
+	test("PropControl: Country input", async () => {
+		await filterProps({filter:"Country input"});
+		
+		// make selection
+		await page.select('[name=mycountry]', 'GB');
+		// check screen updated
+		const iv = await page.$eval('[name=mycountry]', e => e.options[e.selectedIndex].text);
+		await expect(iv).toBe("United Kingdom (UK)");		
+
+		// check datastore updated
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','mycountry'])).toBe("GB");
+	});
+
+	test("PropControl: XId input", async () => {
+		await filterProps({filter:"xid input"});
+		
+		const text = "External ID Test";
+
+		await enterVal('[name=myxid]', text);	
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myxid'])).toBe(text + '@service');				
+	});
+
+	test("!! BROKEN !! - PropControl: Key set", async () => {
+		if (true) return;
+
+		await filterProps({filter:"key set input"});
+
+		// Check you cannot add empty values
+		await page.click("[name=keysetinput] button.btn");
+		await expect(await elementExists("[name=keysetinput] .key")).toBeFalsy();
+		
+		const testText = "test";
+
+		await enterVal("[name=keysetinput] input.form-control", testText);
+		await page.click("[name=keysetinput] button.btn");
+
+		const removeBtnHTML = '<span class="remove-key">×</span>';
+
+		await expectInnerHTML("[name=keysetinput] .key", testText + " " + removeBtnHTML);
+		let keys = await getDataStoreVal(['widget','BasicTextPropControl','mykeyset']);
+		await expect(keys[testText]).toBeTruthy();
+
+		await page.click("[name=keysetinput] .key .remove-key");
+
+		await expect(await elementExists("[name=keysetinput] .key")).toBeFalsy();
+		keys = await getDataStoreVal(['widget','BasicTextPropControl','mykeyset']);
+		await expect(keys[testText]).toBeFalsy();
+	});
+
+	test("!! BROKEN !! - PropControl: JSON input", async () => {
+		if (true) return;
+		/*await filterProps({filter:"json input"});
+		
+		let text = "Hello World!";
+		
+		// type in text
+		await enterVal("[name=myjson]", text);
+		// check datastore updated
+		const dv = await getDataStoreVal(['widget','BasicTextPropControl','myjson']);
+		expect(JSON.stringify(dv)).toEqual(JSON.stringify({Hello:"World!"}));
+
+		// check input works when replacing JSON
+
+		const text2 = "{\"foo\":\"bar\"}";
+
+		// type in text
+		await enterVal('[name=myjson]', text2);	
+		// check datastore updated
+		const dv2 = await getDataStoreVal(['widget','BasicTextPropControl','myjson']);
+		expect(JSON.stringify(dv2)).toBe(JSON.stringify({foo:"bar"}));*/
+	});
+
+	// TODO: Fill in when HTML is working
+	test("!!Broken!! - Prop Control: HTML", async () => {
+		if (true) return;
 	});
 });

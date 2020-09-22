@@ -56,6 +56,8 @@ const Environment = {
 	logIn: '#top-right-menu .login-link a'
 };
 
+// Portal selectors has its own Main selectors - I don't know what they point to so leaving alone for now
+// - Ben 22/09/2020
 const Main = {
 	FirstCharityIcon: ".chooser-list .ch1",
 	Banner: "div.glhdr"
