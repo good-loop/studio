@@ -230,17 +230,8 @@ const countElement = async (selector) => {
 	return eArray.length;
 };
 
-const eventIdFromName = ({name}) => idByName({name, type: 'event'});
-
-const fundIdByName = ({name}) => idByName({name, type: 'fundraiser'});
-
-const vertiserIdByName = ({name, apiBase}) => idByName({name, type: 'vertiser', apiBase});
-
-const vertIdByName= ({name}) => idByName({name, type: 'vert'});
-
 module.exports = {
 	login,
-	vertiserIdByName,
 	fillInForm,
 	getValue,
 	getDataStoreVal,

@@ -32,6 +32,14 @@ function idByName({name, type, apiBase}) {
 	});
 }
 
+const eventIdFromName = ({name}) => idByName({name, type: 'event'});
+
+const fundIdByName = ({name}) => idByName({name, type: 'fundraiser'});
+
+const vertiserIdByName = ({name, apiBase}) => idByName({name, type: 'vertiser', apiBase});
+
+const vertIdByName= ({name}) => idByName({name, type: 'vert'});
+
 // Goes to the given URL (which must contain a Good-loop ad), watches the video, and makes a donation 
 /**
  * Advert must already be somewhere on the page before this method is called
@@ -71,4 +79,4 @@ async function watchAdvertAndDonate({page, type}) {
 	await page.waitFor(5000);//Generally needs a second to register that donation has been made
 }
 
-module.exports = { watchAdvertAndDonate };
+module.exports = { watchAdvertAndDonate, vertiserIdByName };
