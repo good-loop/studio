@@ -120,18 +120,21 @@ const blankpath = ['widget', 'dflt', 'blank'];
 const DataManipulation = () => {
 	// Set a value for the "dflt, but val"
 	useEffect(() => {
-		DataStore.setValue(prepath, "Text from DataStore which should override dflt");
+		DataStore.setValue(prepath, "Text from DataStore which should override dflt :)");
 	}, []);
 
 	return (
 		<SubCard title="Data Manipulation in PropControl">
 			<WidgetExample name="Component given dflt, but a value is already present at its path+prop in DataStore." keywords={baseKeywords}>
-				<PropControl prop="already" path={['widget','dflt']} label="Already set" dflt="default text provided :)" />
+				<PropControl prop="already" path={['widget','dflt']} label="Already set" dflt="default text should be ignored :(" 
+					help="Expected behaviour: the default is ignored" />
 				DS value: {DataStore.getValue(prepath)}
 			</WidgetExample>
 			<WidgetExample name="Component given dflt, and no pre-existing value in DataStore. " keywords={baseKeywords}>
 				<ErrorAlert error="Default value is provided to DataStore 22/09/2020" />
-				<PropControl prop="blank" path={['widget','dflt']} label="Blank" dflt="default text provided :)" />
+				<PropControl prop="blank" path={['widget','dflt']} label="Blank" dflt="default text provided :)" 
+					help="Expected behaviour: the default gets set as the DS value. Otherwise, if the user left it as-is, then it'd never get set. NB: use placeholder if you want to suggest a value without setting it." 
+				/>
 				DS value: {DataStore.getValue(blankpath)}
 			</WidgetExample>
 		</SubCard>
