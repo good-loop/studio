@@ -426,6 +426,12 @@ describe('PropControlTest tests', () => {
 
 	// TODO: Fill in when HTML is working
 	test("!!Broken!! - Prop Control: HTML", async () => {
-		if (true) return;
+		await filterProps({filter:"html input"});
+
+		const plainText = "testytest";
+		const htmlText = "<b>testy<br/>test</b>";
+		await page.type("[name=myhtml]", plainText, {delay:5});
+		await expect(await getInnerHTML("[name=myhtml]")).toBe(plainText);
+		await expect(await getDataStoreVal(['widget','BasicTextPropControl','myhtml'])).toBe(plainText);		
 	});
 });
