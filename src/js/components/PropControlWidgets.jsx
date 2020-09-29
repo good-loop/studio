@@ -107,7 +107,7 @@ const PropControlWidgets = () => {
 const CustomControls = () => {
 	return (<SubCard title="Custom Controls">
 		<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
-			<ErrorAlert error="Known issues: styling, add-pill if you leave the control, cannot add pill 22/09/2020" />
+			<ErrorAlert error="Known issues: (1) Styling, (2) add-pill if you leave the control, cannot add pill 22/09/2020. (3) only part of the control is clickable which feels buggy" />
 			<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
 			<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
 		</WidgetExample>
@@ -131,7 +131,6 @@ const DataManipulation = () => {
 				DS value: {DataStore.getValue(prepath)}
 			</WidgetExample>
 			<WidgetExample name="Component given dflt, and no pre-existing value in DataStore. " keywords={baseKeywords}>
-				<ErrorAlert error="Default value is provided to DataStore 22/09/2020" />
 				<PropControl prop="blank" path={['widget','dflt']} label="Blank" dflt="default text provided :)" 
 					help="Expected behaviour: the default gets set as the DS value. Otherwise, if the user left it as-is, then it'd never get set. NB: use placeholder if you want to suggest a value without setting it." 
 				/>
