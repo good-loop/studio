@@ -12,15 +12,42 @@ import { substr } from '../base/utils/miscutils';
 import { assMatch } from '../base/utils/assert';
 import SubCard from './SubCard';
 import MDText from '../base/components/MDText';
+import Counter from '../base/components/Counter';
+import Money from '../base/data/Money';
 
 const baseKeywords = "display";
 
 const DisplayWidgets = () => {
 
 	return (<Card body>
-		<CardTitle><h3>Display</h3></CardTitle>
+		<CardTitle><h3>Display Widgets</h3></CardTitle>
+		<p>Widgets for displaying text and images.</p>
 		<MDCard />
+		<CounterCard />
 	</Card>);
+};
+
+const CounterCard = () => {
+	return (<SubCard title="Counter">
+		<WidgetExample name="Low £ Counter - preservePennies" keywords={baseKeywords}>
+			<p>The amount is: <Counter amount={new Money("£12.3411")} preservePennies /> (should be £12.34).</p>
+		</WidgetExample>
+		<WidgetExample name="No pennies Counter - preservePennies" keywords={baseKeywords}>
+			<p>The amount is: <Counter amount={new Money("£14")} preservePennies /> (should be £14.00).</p>
+		</WidgetExample>
+		<WidgetExample name="High £ Counter - preservePennies" keywords={baseKeywords}>
+			<p>The amount is: <Counter amount={new Money("£56789.12345")} preservePennies /> (should be £56,789.12).</p>
+		</WidgetExample>
+		<WidgetExample name="High £ Counter - 3 sig figs" keywords={baseKeywords}>
+			<p>The amount is: <Counter amount={new Money("£22345.7777")} sigFigs={3} /> (should be £22,300).</p>
+		</WidgetExample>
+		<WidgetExample name="Counter - 2 sig figs + pennies (Broken - but it is an odd usage)" keywords={baseKeywords}>
+			<p>The amount is: <Counter amount={new Money("£987.2222")} sigFigs={2} preservePennies /> (should be £990.00).</p>
+		</WidgetExample>
+		<WidgetExample name="Decimal Counter" keywords={baseKeywords}>
+			<p>The number is: <Counter value={12345.12345} sigFigs={10} /> (should be 12334.12345).</p>
+		</WidgetExample>
+	</SubCard>);
 };
 
 const MDCard = () => {
