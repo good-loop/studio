@@ -14,17 +14,37 @@ import SubCard from './SubCard';
 import MDText from '../base/components/MDText';
 import Counter from '../base/components/Counter';
 import Money from '../base/data/Money';
+import SimpleTable from '../base/components/SimpleTable';
+import Tree from '../base/data/Tree';
 
 const baseKeywords = "display";
 
 const DisplayWidgets = () => {
-
 	return (<Card body>
 		<CardTitle><h3>Display Widgets</h3></CardTitle>
 		<p>Widgets for displaying text and images.</p>
 		<MDCard />
 		<CounterCard />
+		<TableCard />
 	</Card>);
+};
+
+const TableCard = () => {
+	let columns = ['name','city','pet','somethinglongwindedheretouseupspace'];
+	let dataTree = new Tree();
+	let tt = Tree.add(dataTree, {name:"Tech Team", city:"Edinburgh"});
+	Tree.add(tt, {name:"Dan", city:"Edinburgh", pet:"cat", somethinglongwindedheretouseupspace:"wellwhatdoyouknowIthinkthisisalongentry"});
+	let st = Tree.add(dataTree, {name:"Commercial Team", city:"London"});
+	Tree.add(st, {name:"Amy", city:"London"});
+	let st2 = Tree.add(st, {name:"Sales Team", city:"London"});
+	Tree.add(st2, {name:"Jules", city:"London"});
+	Tree.add(st2, {name:"Charley", city:"London"});
+
+	return (<SubCard title="SimpleTable">
+		<WidgetExample name="Tree and Scroll" keywords={baseKeywords}>
+			<SimpleTable columns={columns} dataTree={dataTree} csv scroller hasCollapse />
+		</WidgetExample>
+	</SubCard>);
 };
 
 const CounterCard = () => {
@@ -56,7 +76,7 @@ const MDCard = () => {
 			<MDText source={`<img src='/img/gl-logo/LogoMark/logo.64.png' />`} />
 		</WidgetExample>
 		<WidgetExample name="mdtext image md format" keywords={baseKeywords}>
-			<MDText source={`![](/img/gl-logo/LogoMark/logo.64.png)`} />
+			<MDText source="![](/img/gl-logo/LogoMark/logo.64.png)" />
 		</WidgetExample>
 		<WidgetExample name="mdtext security: no js allowed" keywords={baseKeywords}>
 			<MDText source={`
@@ -67,7 +87,8 @@ const MDCard = () => {
 <button onClick="alert('gotcha');">mwhaha</button>
 
 
-			`} />
+			`}
+			/>
 			<MDText source={`
 
 <button 
@@ -75,7 +96,8 @@ onClick="alert('gotcha');">mwhaha again
 </button>
 
 
-			`} />
+			`}
+			/>
 		</WidgetExample>
 		<WidgetExample name="MDText line-break parsing" keywords={baseKeywords}>
 			<MDText source="This line ends in br-slash<br/>This line ends in br with no slash<br>This line ends in br-space-slash<br />This is the last line" />
