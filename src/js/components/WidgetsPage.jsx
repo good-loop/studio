@@ -12,6 +12,7 @@ import FunctionWidgets from './FunctionWidgets';
 import WidgetExample, { getFilter } from './WidgetExample';
 import PropControlWidgets from './PropControlWidgets';
 import DisplayWidgets from './DisplayWidgets';
+import JSend from '../base/data/JSend';
 
 const WidgetsPage = () => {
 
@@ -44,11 +45,19 @@ const WidgetsPage = () => {
 // ??REfactor into separate files
 const MessageWidgets = () => {
 	const err = new Error("Show this when something goes wrong.");
+	const err2 = new JSend();
+	err2.message = "The computer is unhappy";
+	err2.status = "warning";
+
 	return (<Card body>
 		<CardTitle><h3>Message Widgets</h3></CardTitle>
 		
 		<WidgetExample name='ErrorAlert' keywords='error alert' >
 			<ErrorAlert error={err} />
+		</WidgetExample>
+
+		<WidgetExample name='ErrorAlert - JSend, warning' keywords='warning alert' >
+			<ErrorAlert error={err2} color='warning' />
 		</WidgetExample>
 		
 	</Card>);
