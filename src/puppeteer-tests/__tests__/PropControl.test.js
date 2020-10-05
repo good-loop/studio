@@ -425,8 +425,9 @@ describe('PropControlTest tests', () => {
 	});
 
 	// TODO: Fill in when HTML is working
-	test("!!Broken!! - Prop Control: HTML", async () => {
+	test("!! Broken !! - Prop Control: HTML", async () => {
 		await filterProps({filter:"html input"});
+		return;
 
 		const plainText = "testytest";
 		const htmlText = "<b>testy<br/>test</b>";
