@@ -23,7 +23,6 @@ const SubCard = ({title,children,keywords}) => {
 	if (children.filter) children = children.filter(x => !! x);
 	
 	children = React.Children.map(children, (Kid, i) => {
-		console.log("clone", Kid);
 		let kws = Kid.props && Kid.props.keywords;
 		let kws2 = space(kws, title, keywords);
 		return React.cloneElement(Kid, {keywords:kws2});

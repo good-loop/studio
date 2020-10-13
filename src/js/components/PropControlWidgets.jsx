@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
-import PropControlPills from '../base/components/PropControlPills';
+import PropControls from '../base/components/PropControls';
 import DataStore, { getValue } from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, Card, CardTitle } from 'reactstrap';
 import Wizard, { WizardStage } from '../base/components/WizardProgressWidget';
@@ -148,6 +148,11 @@ const autocompleteOptions = ['Able', 'Alpha', 'Baker', 'Bravo', 'Charlie', 'Delt
 	'Romeo', 'Sierra', 'Sugar', 'Tango', 'Tare', 'Uncle', 'Uniform', 'Victor', 'Whiskey', 'William', 'X-ray',
 	'Yankee', 'Yoke', 'Zebra', 'Zulu'];
 
+const autocompleteObjectOptions = [
+	{id:'apple', name:"Lovely Apples!"},
+	{id:'banana', name:"Yes, we have some Bananas"},
+	{id:'capsicum', name:"Pepper. It's a fruit, alright?"}
+];
 
 const SimpleInputs = () => {
 	return (
@@ -160,11 +165,21 @@ const SimpleInputs = () => {
 					label="Favourite Pizza" help="Use this for text entry" />
 			</WidgetExample>
 
-			<WidgetExample name="Autocomplete" keywords={baseKeywords}>
-				<PropControl type="autocomplete" prop="myautocomp" path={['widget', 'BasicTextPropControl']} staticOptions
+			<WidgetExample name="Autocomplete simple" keywords={baseKeywords}>
+				<PropControl type="autocomplete" prop="myautocomp" path={['widget', 'BasicTextPropControl']}
 					options={autocompleteOptions}
 					help="Type a letter and get an autocomplete option"
 				/>
+			</WidgetExample>
+			<WidgetExample name="Autocomplete Objects" keywords={baseKeywords}>
+				<PropControl type="autocomplete" prop="myobjval" path={['widget', 'AutoComplete']}
+					options={autocompleteObjectOptions}
+					getItemValue={itm => itm.id}
+					renderItem={itm => <div key={itm.id} className="dropdown-item">{itm.name}</div>}
+					shouldItemRender={(itm,val) => JSON.stringify(itm).toLowerCase().includes((val+"").toLowerCase())}
+					help="Filter by Name, but set the ID"
+				/>
+				<code>{DataStore.getValue(['widget','AutoComplete','myobjval'])}</code>
 			</WidgetExample>
 
 			<WidgetExample name="MoneyControl" keywords={baseKeywords}>
