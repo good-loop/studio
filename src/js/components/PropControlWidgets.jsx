@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
 import PropControls from '../base/components/PropControls';
 import DataStore, { getValue } from '../base/plumbing/DataStore';
-import { Input, FormGroup, Label, Form, Card, CardTitle } from 'reactstrap';
+import { Input, FormGroup, Label, Form, Card, CardTitle, Button } from 'reactstrap';
 import Wizard, { WizardStage } from '../base/components/WizardProgressWidget';
 import WidgetExample from './WidgetExample';
 import ErrorAlert from '../base/components/ErrorAlert';
@@ -205,9 +205,19 @@ const SimpleInputs = () => {
 					path={['widget', 'BasicTextPropControl']} help="Put in a URL" />
 			</WidgetExample>
 
-			<WidgetExample name="Text area input" keywords={baseKeywords}>
+			<WidgetExample name="Textarea input" keywords={baseKeywords}>
 				<PropControl type="textarea" prop="mytextarea"
 					path={['widget', 'BasicTextPropControl']} help="Text area help: type something" />
+			</WidgetExample>
+
+			<WidgetExample name="Flex-grow textarea + button" keywords={baseKeywords}>
+				<div className='flex-row'>
+					<div className='flex-grow'>
+						<PropControl type="textarea" prop="mytextarea" className="w-100"
+							path={['widget', 'textarea2']} help="Textarea2 help: type something" />
+					</div>
+					<Button className='btn btn-secondary'>Button</Button>
+				</div>
 			</WidgetExample>
 
 			<WidgetExample name="Date input" keywords={baseKeywords}>
