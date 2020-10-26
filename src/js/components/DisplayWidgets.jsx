@@ -67,6 +67,9 @@ const CounterCard = () => {
 		<WidgetExample name="Decimal Counter" keywords={baseKeywords}>
 			<p>The number is: <Counter value={12345.12345} sigFigs={10} /> (should be 12334.12345).</p>
 		</WidgetExample>
+		<WidgetExample name="Counter - centred text" keywords={baseKeywords}>
+			<p>The number is: <Counter value={12345} centerText /> (should be 12,345).</p>
+		</WidgetExample>
 	</SubCard>);
 };
 
