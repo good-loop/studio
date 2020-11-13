@@ -107,7 +107,7 @@ const PropControlWidgets = () => {
 const CustomControls = () => {
 	return (<SubCard title="Custom Controls">
 		<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
-			<ErrorAlert error="Known issues: (1) Styling, (2) add-pill if you leave the control, cannot add pill 22/09/2020. (3) only part of the control is clickable which feels buggy" />
+			<ErrorAlert error="Known issues: (1) Styling" />
 			<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
 			<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
 		</WidgetExample>
