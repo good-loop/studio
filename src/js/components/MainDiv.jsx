@@ -19,6 +19,7 @@ import TestPage from '../base/components/TestPage';
 import BGPage from './BGPage';
 import CrudPage from './CrudPage';
 import WidgetsPage from './WidgetsPage';
+import PageLayoutsPage from './PageLayoutsPage';
 import MainDivBase from '../base/components/MainDivBase';
 // import RedesignPage from './pages/RedesignPage';
 
@@ -30,6 +31,7 @@ const PAGES = {
 	crud: CrudPage,
 	test: TestPage,
 	bg: BGPage,
+	pagelayouts: PageLayoutsPage,
 };
 
 Login.app = C.app.service;
