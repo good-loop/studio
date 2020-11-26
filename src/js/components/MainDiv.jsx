@@ -21,6 +21,7 @@ import CrudPage from './CrudPage';
 import WidgetsPage from './WidgetsPage';
 import PageLayoutsPage from './PageLayoutsPage';
 import MainDivBase from '../base/components/MainDivBase';
+import LoginTestPage from './LoginTestPage';
 // import RedesignPage from './pages/RedesignPage';
 
 // DataStore
@@ -32,6 +33,7 @@ const PAGES = {
 	test: TestPage,
 	bg: BGPage,
 	pagelayouts: PageLayoutsPage,
+	login: LoginTestPage,
 };
 
 Login.app = C.app.service;
