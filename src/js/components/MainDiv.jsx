@@ -41,7 +41,7 @@ Login.app = C.app.service;
 const MainDiv = () => {
 	return <MainDivBase 
 		pageForPath={PAGES}
-		navbarPages={['widgets', 'test', 'crud']}
+		navbarPages={['widgets', 'pagelayouts', 'login', 'test', 'crud']}
 		defaultPage='widgets'
 	/>;
 }; // ./MainDiv
