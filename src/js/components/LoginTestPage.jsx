@@ -15,12 +15,29 @@ import DisplayWidgets from './DisplayWidgets';
 import JSend from '../base/data/JSend';
 import Editor3ColLayout from '../base/components/Editor3ColLayout';
 import LoginWidget, { LoginLink } from '../base/components/LoginWidget';
+import Person, { getAllXIds, getProfilesNow, localLoad } from '../base/data/Person';
 
 const LoginTestPage = () => {	
 	return <>
 		<LoginLink />
 		<LoginWidget />
+		<ProfilerTestWidget />
 	</>;
+};
+
+const ProfilerTestWidget = () => {
+	let allxids = getAllXIds();
+	let peeps = getProfilesNow();
+	let localPeeps = allxids.map(localLoad);
+	return <WidgetExample name="SearchQuery" keywords="search query" >
+		<h2>XIds</h2>
+		{JSON.stringify(allxids)}
+		<h2>People</h2>
+		{JSON.stringify(peeps)}
+		<h2>Local People</h2>
+		{JSON.stringify(localPeeps)}
+
+	</WidgetExample>;
 };
 
 export default LoginTestPage;
