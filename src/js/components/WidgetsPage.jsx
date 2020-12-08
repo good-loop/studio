@@ -13,6 +13,8 @@ import WidgetExample, { getFilter } from './WidgetExample';
 import PropControlWidgets from './PropControlWidgets';
 import DisplayWidgets from './DisplayWidgets';
 import JSend from '../base/data/JSend';
+import SubCard from './SubCard';
+import DragDropWidgets from './DragDropWidgets';
 
 const WidgetsPage = () => {
 
@@ -37,10 +39,13 @@ const WidgetsPage = () => {
 		<FunctionWidgets />
 
 		<DisplayWidgets />
+
+		<DragDropWidgets />
 	</>
 	);
 
 };
+
 
 // ??REfactor into separate files
 const MessageWidgets = () => {
