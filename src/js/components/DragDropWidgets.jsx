@@ -11,8 +11,9 @@ import WidgetExample from './WidgetExample';
 
 const DragDropWidgets = () => {
 	
+	// NB: Drag-and-drop does not manage your app's data/state -- that is 100% up to you, to do how you prefer.
 	let [list] = useState([]);
-	let textForDraggableId = {d1:"Drag me", d2:"Yeh!"};
+	let textForDraggableId = {d1:"Hello :)", d2:"Yeh!"};
 
 	return (<SubCard title="Drag and Drop">
 
