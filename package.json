@@ -1,6 +1,6 @@
 {
   "name": "good-loop-dev-studio",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "For the design, test, and refactor of widgets",
   "author": "Daniel Winterstein",
   "repository": {
@@ -23,7 +23,6 @@
     "react-autocomplete": "^1.8.1",
     "react-chartjs2": "^1.2.1",
     "react-dom": "^16.13.1",
-    "react-drag-or-touch-drop": "^0.1.0",
     "react-dropzone": "^11.1.0",
     "react-markdown": "^4.3.1",
     "react-scroll": "^1.8.1",

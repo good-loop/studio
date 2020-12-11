@@ -1,8 +1,7 @@
 
-// import { Draggable, DropZone } from 'react-drag-or-touch-drop';
 import React, { useState } from 'react';
-// import { Draggable, DropZone } from '../base/components/DragDrop';
-import { Draggable, DropZone } from 'react-drag-or-touch-drop';
+import { Draggable, DropZone } from '../base/components/DragDrop';
+// import { Draggable, DropZone } from 'react-drag-or-touch-drop';
 import { Badge } from 'reactstrap';
 import DataStore from '../base/plumbing/DataStore';
 import SubCard from './SubCard';
