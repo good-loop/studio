@@ -25,7 +25,7 @@ const DisplayWidgets = () => {
 		<p>Widgets for displaying text and images.</p>
 		<MDCard />
 		<CounterCard />
-		<TableCard />
+		<TableCard />		
 	</Card>);
 };
 
@@ -40,12 +40,29 @@ const TableCard = () => {
 	Tree.add(st2, {name:"Jules", city:"London"});
 	Tree.add(st2, {name:"Charley", city:"London"});
 
+	let cols = "row/col 1 2 3 4 5 6 7 8 9".split(" ")
+	let items = [];
+	for(let i=0; i<5; i++) {
+		let item = {"row":i};
+		items.push(item);
+		for(let j=1; j<10; j++) {
+			item[j] = "row: "+i+" col: "+j;
+		}
+	}
+
 	return (<SubCard title="SimpleTable">
 		<WidgetExample name="Tree and Scroll" keywords={baseKeywords}>
 			<SimpleTable columns={columns} dataTree={dataTree} csv scroller hasCollapse />
 		</WidgetExample>
+
+		<WidgetExample name="Big scrolling table">
+			<SimpleTable scroller style={{width:'300px', height:'300px'}} data={items} columns={cols} />
+		</WidgetExample>
+
 	</SubCard>);
 };
+
+
 
 const CounterCard = () => {
 	return (<SubCard title="Counter">
