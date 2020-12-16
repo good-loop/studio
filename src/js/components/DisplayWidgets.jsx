@@ -40,7 +40,7 @@ const TableCard = () => {
 	Tree.add(st2, {name:"Jules", city:"London"});
 	Tree.add(st2, {name:"Charley", city:"London"});
 
-	let cols = "row/col 1 2 3 4 5 6 7 8 9".split(" ")
+	let cols = "row 1 2 3 4 5 6 7 8 9".split(" ")
 	let items = [];
 	for(let i=0; i<5; i++) {
 		let item = {"row":i};
@@ -56,7 +56,7 @@ const TableCard = () => {
 		</WidgetExample>
 
 		<WidgetExample name="Big scrolling table">
-			<SimpleTable scroller style={{width:'300px', height:'300px'}} data={items} columns={cols} />
+			<div style={{width:'300px', height:'300px'}}><SimpleTable scroller data={items} columns={cols} /></div>
 		</WidgetExample>
 
 	</SubCard>);
