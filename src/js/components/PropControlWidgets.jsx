@@ -9,6 +9,7 @@ import Wizard, { WizardStage } from '../base/components/WizardProgressWidget';
 import WidgetExample from './WidgetExample';
 import ErrorAlert from '../base/components/ErrorAlert';
 import SubCard from './SubCard';
+import { stopEvent } from '../base/utils/miscutils';
 
 let baseKeywords = 'propcontrol input';
 
@@ -100,6 +101,8 @@ const PropControlWidgets = () => {
 		<DataManipulation />
 		
 		<CustomControls />
+
+		<Forms />
 
 	</Card>);
 };
@@ -330,6 +333,24 @@ const Performance = () => {
 				label="Type fast" help="Only the propcontrol should re-render as you type." />			
 			<RenderCounter />
 			<p>Last update of DataStore: <code>{DataStore.getValue("widget","FastPropControl","myfasttext")}</code></p>
+		</WidgetExample>
+	</SubCard>);
+};
+
+const Forms = () => {
+	return (<SubCard title="Forms">
+		<WidgetExample name="submit on return" keywords={baseKeywords}>			
+			<Form className='flex-row' onSubmit={e => stopEvent(e) && alert(JSON.stringify(DataStore.getValue('widget','MyForm')))}>
+				<PropControl className='flex-grow' prop="formtext" path={['widget', 'MyForm']} />
+				<Button className="ml-1" color='primary' type="submit">Submit</Button>
+			</Form>
+			<p>This isn't our widget, but standard use of Form and Button type="submit"</p>
+<code><pre>
+&lt;Form className='flex-row' onSubmit=&gt; 
+	&lt;PropControl className='flex-grow' prop="" path= /&gt; 
+	&lt;Button className="ml-1" color='primary' type="submit"&gt;Submit&lt;/Button&gt; 
+&lt;/Form&gt;
+</pre></code>
 		</WidgetExample>
 	</SubCard>);
 };
