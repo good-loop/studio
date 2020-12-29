@@ -16,6 +16,8 @@ import JSend from '../base/data/JSend';
 import Editor3ColLayout from '../base/components/Editor3ColLayout';
 import LoginWidget, { LoginLink } from '../base/components/LoginWidget';
 import Person, { getAllXIds, getProfilesNow, localLoad } from '../base/data/Person';
+import Login from '../base/youagain';
+import Cookies from 'js-cookie';
 
 const LoginTestPage = () => {	
 	return <>
@@ -26,10 +28,18 @@ const LoginTestPage = () => {
 };
 
 const ProfilerTestWidget = () => {
+	let pVerify = Login.verify();
 	let allxids = getAllXIds();
 	let peeps = getProfilesNow();
 	let localPeeps = allxids.map(localLoad);
 	return <WidgetExample name="SearchQuery" keywords="search query" >
+		<h2>Logged in? {Login.isLoggedIn()? "Yes" : "No"}</h2>
+		<div>User {Login.getUser() && Login.getUser().xid+" "+Login.getUser().jwt}</div>
+		<div>js cookies: 
+			<ul>
+				{Object.keys(Cookies.get()).map(c => <li key={c}>{c} = {Cookies.get(c)}</li>)}
+			</ul>
+		</div>
 		<h2>XIds</h2>
 		{JSON.stringify(allxids)}
 		<h2>People</h2>

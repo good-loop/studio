@@ -6,7 +6,7 @@ import $ from 'jquery';
 import {SJTest, assert, assMatch} from 'sjtest';
 import C from '../C.js';
 
-import Login from 'you-again';
+import Login from '../base/youagain';
 import NGO from '../base/data/NGO';
 
 // Try to avoid using this for modularity!

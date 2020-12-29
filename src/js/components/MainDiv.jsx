@@ -1,6 +1,6 @@
 /* global navigator */
 import React, { Component } from 'react';
-import Login from 'you-again';
+import Login from '../base/youagain';
 import { assert } from 'sjtest';
 
 // Plumbing
@@ -11,8 +11,6 @@ import Crud from '../base/plumbing/Crud'; // Crud is loaded here (but not used h
 import Profiler from '../base/Profiler';
 
 // Templates
-import MessageBar from '../base/components/MessageBar';
-import LoginWidget from '../base/components/LoginWidget';
 
 // Pages
 import TestPage from '../base/components/TestPage';
