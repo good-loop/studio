@@ -5,11 +5,12 @@ import DataStore, {getValue} from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, Card, CardTitle, Button, Row, Col } from 'reactstrap';
 import Wizard, {WizardStage} from '../base/components/WizardProgressWidget';
 import WidgetExample from './WidgetExample';
+import SubCard from './SubCard';
 
 const LayoutWidgets = () => {	
 	const lwpath = ['widget','LayoutWidgets'];
 
-	return (<Card body>
+	return (<SubCard>
 		<CardTitle><h3>Layout Widgets</h3></CardTitle>
 		
 		<WidgetExample name='Wizard' keywords='wizard stages' >
@@ -73,7 +74,7 @@ const LayoutWidgets = () => {
 			</Row>
 		</WidgetExample>
 
-	</Card>);
+	</SubCard>);
 };
 
 export default LayoutWidgets;

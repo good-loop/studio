@@ -15,9 +15,7 @@ let baseKeywords = 'propcontrol input';
 
 const PropControlWidgets = () => {
 	
-	return (<Card body>
-
-		<CardTitle><h3>PropControl Widgets</h3></CardTitle>
+	return (<SubCard title="PropControl Widgets">
 
 		<SimpleInputs />
 
@@ -104,7 +102,7 @@ const PropControlWidgets = () => {
 
 		<Forms />
 
-	</Card>);
+	</SubCard>);
 };
 
 const CustomControls = () => {
