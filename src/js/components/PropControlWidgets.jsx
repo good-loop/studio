@@ -264,6 +264,13 @@ const Selectors = () => {
 				<pre>{JSON.stringify(DataStore.getValue('widget','BasicTextPropControl','mycheckboxes'))}</pre>
 			</WidgetExample>
 			
+			<WidgetExample name="Checkboxes type=checkboxObject aka Map" keywords={baseKeywords}>
+				<PropControl type="checkboxObject" label="We accept" options={['Cash', 'Cheque', 'Card','Cheque with Card']} 
+					prop="mycheckboxobj"
+					path={['widget', 'BasicTextPropControl']} help="Checkboxes help would go here." />
+				<pre>{JSON.stringify(DataStore.getValue('widget','BasicTextPropControl','mycheckboxobj'))}</pre>
+			</WidgetExample>
+
 			<WidgetExample name="Selection control" keywords={baseKeywords}>
 				<PropControl type="select" prop="myselect" options={["fee", "fi", "fo", "fum"]} labels={["Fee", "Fi", "Fo", "Fum"]}
 					path={['widget', 'BasicTextPropControl']} help="Selection help: choose one" />
