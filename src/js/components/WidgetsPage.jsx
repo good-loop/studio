@@ -4,7 +4,7 @@
  */
 import React, {useState} from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
-import ErrorAlert from '../base/components/ErrorAlert';
+import ErrAlert from '../base/components/ErrAlert';
 import DataStore from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, CardTitle, Card } from 'reactstrap';
 import LayoutWidgets from './LayoutWidgets';
@@ -57,12 +57,12 @@ const MessageWidgets = () => {
 	return (<Card body>
 		<CardTitle><h3>Message Widgets</h3></CardTitle>
 		
-		<WidgetExample name='ErrorAlert' keywords='error alert' >
-			<ErrorAlert error={err} />
+		<WidgetExample name='ErrAlert' keywords='error alert' >
+			<ErrAlert error={err} />
 		</WidgetExample>
 
-		<WidgetExample name='ErrorAlert - JSend, warning' keywords='warning alert' >
-			<ErrorAlert error={err2} color='warning' />
+		<WidgetExample name='ErrAlert - JSend, warning' keywords='warning alert' >
+			<ErrAlert error={err2} color='warning' />
 		</WidgetExample>
 		
 	</Card>);

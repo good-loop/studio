@@ -7,7 +7,7 @@ import DataStore, { getValue } from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, Card, CardTitle, Button } from 'reactstrap';
 import Wizard, { WizardStage } from '../base/components/WizardProgressWidget';
 import WidgetExample from './WidgetExample';
-import ErrorAlert from '../base/components/ErrorAlert';
+import ErrAlert from '../base/components/ErrAlert';
 import SubCard from './SubCard';
 import { stopEvent } from '../base/utils/miscutils';
 
@@ -62,7 +62,7 @@ const PropControlWidgets = () => {
 			</WidgetExample>
 
 			<WidgetExample name="Key set input" keywords={baseKeywords}>
-				<ErrorAlert error="Can add entry before entering a value, yielding undefined key 22/09/2020" />
+				<ErrAlert error="Can add entry before entering a value, yielding undefined key 22/09/2020" />
 				<PropControl type="keyset" prop="mykeyset"
 					path={['widget', 'BasicTextPropControl']} help="Key set help goes here" />
 			</WidgetExample>
@@ -85,7 +85,7 @@ const PropControlWidgets = () => {
 			</WidgetExample>
 
 			<WidgetExample name="JSON input" keywords={baseKeywords}>
-				<ErrorAlert error="Throws error on attempting to edit 22/09/2020" />
+				<ErrAlert error="Throws error on attempting to edit 22/09/2020" />
 				<PropControl type="json" prop="myjson"
 					path={['widget', 'BasicTextPropControl']} help="JSON help: type some JSON" />
 			</WidgetExample>
@@ -108,7 +108,7 @@ const PropControlWidgets = () => {
 const CustomControls = () => {
 	return (<SubCard title="Custom Controls">
 		<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
-			<ErrorAlert error="Known issues: (1) Styling" />
+			<ErrAlert error="Known issues: (1) Styling" />
 			<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
 			<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
 		</WidgetExample>
@@ -258,10 +258,12 @@ const Selectors = () => {
 			</WidgetExample>
 
 			<WidgetExample name="Checkboxes" keywords={baseKeywords}>
-				<PropControl type="checkboxes" label="We accept" options={['Cash', 'Cheque', 'Card']} prop="mycheckbox"
+				<PropControl type="checkboxes" label="We accept" options={['Cash', 'Cheque', 'Card','Cheque with Card']} 
+					prop="mycheckboxes"
 					path={['widget', 'BasicTextPropControl']} help="Checkboxes help would go here." />
+				<pre>{JSON.stringify(DataStore.getValue('widget','BasicTextPropControl','mycheckboxes'))}</pre>
 			</WidgetExample>
-
+			
 			<WidgetExample name="Selection control" keywords={baseKeywords}>
 				<PropControl type="select" prop="myselect" options={["fee", "fi", "fo", "fum"]} labels={["Fee", "Fi", "Fo", "Fum"]}
 					path={['widget', 'BasicTextPropControl']} help="Selection help: choose one" />

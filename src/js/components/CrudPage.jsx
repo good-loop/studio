@@ -2,18 +2,11 @@
  * A convenient place for ad-hoc widget tests.
  * This is not a replacement for proper unit testing - but it is a lot better than debugging via repeated top-level testing.
  */
-import React, {useState} from 'react';
-import PropControl, { FormControl } from '../base/components/PropControl';
-import ErrorAlert from '../base/components/ErrorAlert';
-import DataStore, { getDataPath } from '../base/plumbing/DataStore';
-import { Input, FormGroup, Label, Form, CardTitle, Card } from 'reactstrap';
-import LayoutWidgets from './LayoutWidgets';
-import WidgetExample, { getFilter } from './WidgetExample';
-import PropControlWidgets from './PropControlWidgets';
-import Misc from '../base/components/Misc';
-import SavePublishDeleteEtc from '../base/components/SavePublishDeleteEtc';
-import Crud from '../base/plumbing/Crud';
+import React from 'react';
 import C from '../base/CBase';
+import PropControl from '../base/components/PropControl';
+import SavePublishDeleteEtc from '../base/components/SavePublishDeleteEtc';
+import { getDataPath } from '../base/plumbing/DataStore';
 import ActionMan from '../plumbing/ActionMan';
 
 const CrudPage = () => {
