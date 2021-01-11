@@ -32,7 +32,7 @@ const CrudWidgets = () => {
 const SelectDataItemCard = () => {
 	return (<SubCard title="CRUD select">
 		<WidgetExample name="Select NGO" keywords={baseKeywords}>
-			<PropControl prop='selectngo' path={['misc','crudtest']} type='DataItem' diType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
+			<PropControl prop='selectngo' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngo'))}</pre>
 		</WidgetExample>
 
