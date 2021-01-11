@@ -15,6 +15,7 @@ import DisplayWidgets from './DisplayWidgets';
 import JSend from '../base/data/JSend';
 import SubCard from './SubCard';
 import DragDropWidgets from './DragDropWidgets';
+import CrudWidgets from './CrudWidgets';
 
 const WidgetsPage = () => {
 
@@ -30,6 +31,8 @@ const WidgetsPage = () => {
 
 		<hr/>
 
+		<CrudWidgets />
+		
 		<PropControlWidgets />
 
 		<MessageWidgets />
@@ -41,6 +44,7 @@ const WidgetsPage = () => {
 		<DisplayWidgets />
 
 		<DragDropWidgets />
+		
 	</>
 	);
 
