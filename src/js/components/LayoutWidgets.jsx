@@ -28,10 +28,10 @@ const LayoutWidgets = () => {
 			</Wizard>
 		</WidgetExample>
 
-		<WidgetExample name='Compact Form Layout' keywords='' >
+		<WidgetExample name='form-compact Layout' keywords='' >
 			<Row>
 				<Col>
-					<div className='compact'>
+					<div className='form-compact'>
 						<PropControl prop='compact-1' label='My first compact label' value='Some text' />
 						<PropControl prop='compact-2' label='Another label with some help' help='How can we help you?' />
 						<PropControl prop='compact-3' label='Checkbox 1' type='checkbox' warning='Oh dear, blah blah' />

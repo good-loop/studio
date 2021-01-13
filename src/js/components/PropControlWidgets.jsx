@@ -184,19 +184,27 @@ const SimpleInputs = () => {
 			</WidgetExample>
 
 			<WidgetExample name="MoneyControl" keywords={baseKeywords}>
-				<PropControl type="Money" prop="mymoney" currency="GBT"
+				<PropControl type="Money" prop="mymoney" currency="GBP"
 					path={['widget', 'BasicMoneyPropControl']} help="Money help would go here." />
 					<code>{JSON.stringify(DataStore.getValue("widget",'BasicMoneyPropControl','mymoney'))}</code>
 			</WidgetExample>
 
 			<WidgetExample name="BlankMoneyControl" keywords={baseKeywords}>
-				<PropControl type="Money" prop="damoney" currency="GBT" min={new Money(5)} max={new Money(100)}
+				<PropControl type="Money" prop="damoney" currency="GBP" min={new Money(5)} max={new Money(100)}
 					path={['widget', 'BlankMoneyBug']} />
 					<code>{JSON.stringify(DataStore.getValue("widget",'BlankMoneyBug','damoney'))}</code>
 			</WidgetExample>
 
+			<WidgetExample name="MoneyControl with value" keywords={baseKeywords}>
+				{DataStore.getValue("widget",'HasMoneyBug','damoney')? null	// set a value to begin with
+					: DataStore.setValue(["widget",'HasMoneyBug','damoney'], new Money(12.34)) && null
+				}
+				<PropControl type="Money" prop="damoney" path={['widget', 'HasMoneyBug']} />
+					<code>{JSON.stringify(DataStore.getValue("widget",'HasMoneyBug','damoney'))}</code>
+			</WidgetExample>
+
 			<WidgetExample name="Money with min:5 max:100" keywords={baseKeywords}>
-				<PropControl type="Money" prop="minmaxmoney" currency="GBT" min={new Money(5)} max={new Money(100)}
+				<PropControl type="Money" prop="minmaxmoney" currency="GBP" min={new Money(5)} max={new Money(100)}
 					path={['widget', 'MoneyControl']} />
 					<code>{JSON.stringify(DataStore.getValue("widget",'MoneyControl','minmaxmoney'))}</code>
 			</WidgetExample>
