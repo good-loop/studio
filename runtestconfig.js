@@ -13,6 +13,11 @@ const runtestConfig = {
     gitlogPath: "/build/gitlog.txt"
 };
 
+const sitePrefixes = {
+	prod:"",
+	test:""
+};
+
 module.exports = {
-	config: {...runtestConfig} // return copy of object to preserve original config
+	config: {...runtestConfig, sitePrefixes:sitePrefixes} // return copy of object to preserve original config
 };

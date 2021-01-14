@@ -66,7 +66,11 @@ process.env.__CONFIGURATION = JSON.stringify(config);
 process.argv = argv;
 
 const isLocal = config.site === "local";
-const infoURL = (isLocal ? "http://" : "https://") + (config.site === "prod" ? "" : config.site) + config.appURL + config.gitlogPath;
+let site = config.sitePrefixes[config.site];
+if (site === undefined) {
+	site = config.site;
+}
+const infoURL = (isLocal ? "http://" : "https://") + site + config.appURL + config.gitlogPath;
 
 const runTest = () => {
 	shell.exec(`npm run test ${testPath} ${runInBand}`);
