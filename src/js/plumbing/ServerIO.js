@@ -31,7 +31,7 @@ ServerIO.PORTAL_DOMAIN = 'https://portal.good-loop.com'; // use in testing to ac
 ServerIO.APIBASE = ServerIO.PORTAL_DOMAIN; // My-Loop has no backend of its own - just use portal domain matching local/test/prod
 
 ServerIO.DATALOG_ENDPOINT = `${C.HTTPS}://${C.SERVER_TYPE}lg.good-loop.com/data`;
-ServerIO.DATALOG_ENDPOINT = 'https://testlg.good-loop.com/data';
+// ServerIO.DATALOG_ENDPOINT = 'https://testlg.good-loop.com/data';
 // ServerIO.DATALOG_ENDPOINT = 'https://lg.good-loop.com/data';
 
 // ServerIO.PROFILER_ENDPOINT = `${C.HTTPS}://${C.SERVER_TYPE}profiler.good-loop.com`;

@@ -16,6 +16,7 @@ import JSend from '../base/data/JSend';
 import SubCard from './SubCard';
 import DragDropWidgets from './DragDropWidgets';
 import CrudWidgets from './CrudWidgets';
+import DataLogTestsCard from './DataLogTestsCard';
 
 const WidgetsPage = () => {
 
@@ -30,6 +31,8 @@ const WidgetsPage = () => {
 		</FormGroup>
 
 		<hr/>
+
+		<DataLogTestsCard />
 
 		<CrudWidgets />
 		
