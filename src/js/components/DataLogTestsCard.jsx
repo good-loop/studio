@@ -18,7 +18,7 @@ import SimpleTable from '../base/components/SimpleTable';
 import Tree from '../base/data/Tree';
 import C from '../base/CBase';
 import pivot from 'data-pivot';
-import PropControlDataItem from '../base/components/PropControlDataItem';
+
 import { getDataLogData, pivotDataLogData } from '../base/plumbing/DataLog';
 
 const baseKeywords = "datalog lg";
