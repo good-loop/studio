@@ -19,6 +19,8 @@ import Tree from '../base/data/Tree';
 import C from '../base/CBase';
 
 import PropControlDataItem from '../base/components/PropControlDataItem';
+import { nonce } from '../base/data/DataClass';
+import KStatus from '../base/data/KStatus';
 
 const baseKeywords = "crud";
 
@@ -35,7 +37,10 @@ const SelectDataItemCard = () => {
 			<PropControl prop='selectngo' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngo'))}</pre>
 		</WidgetExample>
-
+		<WidgetExample name="Select Test Agency canCreate" keywords={baseKeywords}>
+			<PropControl canCreate prop='selectagency' path={['misc','crudtest']} type='DataItem' itemType='Agency' status={KStatus.PUB_OR_DRAFT} />
+			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectagency'))}</pre>
+		</WidgetExample>
 
 	</SubCard>);
 };

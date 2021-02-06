@@ -17,7 +17,7 @@ C.app = {
 	tsncs: "",
 };
 
-C.TYPES = new Enum("Testthingy User Money Person NGO");
+C.TYPES = new Enum("Testthingy User Money Person NGO Agency");
 C.ROLES = new Enum("visitor admin");
 C.CAN = new Enum("view edit admin sudo");
 // setup roles
