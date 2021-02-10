@@ -20,6 +20,7 @@ import WidgetsPage from './WidgetsPage';
 import PageLayoutsPage from './PageLayoutsPage';
 import MainDivBase from '../base/components/MainDivBase';
 import LoginTestPage from './LoginTestPage';
+import PersonTestPage from './PersonTestPage';
 // import RedesignPage from './pages/RedesignPage';
 
 // DataStore
@@ -31,6 +32,7 @@ const PAGES = {
 	test: TestPage,
 	bg: BGPage,
 	pagelayouts: PageLayoutsPage,
+	person: PersonTestPage,
 	login: LoginTestPage,
 };
 
@@ -39,7 +41,7 @@ Login.app = C.app.service;
 const MainDiv = () => {
 	return <MainDivBase 
 		pageForPath={PAGES}
-		navbarPages={['widgets', 'pagelayouts', 'login', 'test', 'crud']}
+		navbarPages={['widgets', 'pagelayouts', 'login', 'test', 'crud', 'person']}
 		defaultPage='widgets'
 	/>;
 }; // ./MainDiv

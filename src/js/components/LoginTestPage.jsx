@@ -5,7 +5,8 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import LoginWidget, { LoginLink } from '../base/components/LoginWidget';
-import { getAllXIds, getProfilesNow, localLoad } from '../base/data/Person';
+import { getAllXIds, getProfilesNow} from '../base/data/Person';
+import { localLoad } from '../base/plumbing/Crud';
 import Login from '../base/youagain';
 import WidgetExample from './WidgetExample';
 
