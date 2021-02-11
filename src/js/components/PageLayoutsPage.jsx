@@ -3,7 +3,7 @@
  * This is not a replacement for proper unit testing - but it is a lot better than debugging via repeated top-level testing.
  */
 import React from 'react';
-import { Alert } from 'reactstrap';
+import { Alert, Card, CardTitle, Container } from 'reactstrap';
 import Editor3ColLayout from '../base/components/Editor3ColLayout';
 import PropControl from '../base/components/PropControl';
 import DataStore from '../base/plumbing/DataStore';
@@ -13,13 +13,23 @@ const PageLayoutsPage = () => {
 	if ( ! layout) {
 		return (<ul>
 			<li><a href='#pagelayouts/editor3col'>Editor3Col</a></li>
+			<li><a href='#pagelayouts/fullwidth'>Full Width</a></li>
 		</ul>);
 	}
 	switch(layout) {
 	case "editor3col":
 		return <Editor3ColEg />;
+	case "fullwidth":
+		return <FullWidth />;
 	}
 	return <Alert>Huh? <code>{layout}</code></Alert>
+};
+
+const FullWidth = () => {
+	return (<div>
+		<Card className="w-100"><CardTitle>Part width</CardTitle>Hello</Card>
+		<Card className="full-width"><CardTitle>Full width</CardTitle>Hello But Bigger</Card>
+	</div>);
 };
 
 const LoremIpsum = ({words=100}) => {
