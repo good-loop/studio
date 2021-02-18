@@ -38,13 +38,18 @@ const SelectDataItemCard = () => {
 		return normaliseSogiveId(v);
 	};
 	return (<SubCard title="CRUD select DataItem">
-		<WidgetExample name="Select NGO" keywords={baseKeywords}>
-			<PropControl modelValueFromInput={norm} prop='selectngo' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
+		<WidgetExample name="Select NGO selectngo" keywords={baseKeywords}>
+			<PropControl modelValueFromInput={norm} prop='selectngo' path={['misc','crudtest']} type='DataItem' itemType='NGO' 
+				status={C.KStatus.PUBLISHED} detail='lite' sort='id' pageSize={5} />
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngo'))}</pre>
 		</WidgetExample>
 		<WidgetExample name="NGO - preserve old bad format value" keywords={baseKeywords}>
 			<PropControl modelValueFromInput={norm} prop='selectngoold' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngoold'))}</pre>
+		</WidgetExample>
+		<WidgetExample name="Select NGO embed" keywords={baseKeywords}>
+			<PropControl embed modelValueFromInput={norm} prop='selectngoEmbed' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
+			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngoEmbed'))}</pre>
 		</WidgetExample>
 		<WidgetExample name="Select Test Agency canCreate" keywords={baseKeywords}>
 			<PropControl canCreate prop='selectagency' path={['misc','crudtest']} type='DataItem' itemType='Agency' status={KStatus.PUB_OR_DRAFT} />
