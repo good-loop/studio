@@ -21,6 +21,7 @@ import C from '../base/CBase';
 import PropControlDataItem from '../base/components/PropControlDataItem';
 import { nonce } from '../base/data/DataClass';
 import KStatus from '../base/data/KStatus';
+import ListLoad from '../base/components/ListLoad';
 
 const baseKeywords = "crud";
 
@@ -28,10 +29,19 @@ const CrudWidgets = () => {
 	return (<Card body>
 		<CardTitle><h3>CRUD Widgets</h3></CardTitle>
 		<SelectDataItemCard />
+		<ListLoadCard />
 	</Card>);
 };
 
 DataStore.setValue(['misc','crudtest','selectngoold'], "Foo Bar");
+
+const ListLoadCard = () => {
+	return (<SubCard title="CRUD ListLoad Agency">
+		<ListLoad hideTotal type="Agency" status="ALL_BAR_TRASH" unwrapped 
+			pageSize={5}
+		/>
+						</SubCard>);
+};
 
 const SelectDataItemCard = () => {
 	let norm = v => {
@@ -55,7 +65,6 @@ const SelectDataItemCard = () => {
 			<PropControl canCreate prop='selectagency' path={['misc','crudtest']} type='DataItem' itemType='Agency' status={KStatus.PUB_OR_DRAFT} />
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectagency'))}</pre>
 		</WidgetExample>
-
 	</SubCard>);
 };
 
