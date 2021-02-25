@@ -42,13 +42,27 @@ const IconCard = () => {
 	memo: "📝",
 	});
 
+	let appNames = "twitter facebook instagram linkedin google chrome".split(" ");
+
 	return <SubCard title="Icons and Emoji">
 		<p>
 			Maybe in colour: {iconNames.map(n => <span key={n}>{n}: <Icon name={n} />, </span>)}
 		</p>
 
+		<p className="bg-info">White and medium: 
+			{iconNames.map(n => <span key={n}>{n}: <Icon color="white" size="" name={n} />, </span>)}
+		</p>
+
 		<p>Black and Large: 
 			{iconNames.map(n => <span key={n}>{n}: <Icon color="black" size="lg" name={n} />, </span>)}
+		</p>
+
+		<p>Small logos: 
+			{appNames.map(n => <span key={n}>{n}: <Icon size="sm" name={n} />, </span>)}
+		</p>
+
+		<p>Large logos: 
+			{appNames.map(n => <span key={n}>{n}: <Icon size="lg" name={n} />, </span>)}
 		</p>
 	</SubCard>;
 };
