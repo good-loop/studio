@@ -16,6 +16,7 @@ import Counter from '../base/components/Counter';
 import Money from '../base/data/Money';
 import SimpleTable from '../base/components/SimpleTable';
 import Tree from '../base/data/Tree';
+import Icon from '../base/components/Icon';
 
 const baseKeywords = "display";
 
@@ -23,10 +24,33 @@ const DisplayWidgets = () => {
 	return (<Card body>
 		<CardTitle><h3>Display Widgets</h3></CardTitle>
 		<p>Widgets for displaying text and images.</p>
+		<IconCard />
 		<MDCard />
 		<CounterCard />
-		<TableCard />		
+		<TableCard />				
 	</Card>);
+};
+
+const IconCard = () => {
+	let iconNames = Object.keys(
+		// copy-paste from Icon.jsx
+		{camera: "📷",
+	trashcan: "🗑", //&#x1f5d1;
+	info: "🛈", // ℹ or 🛈
+	".txt":"🖹",
+	tick: "✔",
+	memo: "📝",
+	});
+
+	return <SubCard title="Icons and Emoji">
+		<p>
+			Maybe in colour: {iconNames.map(n => <span key={n}>{n}: <Icon name={n} />, </span>)}
+		</p>
+
+		<p>Black and Large: 
+			{iconNames.map(n => <span key={n}>{n}: <Icon color="black" size="lg" name={n} />, </span>)}
+		</p>
+	</SubCard>;
 };
 
 const TableCard = () => {
