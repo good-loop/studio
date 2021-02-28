@@ -32,12 +32,15 @@ let once = false;
 
 
 const AddClaimGetProfileRaceTest = () => {
+	// Note: This can include localLoads which are instant
 	let persons = getProfilesNow();
 
-	if (persons.length && ! once) {
+	// Do before a profile can be loaded. Then check: did the load delete this local edit?
+	if (persons.length && ! once) {		
 		let img = randomPick(["https://i.pinimg.com/564x/56/a9/7a/56a97ab064716fc08e680bb1b5fb9f7a.jpg","https://i.pinimg.com/564x/32/e6/20/32e620377da60f8e79fb3db5452f02a2.jpg"]);
 		setClaimValue({persons, key:"img", value:img});
 		setClaimValue({persons, key:"name", value:"Foo"});
+		console.log("Set name, img", JSON.stringify(persons));
 		once = true;
 	}
 
