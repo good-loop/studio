@@ -13,6 +13,13 @@ import { randomPick } from '../base/utils/miscutils';
 import Login from '../base/youagain';
 import WidgetExample from './WidgetExample';
 
+// expose for debug / tests
+window.Person = Person;
+window.getAllXIds = getAllXIds;
+window.getProfilesNow = getProfilesNow;
+window.setClaimValue = setClaimValue;
+window.getClaimValue = getClaimValue;
+
 const PersonTestPage = () => {	
 	return <>
 		<AddClaimGetProfileRaceTest />
@@ -22,6 +29,7 @@ const PersonTestPage = () => {
 ServerIO.USE_PROFILER = true;
 
 let once = false;
+
 
 const AddClaimGetProfileRaceTest = () => {
 	let persons = getProfilesNow();
