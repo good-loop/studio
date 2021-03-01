@@ -21,6 +21,7 @@ import PageLayoutsPage from './PageLayoutsPage';
 import MainDivBase from '../base/components/MainDivBase';
 import LoginTestPage from './LoginTestPage';
 import PersonTestPage from './PersonTestPage';
+import SearchQueryTestPage from './SearchQueryTestPage';
 // import RedesignPage from './pages/RedesignPage';
 
 // DataStore
@@ -33,6 +34,7 @@ const PAGES = {
 	bg: BGPage,
 	pagelayouts: PageLayoutsPage,
 	person: PersonTestPage,
+	searchquery: SearchQueryTestPage,
 	login: LoginTestPage,
 };
 
