@@ -26,10 +26,10 @@ describe('PersonTest tests', () => {
 	const testBaseUrl = APIBASE +"/#person";
 	// setup console logging
 	page.on("console", e => {
-		console.log("page.console.1", e.text());
+		//console.log("page.console.1", e.text());
 	});
 	const loadPage = async () => {
-		console.log("goto "+testBaseUrl); // goto http://localstudio.good-loop.com/#person
+		//console.log("goto "+testBaseUrl); // goto http://localstudio.good-loop.com/#person
 		await page.goto(testBaseUrl);
 		await expect(page.title()).resolves.toMatch('Good-Loop Design Studio');
 	};
@@ -38,7 +38,7 @@ describe('PersonTest tests', () => {
 	// Loading the page every test causes timeouts
 	test('Can open PropControlTest and login', async () => {
 		await loadPage();
-	}, 60000);
+	});
 
 
 	test('TODO Person edit then load result: merge', async () => {		
@@ -46,7 +46,7 @@ describe('PersonTest tests', () => {
 		let persons = await page.evaluate(() => {
 			return getProfilesNow();
 		});
-		console.log("getProfilesNow -> ",persons);
+		//console.log("getProfilesNow -> ",persons);
 	});
 
 });

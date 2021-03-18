@@ -13,7 +13,11 @@ async function filterProps ({filter, name, confirmSelector, Selectors=CommonSele
 		name = filter.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase();
 	}
 	// wait for filter then type string with delay per key
-	await page.waitForSelector(Selectors.Filter);
+    await page.waitForSelector(Selectors.Filter);
+    // Close remenant errors if in the way
+    if (await page.$('.MessageBar .alert-danger') !== null) {
+        await page.click('.MessageBar .alert-danger button.close');
+    }
 	// 3 clicks selects all text - aka clear last input
 	await page.click(Selectors.Filter, {clickCount: 3});
 	await page.keyboard.press("Backspace");
