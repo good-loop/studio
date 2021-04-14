@@ -3,7 +3,6 @@
  *
  */
 import $ from 'jquery';
-import {SJTest, assert, assMatch} from 'sjtest';
 import C from '../C.js';
 
 import Login from '../base/youagain';

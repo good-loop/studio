@@ -129,7 +129,27 @@ const CounterCard = () => {
 };
 
 const MDCard = () => {
+	const taskPath = ['misc','markdown', 'taskText'];
+	let taskText = DataStore.getValue(taskPath) || DataStore.setValue(taskPath, `
+Task list
+
+- [ ] A task *with* **bold** text.
+- [x] A done task with a <http://example.com> link
+
+Just a List
+
+- A normal list
+- *just a list item*
+
+Yeh :)
+`);
+
 	return (<SubCard title="Markdown">
+		<WidgetExample name="mdtext markdown-tasks" keywords={baseKeywords}>
+			<MDText 
+			setSource={newText => DataStore.setValue(taskPath, newText)}						
+			source={taskText} />
+		</WidgetExample>
 		<WidgetExample name="mdtext image tag" keywords={baseKeywords}>
 			<MDText source={`<img src='/img/gl-logo/LogoMark/logo.64.png' />`} />
 		</WidgetExample>

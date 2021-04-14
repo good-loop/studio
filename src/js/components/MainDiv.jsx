@@ -1,7 +1,6 @@
 /* global navigator */
 import React, { Component } from 'react';
 import Login from '../base/youagain';
-import { assert } from 'sjtest';
 
 // Plumbing
 import DataStore from '../base/plumbing/DataStore';
