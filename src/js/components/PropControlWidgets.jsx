@@ -157,9 +157,7 @@ const autocompleteObjectOptions = [
 
 const SimpleInputs = () => {
 	return (
-		<Card body>
-
-			<CardTitle><h4>Simple Values</h4></CardTitle>
+		<SubCard title="Simple Values">
 
 			<WidgetExample name="Basic text input" keywords={baseKeywords}>
 				<PropControl prop="mybasictext" path={['widget', 'BasicTextPropControl']}
@@ -246,7 +244,13 @@ const SimpleInputs = () => {
 					label="Date" help="Take a date" />
 			</WidgetExample>
 
-		</Card>);
+
+		<WidgetExample name="Color input" keywords={baseKeywords}>
+			<PropControl type="color" prop="mycol" path={['widget', 'ColourControl']}
+				label="Color" />
+			{DataStore.getValue(['widget','ColourControl','mycol'])}
+		</WidgetExample>
+	</SubCard>);
 };
 
 const Selectors = () => {

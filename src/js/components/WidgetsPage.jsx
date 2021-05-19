@@ -33,8 +33,6 @@ const WidgetsPage = () => {
 		<hr/>
 
 		<DataLogTestsCard />
-
-		<CrudWidgets />
 		
 		<PropControlWidgets />
 
@@ -47,6 +45,8 @@ const WidgetsPage = () => {
 		<DisplayWidgets />
 
 		<DragDropWidgets />
+
+		<CrudWidgets />
 		
 	</>
 	);
