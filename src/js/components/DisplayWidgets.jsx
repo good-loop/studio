@@ -180,6 +180,9 @@ onClick="alert('gotcha');">mwhaha again
 		<WidgetExample name="MDText line-break parsing" keywords={baseKeywords}>
 			<MDText source="This line ends in br-slash<br/>This line ends in br with no slash<br>This line ends in br-space-slash<br />This is the last line" />
 		</WidgetExample>
+		<WidgetExample name="MDText GFM - should have strikethrough" keywords={baseKeywords}>
+			<MDText source="Hello ~blah~" />
+		</WidgetExample>
 	</SubCard>);
 };
 
