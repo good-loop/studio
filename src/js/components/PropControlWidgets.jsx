@@ -38,6 +38,13 @@ const PropControlWidgets = () => {
 				<PropControl type="videoUpload" prop="myvidupload"
 					path={['widget', 'BasicTextPropControl']} help="Video upload help goes here" />
 			</WidgetExample>
+
+			<WidgetExample name="Image upload with extra controls" keywords={baseKeywords}>
+				<p>"No auto-scale" - Add a hash marker which, in contexts which use MediaCacheServlet, tells the displaying component to load the original, unscaled version of the image.</p>
+				<p>"Circle crop" - Add a hash marker which tells the displaying component how to scale the image to fit in a circular container.</p>
+				<PropControl type="imgUpload" prop="myimgupload2" cacheControls circleCrop
+					path={['widget', 'BasicTextPropControl']} help="Image upload help goes here" />
+			</WidgetExample>
 		</SubCard>
 
 		{/* TODO: Throws error on mounting but is deprecated in place of EntrySet, so didn't dig any further */}
