@@ -36,11 +36,11 @@ const CrudWidgets = () => {
 DataStore.setValue(['misc','crudtest','selectngoold'], "Foo Bar");
 
 const ListLoadCard = () => {
-	return (<SubCard title="CRUD ListLoad Agency">
-		<ListLoad hideTotal type="Agency" status="ALL_BAR_TRASH" unwrapped 
-			pageSize={5}
+	return (<SubCard title="CRUD ListLoad Agency canDelete canCopy">
+		<ListLoad hideTotal type="Agency" status="ALL_BAR_TRASH" 
+			pageSize={5} canDelete canCopy
 		/>
-						</SubCard>);
+	</SubCard>);
 };
 
 const SelectDataItemCard = () => {
