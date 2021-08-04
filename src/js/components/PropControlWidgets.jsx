@@ -251,6 +251,11 @@ const SimpleInputs = () => {
 					label="Date" help="Take a date" />
 			</WidgetExample>
 
+			<WidgetExample name="Checkbox input" keywords={baseKeywords}>
+				<PropControl type="checkbox" prop="ilikecheckboxes" path={['widget', 'CheckboxPropControl']}
+					label="I like checkboxes" help="Well it is up to you" />
+			</WidgetExample>			
+
 
 		<WidgetExample name="Color input" keywords={baseKeywords}>
 			<PropControl type="color" prop="mycol" path={['widget', 'ColourControl']}
