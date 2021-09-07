@@ -11,3 +11,4 @@ web/style/*.css
 logs
 .settings
 node.run.tests.for.studio.log
+package-lock.json
