@@ -17,6 +17,7 @@ import Money from '../base/data/Money';
 import SimpleTable from '../base/components/SimpleTable';
 import Tree from '../base/data/Tree';
 import Icon from '../base/components/Icon';
+import DynImg from '../base/components/DynImg';
 
 const baseKeywords = "display";
 
@@ -24,12 +25,23 @@ const DisplayWidgets = () => {
 	return (<Card body>
 		<CardTitle><h3>Display Widgets</h3></CardTitle>
 		<p>Widgets for displaying text and images.</p>
+		<DynImgCard />
 		<IconCard />
 		<MDCard />
 		<CounterCard />
 		<TableCard />				
 	</Card>);
 };
+
+
+const DynImgCard = () => {
+	return <SubCard title="DynImg - dynamic image scaling">
+		<p>Check the elements used - they should be scaled to the size or a bit bigger (and hence avoid the 1.7mb raw file)</p>
+		<DynImg src="https://media.good-loop.com/uploads/raw/abae-1920301059708066881.png" style={{width:"200px"}} />
+		<DynImg src="https://media.good-loop.com/uploads/raw/abae-1920301059708066881.png" style={{width:"800px"}} />
+	</SubCard>;
+};
+
 
 const IconCard = () => {
 	let iconNames = Object.keys(
