@@ -20,7 +20,11 @@ const baseConfig = {
 	devtool: 'source-map',
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx'],
-		symlinks: false
+		symlinks: false,
+		alias: {
+			querystring: "querystring-es3",
+			util: 'util'
+		}
 	},
 	module: {
 		rules: [
@@ -37,7 +41,8 @@ const baseConfig = {
 					plugins: [
 						'@babel/plugin-transform-typescript',
 						'@babel/plugin-proposal-object-rest-spread',
-						'babel-plugin-const-enum'
+						'babel-plugin-const-enum',
+						'@babel/plugin-proposal-private-methods'
 					]
 				}
 			},
@@ -54,6 +59,7 @@ const baseConfig = {
 						'@babel/plugin-proposal-private-methods',
 						'@babel/plugin-proposal-private-property-in-object',
 						'@babel/plugin-transform-react-jsx',
+						['@babel/transform-runtime', {"regenerator": true}]
 					]
 				}
 			}, {
@@ -70,15 +76,16 @@ const baseConfig = {
 * Copy and fill out the baseConfig object with
 * @param filename {!String} Set the bundle output.filename
 * @param {?string} entry (unusual) Compile a different top-level file instead of app.jsx
-* ## process.env 
+* ## process.env
 * process is always globally available to runtime code.
 */
 const makeConfig = ({ filename, mode, entry }) => {
 	// config.mode can be "development" or "production" & dictates whether JS is minified
 	const config = Object.assign({}, baseConfig, { mode });
-	
+
 	// What filename should we render to?
 	config.output = Object.assign({}, config.output, { filename });
+
 	// Has an entry point other than app.jsx been requested?
 	if (entry) {
 		// NB: copy .entry to avoid messing up a shared array
@@ -91,9 +98,10 @@ const makeConfig = ({ filename, mode, entry }) => {
 };
 
 const configs = [
-	makeConfig({filename: 'js/bundle-debug.js', mode: 'development' }),
-//	makeConfig({filename: 'js/other-bundle-debug.js', mode: 'development', entry:'./src/js/other.js'}),
+	makeConfig({ filename: 'js/bundle-debug.js', mode: 'development' }),
+	//	makeConfig({filename: 'js/other-bundle-debug.js', mode: 'development', entry:'./src/js/other.js'}),
 ];
+
 // Allow debug-only compilation for faster iteration in dev
 if (process.env.NO_PROD !== 'true') {
 	// Add the production configs.
@@ -103,8 +111,8 @@ if (process.env.NO_PROD !== 'true') {
 		let prodc = Object.assign({}, devc);
 		prodc.mode = 'production';
 		prodc.output = Object.assign({}, devc.output);
-		prodc.output.filename = devc.output.filename.replace('-debug','');
-		configs.push(prodc);		
+		prodc.output.filename = devc.output.filename.replace('-debug', '');
+		configs.push(prodc);
 	});
 }
 

@@ -8,7 +8,7 @@ import { Card } from 'reactstrap';
 import { DefaultListItem } from '../base/components/ListLoad';
 import LoginWidget, { LoginLink } from '../base/components/LoginWidget';
 import Misc from '../base/components/Misc';
-import Person, { getAllXIds, getProfilesNow, localLoad, addClaim, setClaimValue, getClaimValue } from '../base/data/Person';
+import Person, { getAllXIds, localLoad, addClaim, setClaimValue, getClaimValue } from '../base/data/Person';
 import { randomPick } from '../base/utils/miscutils';
 import Login from '../base/youagain';
 import WidgetExample from './WidgetExample';
@@ -16,7 +16,6 @@ import WidgetExample from './WidgetExample';
 // expose for debug / tests
 window.Person = Person;
 window.getAllXIds = getAllXIds;
-window.getProfilesNow = getProfilesNow;
 window.setClaimValue = setClaimValue;
 window.getClaimValue = getClaimValue;
 
@@ -33,14 +32,15 @@ let once = false;
 
 const AddClaimGetProfileRaceTest = () => {
 	// Note: This can include localLoads which are instant
-	let persons = getProfilesNow();
+	let pvsPeeps = getAllXIds().map(xid => getProfile({xid}));
+	let persons = pvsPeeps.map(pv => pv.value).filter(x => x);
 
 	// Do before a profile can be loaded. Then check: did the load delete this local edit?
 	if (persons.length && ! once) {		
 		let img = randomPick(["https://i.pinimg.com/564x/56/a9/7a/56a97ab064716fc08e680bb1b5fb9f7a.jpg","https://i.pinimg.com/564x/32/e6/20/32e620377da60f8e79fb3db5452f02a2.jpg"]);
 		setClaimValue({persons, key:"img", value:img});
 		setClaimValue({persons, key:"name", value:"Foo"});
-		console.log("Set name, img", JSON.stringify(persons));
+		console.log("Set name, img", JSON.stringify(pvsPeeps));
 		once = true;
 	}
 
@@ -51,8 +51,13 @@ const AddClaimGetProfileRaceTest = () => {
 		3. Will the profile load overwrite the claim?<br/>
 		
 		<div>XIds: {getAllXIds().join(", ")}</div>
-		<div>Profiles: {getProfilesNow().map(peep => <div key={peep.id}><Misc.ImgThumbnail url={getClaimValue({persons:[peep],key:"img"})} /> {peep.id} {getClaimValue({persons:[peep],key:"name"})} {getClaimValue({persons:[peep],key:"gender"})}</div>)}</div>
-
+		<div>Profiles: {persons.map(peep => 
+			<div key={peep.id}>
+				<Misc.ImgThumbnail url={getClaimValue({persons:[peep],key:"img"})} /> {peep.id} 
+				{getClaimValue({persons:[peep],key:"name"})} 
+				{getClaimValue({persons:[peep],key:"gender"})}
+			</div>)}
+		</div>
 	</Card>;
 }
 
