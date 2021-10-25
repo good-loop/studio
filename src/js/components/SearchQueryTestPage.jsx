@@ -9,19 +9,11 @@ import Icon from '../base/components/Icon';
 import { DefaultListItem } from '../base/components/ListLoad';
 import LoginWidget, { LoginLink } from '../base/components/LoginWidget';
 import Misc from '../base/components/Misc';
-import Person, { getAllXIds, getProfilesNow, localLoad, addClaim, setClaimValue, getClaimValue } from '../base/data/Person';
 import SearchQuery from '../base/searchquery';
 import { randomPick } from '../base/utils/miscutils';
 import Login from '../base/youagain';
 import SubCard from './SubCard';
 import WidgetExample from './WidgetExample';
-
-// expose for debug / tests
-window.Person = Person;
-window.getAllXIds = getAllXIds;
-window.getProfilesNow = getProfilesNow;
-window.setClaimValue = setClaimValue;
-window.getClaimValue = getClaimValue;
 
 const SeqrchQueryTestPage = () => {	
 	return <>
