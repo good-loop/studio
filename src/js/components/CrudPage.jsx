@@ -8,8 +8,11 @@ import PropControl from '../base/components/PropControl';
 import SavePublishDeleteEtc from '../base/components/SavePublishDeleteEtc';
 import { getDataPath } from '../base/plumbing/DataStore';
 import ActionMan from '../plumbing/ActionMan';
+import { jsonDiff } from '../base/plumbing/Crud';
 
 const CrudPage = () => {
+	window.jsonDiff = jsonDiff; // DEBUG
+
 	const type = 'Testthingy';
 	let id = 'testid';
 	let status = C.KStatus.DRAFT;	
@@ -29,6 +32,15 @@ const CrudPage = () => {
 
 		saveAs
 		<SavePublishDeleteEtc type={type} id={id} />
+
+		<hr/>
+		<h2>Test JsonPatch</h2>
+		
+		Gone: <pre>{JSON.stringify(jsonDiff({a:[1,2]}, {a:[1]}))}</pre>
+		
+		Middle gone: <pre>{JSON.stringify(jsonDiff({a:[1,2,3]}, {a:[1,3]}))}</pre>
+
+		Null at end: <pre>{JSON.stringify(jsonDiff({a:[1,2,3]}, {a:[1, 2, null]}))}</pre>
 	</>
 	);
 
