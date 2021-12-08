@@ -80,7 +80,7 @@ const baseConfig = {
 				}
 			}, {
 				test: /\.less$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+				use: [MiniCssExtractPlugin.loader, {loader: 'css-loader', options: {url: false}}, 'less-loader'],
 			}
 		],
 	},
