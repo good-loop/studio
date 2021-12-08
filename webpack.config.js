@@ -7,8 +7,20 @@
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// Needed to check hostname & try to load local config file
+const os = require('os');
+const fs = require('fs');
 
 const webDir = process.env.OUTPUT_WEB_DIR || 'web';
+
+// Check for file "config/$HOSTNAME.js" and look for ServerIO overrides in it
+let SERVERIO_OVERRIDES = JSON.stringify({});
+const configFile = './config/' + os.hostname() + '.js';
+if (fs.existsSync(configFile)) {
+	/* eslint-disable-next-line global-require, import/no-dynamic-require */
+	let hostConfig = require(configFile);
+	if (hostConfig.ServerIOOverrides) SERVERIO_OVERRIDES = JSON.stringify(hostConfig.ServerIOOverrides);
+}
 
 const baseConfig = {
 	// NB When editing keep the "our code" entry point last in this list - makeConfig override depends on this position.
@@ -42,7 +54,10 @@ const baseConfig = {
 						'@babel/plugin-transform-typescript',
 						'@babel/plugin-proposal-object-rest-spread',
 						'babel-plugin-const-enum',
-						'@babel/plugin-proposal-private-methods'
+						// loose: true specified to silence warnings about mismatch with preset-env loose setting
+						['@babel/plugin-proposal-class-properties', { loose: true }],
+						['@babel/plugin-proposal-private-methods', { loose: true }],
+						['@babel/plugin-proposal-private-property-in-object', { loose: true }]
 					]
 				}
 			},
@@ -55,11 +70,12 @@ const baseConfig = {
 						['@babel/preset-env', { targets: { ie: "11" }, loose: true }]
 					],
 					plugins: [
-						'@babel/plugin-proposal-class-properties',
-						'@babel/plugin-proposal-private-methods',
-						'@babel/plugin-proposal-private-property-in-object',
 						'@babel/plugin-transform-react-jsx',
-						['@babel/transform-runtime', {"regenerator": true}]
+						['@babel/transform-runtime', {"regenerator": true}],
+						// loose: true specified to silence warnings about mismatch with preset-env loose setting
+						['@babel/plugin-proposal-class-properties', { loose: true }],
+						['@babel/plugin-proposal-private-methods', { loose: true }],
+						['@babel/plugin-proposal-private-property-in-object', { loose: true }]
 					]
 				}
 			}, {
@@ -68,52 +84,52 @@ const baseConfig = {
 			}
 		],
 	},
-	plugins: [new MiniCssExtractPlugin({ filename: 'style/main.css' })]
+	plugins: [
+		new MiniCssExtractPlugin({ filename: 'style/main.css' }),
+		new webpack.DefinePlugin({
+			'process.env': { SERVERIO_OVERRIDES }
+		}),
+	]
 };
 
 
 /**
 * Copy and fill out the baseConfig object with
-* @param filename {!String} Set the bundle output.filename
-* @param {?string} entry (unusual) Compile a different top-level file instead of app.jsx
+* @param {!string} filename Set the bundle output.filename
+* @param {?string} mode "production" or "development", determines if JS will be minified
+* @param {?string} entry (unusual) Compile a different entry-point file instead of app.jsx
 * ## process.env
 * process is always globally available to runtime code.
 */
 const makeConfig = ({ filename, mode, entry }) => {
-	// config.mode can be "development" or "production" & dictates whether JS is minified
-	const config = Object.assign({}, baseConfig, { mode });
+	const config = { ...baseConfig, mode };
+	config.output = { ...baseConfig.output, filename };
 
-	// What filename should we render to?
-	config.output = Object.assign({}, config.output, { filename });
+	// Has an entry point other than ./src/js/app.jsx been requested?
+	if (entry) config.entry = [...config.entry.slice(0, -1), entry]; // Copy, don't modify in-place
 
-	// Has an entry point other than app.jsx been requested?
-	if (entry) {
-		// NB: copy .entry to avoid messing up a shared array
-		config.entry = [...config.entry.slice(0, config.entry.length - 1), entry];
-	}
-
-	// The "mode" param should be inserting process.env already...
-	// process.env is available globally within bundle.js & allows us to hardcode different behaviour for dev & production builds	
 	return config;
 };
 
 const configs = [
-	makeConfig({ filename: 'js/bundle-debug.js', mode: 'development' }),
-	//	makeConfig({filename: 'js/other-bundle-debug.js', mode: 'development', entry:'./src/js/other.js'}),
+	makeConfig({filename: 'js/bundle-debug.js', mode: 'development' }),
+//      Add additional configs (eg with different entry points) like this:
+//      makeConfig({filename: 'js/other-bundle-debug.js', mode: 'development', entry:'./src/js/other.js'}),
 ];
 
+// Default behaviour: Create a production config (with mode & output filename amended) for each dev config.
 // Allow debug-only compilation for faster iteration in dev
 if (process.env.NO_PROD !== 'true') {
-	// Add the production configs.
-	// copy, change mode and filename
-	const devconfigs = [...configs];
-	devconfigs.forEach(devc => {
-		let prodc = Object.assign({}, devc);
-		prodc.mode = 'production';
-		prodc.output = Object.assign({}, devc.output);
-		prodc.output.filename = devc.output.filename.replace('-debug', '');
-		configs.push(prodc);
-	});
+	const prodconfigs = configs.map(devc => ({
+		...devc,
+		mode: 'production',
+		output: {
+			...devc.output,
+			filename: devc.output.filename.replace('-debug', '')
+		}
+	}));
+	// Put new production configs in the main list
+	prodconfigs.forEach(prodc => configs.push(prodc));
 }
 
 // Output bundle files for production and dev/debug
