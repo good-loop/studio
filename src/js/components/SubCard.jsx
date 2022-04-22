@@ -35,7 +35,7 @@ const SubCard = ({title,children,keywords}) => {
 	children = React.Children.map(children, (Kid, i) => {
 		let kws = Kid.props && Kid.props.keywords;
 		let kws2 = space(kws, title, keywords);
-		return React.cloneElement(Kid, {keywords:kws2, setShow});
+		return React.cloneElement(Kid, {keywords:kws2, show, setShow});
 	});
 
 	return <Card body><CardTitle><h4>{title}</h4></CardTitle>{children}</Card>;

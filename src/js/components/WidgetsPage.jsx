@@ -19,11 +19,10 @@ import CrudWidgets from './CrudWidgets';
 import DataLogTestsCard from './DataLogTestsCard';
 
 const WidgetsPage = () => {
-
 	let f = getFilter();
 
-	return (<>
-		<h1>Welcome to the Widget Studio</h1>			
+	return <>
+		<h1>Welcome to the Widget Studio</h1>
 
 		<FormGroup>
 			<Label>Filter widgets</Label>
@@ -33,7 +32,7 @@ const WidgetsPage = () => {
 		<hr/>
 
 		<DataLogTestsCard />
-		
+
 		<PropControlWidgets />
 
 		<MessageWidgets />
@@ -47,10 +46,7 @@ const WidgetsPage = () => {
 		<DragDropWidgets />
 
 		<CrudWidgets />
-		
-	</>
-	);
-
+	</>;
 };
 
 
@@ -61,9 +57,9 @@ const MessageWidgets = () => {
 	err2.message = "The computer is unhappy";
 	err2.status = "warning";
 
-	return (<Card body>
+	return <Card body>
 		<CardTitle><h3>Message Widgets</h3></CardTitle>
-		
+
 		<WidgetExample name='ErrAlert' keywords='error alert' >
 			<ErrAlert error={err} />
 		</WidgetExample>
@@ -71,8 +67,8 @@ const MessageWidgets = () => {
 		<WidgetExample name='ErrAlert - JSend, warning' keywords='warning alert' >
 			<ErrAlert error={err2} color='warning' />
 		</WidgetExample>
-		
-	</Card>);
+
+	</Card>;
 };
 
 export default WidgetsPage;
