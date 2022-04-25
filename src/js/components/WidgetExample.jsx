@@ -24,7 +24,7 @@ const WidgetExample = ({name, keywords, children, show, setShow, className}) => 
 	// The name is added as a "name" attribute to each prop to ensure a unique identifier for testing
 	// Having the unique selector derive from the searchable term helps confirm search success in pupetteer too
 	return (
-		<Card name={name.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase()} body>
+		<Card name={name.replace(/[^a-zA-Z0-9-_]/g, "").toLowerCase()} className="mb-2" body>
 			<CardTitle>{name}</CardTitle>
 			{children}
 		</Card>

@@ -22,24 +22,26 @@ import DynImg from '../base/components/DynImg';
 const baseKeywords = "display";
 
 const DisplayWidgets = () => {
-	return (<Card body>
-		<CardTitle><h3>Display Widgets</h3></CardTitle>
+	return (
+	<SubCard body title="DisplayWidgets">
 		<p>Widgets for displaying text and images.</p>
 		<DynImgCard />
 		<IconCard />
 		<MDCard />
 		<CounterCard />
-		<TableCard />				
-	</Card>);
+		<TableCard />
+	</SubCard>);
 };
 
 
 const DynImgCard = () => {
-	return <SubCard title="DynImg - dynamic image scaling">
-		<p>Check the elements used - they should be scaled to the size or a bit bigger (and hence avoid the 1.7mb raw file)</p>
-		<DynImg src="https://media.good-loop.com/uploads/raw/abae-1920301059708066881.png" style={{width:"200px"}} />
-		<DynImg src="https://media.good-loop.com/uploads/raw/abae-1920301059708066881.png" style={{width:"800px"}} />
-	</SubCard>;
+	return (
+		<SubCard title="DynImg - dynamic image scaling">
+			<p>Check the elements used - they should be scaled to the size or a bit bigger (and hence avoid the 1.7mb raw file)</p>
+			<DynImg src="https://media.good-loop.com/uploads/raw/abae-1920301059708066881.png" style={{width:"200px"}} />
+			<DynImg src="https://media.good-loop.com/uploads/raw/abae-1920301059708066881.png" style={{width:"800px"}} />
+		</SubCard>
+	);
 };
 
 
@@ -56,27 +58,29 @@ const IconCard = () => {
 
 	let appNames = "twitter facebook instagram linkedin google chrome".split(" ");
 
-	return <SubCard title="Icons and Emoji">
-		<p>
-			Maybe in colour: {iconNames.map(n => <span key={n}>{n}: <Icon name={n} />, </span>)}
-		</p>
+	return (
+		<SubCard title="Icons and Emoji">
+			<p>
+				Maybe in colour: {iconNames.map(n => <span key={n}>{n}: <Icon name={n} />, </span>)}
+			</p>
 
-		<p className="bg-info">White and medium: 
-			{iconNames.map(n => <span key={n}>{n}: <Icon color="white" size="" name={n} />, </span>)}
-		</p>
+			<p className="bg-info">White and medium: 
+				{iconNames.map(n => <span key={n}>{n}: <Icon color="white" size="" name={n} />, </span>)}
+			</p>
 
-		<p>Black and Large: 
-			{iconNames.map(n => <span key={n}>{n}: <Icon color="black" size="lg" name={n} />, </span>)}
-		</p>
+			<p>Black and Large: 
+				{iconNames.map(n => <span key={n}>{n}: <Icon color="black" size="lg" name={n} />, </span>)}
+			</p>
 
-		<p>Small logos: 
-			{appNames.map(n => <span key={n}>{n}: <Icon size="sm" name={n} />, </span>)}
-		</p>
+			<p>Small logos: 
+				{appNames.map(n => <span key={n}>{n}: <Icon size="sm" name={n} />, </span>)}
+			</p>
 
-		<p>Large logos: 
-			{appNames.map(n => <span key={n}>{n}: <Icon size="lg" name={n} />, </span>)}
-		</p>
-	</SubCard>;
+			<p>Large logos: 
+				{appNames.map(n => <span key={n}>{n}: <Icon size="lg" name={n} />, </span>)}
+			</p>
+		</SubCard>
+	);
 };
 
 const TableCard = () => {
@@ -100,49 +104,51 @@ const TableCard = () => {
 		}
 	}
 
-	return (<SubCard title="SimpleTable">
-		<WidgetExample name="Tree and Scroll" keywords={baseKeywords}>
-			<SimpleTable columns={columns} dataTree={dataTree} csv scroller hasCollapse />
-		</WidgetExample>
+	return (
+		<SubCard title="SimpleTable">
+			<WidgetExample name="Tree and Scroll" keywords={baseKeywords}>
+				<SimpleTable columns={columns} dataTree={dataTree} csv scroller hasCollapse />
+			</WidgetExample>
 
-		<WidgetExample name="Big scrolling table">
-			<div style={{width:'300px', height:'300px'}}><SimpleTable scroller data={items} columns={cols} /></div>
-		</WidgetExample>
-
-	</SubCard>);
+			<WidgetExample name="Big scrolling table">
+				<div style={{width:'300px', height:'300px'}}><SimpleTable scroller data={items} columns={cols} /></div>
+			</WidgetExample>
+		</SubCard>
+	);
 };
 
 
 
 const CounterCard = () => {
-	return (<SubCard title="Counter">
-		<WidgetExample name="Low £ Counter - preservePennies" keywords={baseKeywords}>
-			<p>The amount is: <Counter amount={new Money("£12.3411")} preservePennies /> (should be £12.34).</p>
-		</WidgetExample>
-		<WidgetExample name="No pennies Counter - preservePennies" keywords={baseKeywords}>
-			<p>The amount is: <Counter amount={new Money("£14")} preservePennies /> (should be £14.00).</p>
-		</WidgetExample>
-		<WidgetExample name="High £ Counter - preservePennies" keywords={baseKeywords}>
-			<p>The amount is: <Counter amount={new Money("£56789.12345")} preservePennies /> (should be £56,789.12).</p>
-		</WidgetExample>
-		<WidgetExample name="High £ Counter - 3 sig figs" keywords={baseKeywords}>
-			<p>The amount is: <Counter amount={new Money("£22345.7777")} sigFigs={3} /> (should be £22,300).</p>
-		</WidgetExample>
-		<WidgetExample name="Counter - 2 sig figs + pennies (Broken - but it is an odd usage)" keywords={baseKeywords}>
-			<p>The amount is: <Counter amount={new Money("£987.2222")} sigFigs={2} preservePennies /> (should be £990.00).</p>
-		</WidgetExample>
-		<WidgetExample name="Decimal Counter" keywords={baseKeywords}>
-			<p>The number is: <Counter value={12345.12345} sigFigs={10} /> (should be 12334.12345).</p>
-		</WidgetExample>
-		<WidgetExample name="Counter - centred text" keywords={baseKeywords}>
-			<p>The number is: <Counter value={12345} centerText /> (should be 12,345).</p>
-		</WidgetExample>
-	</SubCard>);
+	return (
+		<SubCard title="Counter">
+			<WidgetExample name="Low £ Counter - preservePennies" keywords={baseKeywords}>
+				<p>The amount is: <Counter amount={new Money("£12.3411")} preservePennies /> (should be £12.34).</p>
+			</WidgetExample>
+			<WidgetExample name="No pennies Counter - preservePennies" keywords={baseKeywords}>
+				<p>The amount is: <Counter amount={new Money("£14")} preservePennies /> (should be £14.00).</p>
+			</WidgetExample>
+			<WidgetExample name="High £ Counter - preservePennies" keywords={baseKeywords}>
+				<p>The amount is: <Counter amount={new Money("£56789.12345")} preservePennies /> (should be £56,789.12).</p>
+			</WidgetExample>
+			<WidgetExample name="High £ Counter - 3 sig figs" keywords={baseKeywords}>
+				<p>The amount is: <Counter amount={new Money("£22345.7777")} sigFigs={3} /> (should be £22,300).</p>
+			</WidgetExample>
+			<WidgetExample name="Counter - 2 sig figs + pennies (Broken - but it is an odd usage)" keywords={baseKeywords}>
+				<p>The amount is: <Counter amount={new Money("£987.2222")} sigFigs={2} preservePennies /> (should be £990.00).</p>
+			</WidgetExample>
+			<WidgetExample name="Decimal Counter" keywords={baseKeywords}>
+				<p>The number is: <Counter value={12345.12345} sigFigs={10} /> (should be 12334.12345).</p>
+			</WidgetExample>
+			<WidgetExample name="Counter - centred text" keywords={baseKeywords}>
+				<p>The number is: <Counter value={12345} centerText /> (should be 12,345).</p>
+			</WidgetExample>
+		</SubCard>
+	);
 };
 
-const MDCard = () => {
-	const taskPath = ['misc','markdown', 'taskText'];
-	let taskText = DataStore.getValue(taskPath) || DataStore.setValue(taskPath, `
+
+const taskMarkdown = `
 Task list
 
 - [ ] A task *with* **bold** text.
@@ -153,49 +159,57 @@ Just a List
 - A normal list
 - *just a list item*
 
-Yeh :)
-`);
+Yeh :)`;
 
-	return (<SubCard title="Markdown">
-		<WidgetExample name="mdtext markdown-tasks" keywords={baseKeywords}>
-			<MDText 
-			setSource={newText => DataStore.setValue(taskPath, newText)}						
-			source={taskText} />
-		</WidgetExample>
-		<WidgetExample name="mdtext image tag" keywords={baseKeywords}>
-			<MDText source={`<img src='/img/gl-logo/LogoMark/logo.64.png' />`} />
-		</WidgetExample>
-		<WidgetExample name="mdtext image md format" keywords={baseKeywords}>
-			<MDText source="![](/img/gl-logo/LogoMark/logo.64.png)" />
-		</WidgetExample>
-		<WidgetExample name="mdtext security: no js allowed" keywords={baseKeywords}>
-			<MDText source={`
-
+const securityMarkdown1 = `
 <script>alert("pwnd!");</script>
 
+<button onClick="alert('gotcha');">mwhaha</button>`;
 
-<button onClick="alert('gotcha');">mwhaha</button>
-
-
-			`}
-			/>
-			<MDText source={`
-
+const securityMarkdown2 = `
 <button 
 onClick="alert('gotcha');">mwhaha again
-</button>
+</button>`;
+
+const linebreakMarkdown = 'This line ends in br-slash<br/>This line ends in br with no slash<br>This line ends in br-space-slash<br />This is the last line';
+
+const strikethroughMarkdown = 'Hello ~blah~';
+
+const imgHTMLMarkdown = '<img src="/img/gl-logo/LogoMark/logo.64.png" />';
+
+const imgMDMarkdown = '![](/img/gl-logo/LogoMark/logo.64.png)';
 
 
-			`}
-			/>
-		</WidgetExample>
-		<WidgetExample name="MDText line-break parsing" keywords={baseKeywords}>
-			<MDText source="This line ends in br-slash<br/>This line ends in br with no slash<br>This line ends in br-space-slash<br />This is the last line" />
-		</WidgetExample>
-		<WidgetExample name="MDText GFM - should have strikethrough" keywords={baseKeywords}>
-			<MDText source="Hello ~blah~" />
-		</WidgetExample>
-	</SubCard>);
+const MDCard = () => {
+	const taskPath = ['misc','markdown', 'taskText'];
+	let taskText = DataStore.getValue(taskPath) || DataStore.setValue(taskPath, taskMarkdown);
+
+	return (
+		<SubCard title="Markdown">
+			<WidgetExample name="mdtext markdown-tasks" keywords={baseKeywords}>
+				<MDText 
+					setSource={newText => DataStore.setValue(taskPath, newText)}
+					source={taskText}
+				/>
+			</WidgetExample>
+			<WidgetExample name="mdtext image tag" keywords={baseKeywords}>
+				<MDText source={imgHTMLMarkdown} />
+			</WidgetExample>
+			<WidgetExample name="mdtext image md format" keywords={baseKeywords}>
+				<MDText source={imgMDMarkdown} />
+			</WidgetExample>
+			<WidgetExample name="mdtext security: no js allowed" keywords={baseKeywords}>
+				<MDText source={securityMarkdown1} />
+				<MDText source={securityMarkdown2} />
+			</WidgetExample>
+			<WidgetExample name="MDText line-break parsing" keywords={baseKeywords}>
+				<MDText source={linebreakMarkdown} />
+			</WidgetExample>
+			<WidgetExample name="MDText GFM - should have strikethrough" keywords={baseKeywords}>
+				<MDText source={strikethroughMarkdown} />
+			</WidgetExample>
+		</SubCard>
+	);
 };
 
 export default DisplayWidgets;

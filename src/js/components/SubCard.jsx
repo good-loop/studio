@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import {Card, CardTitle } from 'reactstrap';
+import { Card, CardTitle } from 'reactstrap';
 import { space } from '../base/utils/miscutils';
 
 /**
@@ -11,7 +11,7 @@ const useFlag = () => {
 	let [flag, setFlag] = useState({});
 
 	// defer to avoid upsetting react with a nested update
-	let dsetFlag = x => _.defer(setFlag, {v:x});
+	let dsetFlag = v => _.defer(setFlag, {v});
 
 	// use an object and set the value, to allow us to null it here.
 	// sets up a 2-pass render
@@ -24,11 +24,11 @@ const useFlag = () => {
 /**
  * A Card for use inside a larger Card
  */
-const SubCard = ({title,children,keywords}) => {
+const SubCard = ({title, children, keywords}) => {
 	// hide if nothing is visible
 	let [show, setShow] = useFlag();
 
-	// 	array of elements (or just one)? screen nulls
+	// array of elements (or just one)? screen nulls
 	if (children.filter) children = children.filter(x => !! x);
 
 	// pass in extra keywords and setShow
@@ -38,7 +38,10 @@ const SubCard = ({title,children,keywords}) => {
 		return React.cloneElement(Kid, {keywords:kws2, show, setShow});
 	});
 
-	return <Card body><CardTitle><h4>{title}</h4></CardTitle>{children}</Card>;
+	return <Card body className="mb-2">
+		<CardTitle><h4>{title}</h4></CardTitle>
+		{children}
+	</Card>;
 };
 
 export default SubCard;

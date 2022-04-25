@@ -23,15 +23,18 @@ import { nonce } from '../base/data/DataClass';
 import KStatus from '../base/data/KStatus';
 import ListLoad from '../base/components/ListLoad';
 
-const baseKeywords = "crud";
+const baseKeywords = 'crud';
+
 
 const CrudWidgets = () => {
-	return (<Card body>
-		<CardTitle><h3>CRUD Widgets</h3></CardTitle>
-		<SelectDataItemCard />
-		<ListLoadCard />
-	</Card>);
+	return (
+		<SubCard body title="CRUD Widgets">
+			<SelectDataItemCard />
+			<ListLoadCard />
+		</SubCard>
+	);
 };
+
 
 DataStore.setValue(['misc','crudtest','selectngoold'], "Foo Bar");
 
@@ -42,6 +45,7 @@ const ListLoadCard = () => {
 		/>
 	</SubCard>);
 };
+
 
 const SelectDataItemCard = () => {
 	let norm = v => {
@@ -67,5 +71,6 @@ const SelectDataItemCard = () => {
 		</WidgetExample>
 	</SubCard>);
 };
+
 
 export default CrudWidgets;

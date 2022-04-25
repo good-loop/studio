@@ -23,22 +23,27 @@ const ProfilerTestWidget = () => {
 	let allxids = getAllXIds();
 	let pvsPeep = allxids.map(xid => getProfile({xid}));
 	// let localPeeps = allxids.map(localLoad);
-	return <WidgetExample name="SearchQuery" keywords="search query" >
-		<h2>Logged in? {Login.isLoggedIn()? "Yes" : "No"}</h2>
-		<div>User {Login.getUser() && Login.getUser().xid+" "+Login.getUser().jwt}</div>
-		<div>js cookies: 
-			<ul>
-				{Object.keys(Cookies.get()).map(c => <li key={c}>{c} = {Cookies.get(c)}</li>)}
-			</ul>
-		</div>
-		<h2>XIds</h2>
-		{JSON.stringify(allxids)}
-		<h2>People</h2>
-		{JSON.stringify(peeps)}
-		{/* <h2>Local People</h2>
-		{JSON.stringify(localPeeps)} */}
 
-	</WidgetExample>;
+	let peeps = null; // TODO inserted to unbreak page - declaration disappeared due to bitrot?
+
+	return (
+		<WidgetExample name="SearchQuery" keywords="search query" >
+			<h2>Logged in? {Login.isLoggedIn()? "Yes" : "No"}</h2>
+			<div>User {Login.getUser() && Login.getUser().xid+" "+Login.getUser().jwt}</div>
+			<div>js cookies: 
+				<ul>
+					{Object.keys(Cookies.get()).map(c => <li key={c}>{c} = {Cookies.get(c)}</li>)}
+				</ul>
+			</div>
+			<h2>XIds</h2>
+			{JSON.stringify(allxids)}
+			<h2>People</h2>
+			{JSON.stringify(peeps)}
+			{/* <h2>Local People</h2>
+			{JSON.stringify(localPeeps)} */}
+
+		</WidgetExample>
+	);
 };
 
 export default LoginTestPage;

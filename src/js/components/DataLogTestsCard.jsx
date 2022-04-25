@@ -33,16 +33,15 @@ const DataLogTestsCard = () => {
 	let pvData = getDataLogData({breakdowns:["pub/evt"], name:'1-month-data',dataspace:'gl'});
 	let kkvFormat = pvData.value && pivotDataLogData(pvData.value, ["pub","evt"]);
 
-	return (<Card body>
-		<CardTitle><h3>DataLog Tests</h3></CardTitle>
+	return <SubCard title="DataLog Tests">
 		<WidgetExample name="Pivot" keywords={baseKeywords}>
 			<pre>{JSON.stringify(kvFormat)}</pre>
 			Should be: monday:7,tuesday:5
 		</WidgetExample>
 		<WidgetExample name="Load and Pivot" keywords={baseKeywords}>
-			<pre>{JSON.stringify(kkvFormat)}</pre>			
+			<pre>{JSON.stringify(kkvFormat)}</pre>
 		</WidgetExample>
-	</Card>);
+	</SubCard>;
 };
 
 

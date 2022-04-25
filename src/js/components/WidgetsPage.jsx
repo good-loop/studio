@@ -57,9 +57,7 @@ const MessageWidgets = () => {
 	err2.message = "The computer is unhappy";
 	err2.status = "warning";
 
-	return <Card body>
-		<CardTitle><h3>Message Widgets</h3></CardTitle>
-
+	return <SubCard body title="Message Widgets">
 		<WidgetExample name='ErrAlert' keywords='error alert' >
 			<ErrAlert error={err} />
 		</WidgetExample>
@@ -67,8 +65,7 @@ const MessageWidgets = () => {
 		<WidgetExample name='ErrAlert - JSend, warning' keywords='warning alert' >
 			<ErrAlert error={err2} color='warning' />
 		</WidgetExample>
-
-	</Card>;
+	</SubCard>;
 };
 
 export default WidgetsPage;

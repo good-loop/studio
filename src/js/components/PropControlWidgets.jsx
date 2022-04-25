@@ -18,7 +18,7 @@ const PropControlWidgets = () => {
 	return (<SubCard title="PropControl Widgets">
 
 		<SimpleInputs />
-{/*
+
 		<Selectors />
 
 		<SubCard title="Files">
@@ -26,15 +26,15 @@ const PropControlWidgets = () => {
 				<PropControl type="img" prop="myimg"
 					path={['widget', 'BasicTextPropControl']} help="Image URL help goes here" />
 			</WidgetExample>
-*/}
+
 			{/* Dropzone must be v4.3.0 for this - had to update package.json */}
-{/*			<WidgetExample name="Image upload" keywords={baseKeywords}>
+			<WidgetExample name="Image upload" keywords={baseKeywords}>
 				<PropControl type="imgUpload" prop="myimgupload"
 					path={['widget', 'BasicTextPropControl']} help="Image upload help goes here" />
 			</WidgetExample>
-*/}
+
 			{/* This too ^^ */}
-{/*			<WidgetExample name="Video upload" keywords={baseKeywords}>
+		<WidgetExample name="Video upload" keywords={baseKeywords}>
 				<PropControl type="videoUpload" prop="myvidupload"
 					path={['widget', 'BasicTextPropControl']} help="Video upload help goes here" />
 			</WidgetExample>
@@ -46,24 +46,21 @@ const PropControlWidgets = () => {
 					path={['widget', 'BasicTextPropControl']} help="Image upload help goes here" />
 			</WidgetExample>
 		</SubCard>
-*/}
+
 		{/* TODO: Throws error on mounting but is deprecated in place of EntrySet, so didn't dig any further */}
 		{/*<WidgetExample name='Key value input' keywords={baseKeywords}>
 			<PropControl type='keyvalue' prop='mykeyvalue'
 				path={['widget','BasicTextPropControl']} help='Key value help goes here' />
 		</WidgetExample>*/}
-{/*
-		<Card body>
 
-			<CardTitle><h4>Other</h4></CardTitle>
-
+		<SubCard body title="Other">
 			<WidgetExample name="XId input" keywords={baseKeywords}>
 				<PropControl type="XId" prop="myxid" service="service"
 					path={['widget', 'BasicTextPropControl']} help="XId help goes here" />
 			</WidgetExample>
-*/}
+
 			{/* TODO: Behaviour is possibly a little iffy */}
-{/*			<WidgetExample name="Array text input" keywords={baseKeywords}>
+		<WidgetExample name="Array text input" keywords={baseKeywords}>
 				<PropControl type="arraytext" prop="myarraytext"
 					path={['widget', 'BasicTextPropControl']} help="Array text help goes here" />
 			</WidgetExample>
@@ -78,13 +75,9 @@ const PropControlWidgets = () => {
 				<PropControl type="entryset" prop="myentryset"
 					path={['widget', 'BasicTextPropControl']} help="Entry set help goes here" />
 			</WidgetExample>
+		</SubCard>
 
-		</Card>
-
-		<Card body>
-
-			<CardTitle><h4>Code</h4></CardTitle>
-
+		<SubCard body title="Code">
 			<WidgetExample name="HTML input" keywords={baseKeywords}>
 				<PropControl type="html" prop="myhtml"
 					path={['widget', 'BasicTextPropControl']} help="HTML help: Try pasting in some formatted text from a web page or word processor"
@@ -97,7 +90,7 @@ const PropControlWidgets = () => {
 					path={['widget', 'BasicTextPropControl']} help="JSON help: type some JSON" />
 			</WidgetExample>
 
-		</Card>
+		</SubCard>
 
 		<Sizes />
 
@@ -108,18 +101,20 @@ const PropControlWidgets = () => {
 		<CustomControls />
 
 		<Forms />
-*/}
+
 	</SubCard>);
 };
 
 const CustomControls = () => {
-	return (<SubCard title="Custom Controls">
-		<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
-			<ErrAlert error="Known issues: (1) Styling" />
-			<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
-			<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
-		</WidgetExample>
-	</SubCard>);
+	return (
+		<SubCard title="Custom Controls">
+			<WidgetExample name="Pills" keywords={baseKeywords+" custom pills"}>
+				<ErrAlert error="Known issues: (1) Styling" />
+				<PropControl type="pills" prop="mypills" path={['widget', 'pills']} />
+				<div>Value: <code>{JSON.stringify(DataStore.getValue('widget','pills','mypills'))}</code></div>
+			</WidgetExample>
+		</SubCard>
+	);
 };
 
 const prepath = ['widget', 'dflt', 'already'];

@@ -10,9 +10,7 @@ import SubCard from './SubCard';
 const LayoutWidgets = () => {	
 	const lwpath = ['widget','LayoutWidgets'];
 
-	return (<SubCard>
-		<CardTitle><h3>Layout Widgets</h3></CardTitle>
-		
+	return (<SubCard title="Layout Widgets">
 		<WidgetExample name='Wizard' keywords='wizard stages' >
 			<Wizard stagePath={lwpath.concat('stage')}>
 				<WizardStage title='Stage One (basic)'>
@@ -60,7 +58,6 @@ const LayoutWidgets = () => {
 				<Button>A Button</Button>
 			</Form>
 		</WidgetExample>
-
 	</SubCard>);
 };
 
