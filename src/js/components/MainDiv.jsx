@@ -22,8 +22,6 @@ import LoginTestPage from './LoginTestPage';
 import PersonTestPage from './PersonTestPage';
 import SearchQueryTestPage from './SearchQueryTestPage';
 // import RedesignPage from './pages/RedesignPage';
-import PropControlAutocomplete from '../base/components/PropControlAutoComplete';
-let dummy = PropControlAutocomplete;
 
 // DataStore
 C.setupDataStore();

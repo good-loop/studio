@@ -166,7 +166,7 @@ const SimpleInputs = () => {
 					label="Favourite Pizza" help="Use this for text entry" />
 			</WidgetExample>
 
-			<WidgetExample name="Autocomplete simple" keywords={baseKeywords}>
+			{/* <WidgetExample name="Autocomplete simple" keywords={baseKeywords}>
 				<PropControl type="autocomplete" prop="myautocomp" path={['widget', 'BasicTextPropControl']}
 					options={autocompleteOptions}
 					help="Type a letter and get an autocomplete option"
@@ -181,7 +181,7 @@ const SimpleInputs = () => {
 					help="Filter by Name, but set the ID"
 				/>
 				<code>{DataStore.getValue(['widget','AutoComplete','myobjval'])}</code>
-			</WidgetExample>
+			</WidgetExample> */}
 
 			<WidgetExample name="MoneyControl" keywords={baseKeywords}>
 				<PropControl type="Money" prop="mymoney" currency="GBP"
