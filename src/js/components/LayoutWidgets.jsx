@@ -69,9 +69,12 @@ const LayoutWidgets = () => {
 				</Col>
 				<Col>
 					<div>
-						<PropControl fast prop='compact-7' label='Modal Styled CSS' value="p {colour : red}" type="textarea" modal styled="css"/>
-						<PropControl fast prop='compact-8' label='Modal Styled JS' value="let x = true" type="textarea" modal styled="js"/>
+					<PropControl modal type="code" lang="css" prop="customcssmodal" label="Custom Modal CSS" help="Put your custom CSS in this modal" />						
+					<PropControl modal type="code" lang="js" prop="customjsmodal" label="Custom Modal JS" help="Put your custom JS in this modal" />						
 					</div>
+				</Col>
+				<Col>
+					<PropControl type="code" lang="css" prop="customcss" label="Custom CSS" help="Put your custom CSS here"/>
 				</Col>
 			</Row>
 		</WidgetExample>
