@@ -5,8 +5,11 @@ import $ from 'jquery';
 import Misc from './base/components/Misc';
 import MainDiv from './components/MainDiv';
 import ServerIO from './plumbing/ServerIO'; // import to set api endpoints
+import PropControls from './base/components/PropControls';
+import PropControlCode from './base/components/PropControls/PropControlCode';
 
 let dummy1 = ServerIO;
+let dummy2 = PropControls && PropControlCode; // preserve import
 
 // Import root LESS file so webpack finds & renders it out to main.css
 import '../style/main.less';
