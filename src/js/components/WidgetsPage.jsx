@@ -17,6 +17,7 @@ import SubCard from './SubCard';
 import DragDropWidgets from './DragDropWidgets';
 import CrudWidgets from './CrudWidgets';
 import DataLogTestsCard from './DataLogTestsCard';
+import Wrap from '../base/components/Wrap';
 
 const WidgetsPage = () => {
 	let f = getFilter();
@@ -46,9 +47,22 @@ const WidgetsPage = () => {
 		<DragDropWidgets />
 
 		<CrudWidgets />
+
+		<SmallWidgets />
 	</>;
 };
 
+
+const SmallWidgets = () => {
+	return <SubCard body title="Small Widgets">
+		<WidgetExample name='Wrap' keywords='wrap style' >
+			<Wrap style={{color:"red"}}><span>Hello!</span><span>Red World!</span></Wrap>
+		</WidgetExample>
+		<WidgetExample name='UnWrap' keywords='unwrap' >
+			<Wrap><span>Hello!</span><span>Plain World!</span></Wrap>
+		</WidgetExample>	
+	</SubCard>
+};
 
 // ??REfactor into separate files
 const MessageWidgets = () => {
