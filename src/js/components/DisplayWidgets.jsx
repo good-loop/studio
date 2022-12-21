@@ -104,10 +104,29 @@ const TableCard = () => {
 		}
 	}
 
+	let [sum,setSum] = useState();
+	const onSelect = (selection) => {
+		let {start, end, data} = selection;
+		console.log(selection);
+		if (data) {
+			let s = 0;
+			data.forEach(row => {
+				row.forEach(v => s+=v);
+			});
+			setSum(s);
+		}
+	};
+
 	return (
 		<SubCard title="SimpleTable">
+
 			<WidgetExample name="Tree and Scroll" keywords={baseKeywords}>
 				<SimpleTable columns={columns} dataTree={dataTree} csv scroller hasCollapse />
+			</WidgetExample>
+
+			<WidgetExample name="Select Sum Table">
+				<SimpleTable data={[{row:"A", 1:1, 2:2, 3:3}, {row:"B", 1:2, 2:4, 3:6}]} columns={"row 1 2 3".split(" ")} onSelect={onSelect} />
+				<div>Sum: {sum}</div>
 			</WidgetExample>
 
 			<WidgetExample name="Big scrolling table">
