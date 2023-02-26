@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropControl, { FormControl } from '../base/components/PropControl';
-import PropControls from '../base/components/PropControls';
+import PropControls from '../base/components/propcontrols/PropControls';
 import DataStore, { getValue } from '../base/plumbing/DataStore';
 import { Input, FormGroup, Label, Form, Card, CardTitle, Button } from 'reactstrap';
 import Wizard, { WizardStage } from '../base/components/WizardProgressWidget';

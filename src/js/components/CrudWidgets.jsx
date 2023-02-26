@@ -18,7 +18,6 @@ import SimpleTable from '../base/components/SimpleTable';
 import Tree from '../base/data/Tree';
 import C from '../base/CBase';
 
-import PropControlDataItem from '../base/components/PropControlDataItem';
 import { nonce } from '../base/data/DataClass';
 import KStatus from '../base/data/KStatus';
 import ListLoad from '../base/components/ListLoad';
