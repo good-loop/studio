@@ -166,6 +166,10 @@ const SimpleInputs = () => {
 					label="Favourite Pizza" help="Use this for text entry" />
 			</WidgetExample>
 
+			<WidgetExample name="int Number" keywords={baseKeywords}>
+				<PropControl type="number" prop="myint" path={['widget', 'Number']} label="Counter" int />
+			</WidgetExample>
+
 			{/* <WidgetExample name="Autocomplete simple" keywords={baseKeywords}>
 				<PropControl type="autocomplete" prop="myautocomp" path={['widget', 'BasicTextPropControl']}
 					options={autocompleteOptions}
