@@ -158,6 +158,7 @@ const autocompleteObjectOptions = [
 ];
 
 const SimpleInputs = () => {
+	DataStore.setValue(['widget', 'BasicTextPropControl','isodate'], "2023-04-05T13:30:00Z");
 	return (
 		<SubCard title="Simple Values">
 
@@ -248,6 +249,11 @@ const SimpleInputs = () => {
 			<WidgetExample name="Date input" keywords={baseKeywords}>
 				<PropControl type="date" prop="mydate" path={['widget', 'BasicTextPropControl']}
 					label="Date" help="Take a date" />
+			</WidgetExample>
+
+			<WidgetExample name="Date with full iso value" keywords={baseKeywords}>
+				<PropControl type="date" prop="isodate" path={['widget', 'BasicTextPropControl']}
+					label="Date (should be 5th April 2023)" />
 			</WidgetExample>
 
 			<WidgetExample name="Checkbox input" keywords={baseKeywords}>
