@@ -10,12 +10,15 @@ import WidgetExample from './WidgetExample';
 import ErrAlert from '../base/components/ErrAlert';
 import SubCard from './SubCard';
 import { stopEvent } from '../base/utils/miscutils';
+import { setTimeZone, getTimeZone, dateStr, dateTimeString, printDateShort } from '../base/utils/date-utils';
 
 let baseKeywords = 'propcontrol input';
 
 const PropControlWidgets = () => {
 	
 	return (<SubCard title="PropControl Widgets">
+
+		<DateWidgets />
 
 		<SimpleInputs />
 
@@ -157,6 +160,39 @@ const autocompleteObjectOptions = [
 	{id:'capsicum', name:"Pepper. It's a fruit, alright?"}
 ];
 
+
+const DateWidgets = () => {
+	let tz = getTimeZone();
+	let ds = DataStore.getValue("widget", "DateWidgets", "tzdate") || 0;
+	let d = new Date(ds);
+	return (
+		<SubCard title="Date Widgets">
+			<WidgetExample name="Date TimeZone Logic" keywords={baseKeywords}>
+				<PropControl type="date" prop="tzdate" path={['widget', 'DateWidgets']}
+					label="TZ Date" help="Take a date" dflt={d} />
+tz {tz} <br/>
+dateStr(0) {dateStr(d)} <br/>
+dateTimeString(0) {dateTimeString(d)} <br/>
+dateStr(0) LA {setTimeZone("America/Los_Angeles") && dateStr(d)} <br/>
+dateTimeString(0) LA {dateTimeString(d)} <br/>
+printDateShort {printDateShort(d)} <br/>
+tz LA {getTimeZone()} <br/>
+tz back {setTimeZone(tz)} <br/>
+dateStr(0) {dateStr(d)} <br/>
+printDateShort {printDateShort(d)} <br/>
+			</WidgetExample>
+			<WidgetExample name="Date input" keywords={baseKeywords}>
+				<PropControl type="date" prop="mydate" path={['widget', 'BasicTextPropControl']}
+					label="Date" help="Take a date" />
+			</WidgetExample>
+
+			<WidgetExample name="Date with full iso value" keywords={baseKeywords}>
+				<PropControl type="date" prop="isodate" path={['widget', 'BasicTextPropControl']}
+					label="Date (should be 5th April 2023)" />
+			</WidgetExample>
+	</SubCard>)
+};
+
 const SimpleInputs = () => {
 	DataStore.setValue(['widget', 'BasicTextPropControl','isodate'], "2023-04-05T13:30:00Z");
 	return (
@@ -244,17 +280,7 @@ const SimpleInputs = () => {
 					</div>
 					<Button className='btn btn-secondary'>Button</Button>
 				</div>
-			</WidgetExample>
-
-			<WidgetExample name="Date input" keywords={baseKeywords}>
-				<PropControl type="date" prop="mydate" path={['widget', 'BasicTextPropControl']}
-					label="Date" help="Take a date" />
-			</WidgetExample>
-
-			<WidgetExample name="Date with full iso value" keywords={baseKeywords}>
-				<PropControl type="date" prop="isodate" path={['widget', 'BasicTextPropControl']}
-					label="Date (should be 5th April 2023)" />
-			</WidgetExample>
+			</WidgetExample>			
 
 			<WidgetExample name="Checkbox input" keywords={baseKeywords}>
 				<PropControl type="checkbox" prop="ilikecheckboxes" path={['widget', 'CheckboxPropControl']}
