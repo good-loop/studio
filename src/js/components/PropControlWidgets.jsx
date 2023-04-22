@@ -10,7 +10,8 @@ import WidgetExample from './WidgetExample';
 import ErrAlert from '../base/components/ErrAlert';
 import SubCard from './SubCard';
 import { stopEvent } from '../base/utils/miscutils';
-import { setTimeZone, getTimeZone, dateStr, dateTimeString, printDateShort } from '../base/utils/date-utils';
+import { setTimeZone, getTimeZone, dateStr, dateTimeString, printDateShort, isoDateTZ, isoDate, asDate, dayStartTZ, dayEndTZ } from '../base/utils/date-utils';
+import PropControlTimezone from '../base/components/propcontrols/PropControlTimezone';
 
 let baseKeywords = 'propcontrol input';
 
@@ -165,9 +166,19 @@ const DateWidgets = () => {
 	let tz = getTimeZone();
 	let ds = DataStore.getValue("widget", "DateWidgets", "tzdate") || 0;
 	let d = new Date(ds);
+	let startday = DataStore.getValue('widget', 'BasicTextPropControl', 'startday');
+	let endday = DataStore.getValue('widget', 'BasicTextPropControl', 'endday');
+	let isod = null;
+	try {
+		let sisod = DataStore.getUrlValue('isod');
+		if (sisod) isod = new Date(sisod);
+		if (isNaN(isod)) isod = null; // invalid date
+	} catch(err) {
+
+	}
 	return (
 		<SubCard title="Date Widgets">
-			<WidgetExample name="Date TimeZone Logic" keywords={baseKeywords}>
+			{/* <WidgetExample name="Date TimeZone Logic" keywords={baseKeywords}>
 				<PropControl type="date" prop="tzdate" path={['widget', 'DateWidgets']}
 					label="TZ Date" help="Take a date" dflt={d} />
 tz {tz} <br/>
@@ -180,10 +191,33 @@ tz LA {getTimeZone()} <br/>
 tz back {setTimeZone(tz)} <br/>
 dateStr(0) {dateStr(d)} <br/>
 printDateShort {printDateShort(d)} <br/>
-			</WidgetExample>
+			</WidgetExample> */}
 			<WidgetExample name="Date input" keywords={baseKeywords}>
 				<PropControl type="date" prop="mydate" path={['widget', 'BasicTextPropControl']}
 					label="Date" help="Take a date" />
+			</WidgetExample>
+
+			<WidgetExample name="ISO-Timezone" keywords={baseKeywords}>
+				<PropControlTimezone label="TimeZone" />
+				<code>TimeZone: {getTimeZone()}</code>
+				<PropControl prop="isod" label />				
+				<code>isoDate: {isod && isoDate(isod)}</code>
+				<code>isoDateTZ: {isod && isoDateTZ(isod)}</code>
+				<code>dayStartTZ: {isod && dayStartTZ(isod).toISOString()+" = "+dateTimeString(dayStartTZ(isod))}</code>
+				<code>dayEndTZ: {isod && dayEndTZ(isod).toISOString()+" = "+dateTimeString(dayEndTZ(isod))}</code>
+			</WidgetExample>
+
+			<WidgetExample name="Start End Day Timezone Date Input" keywords={baseKeywords}>
+				<PropControlTimezone label="TimeZone" />
+				<code>TimeZone: {getTimeZone()}</code>
+				<PropControl type="date" prop="startday" path={['widget', 'BasicTextPropControl']} label="Start Day"/>
+				<code>{startday}</code>
+				<code>isoDate: {startday && isoDate(startday)}</code>
+				<code>isoDateTZ: {startday && isoDateTZ(startday)}</code>
+				<PropControl type="date" prop="endday" time="end" path={['widget', 'BasicTextPropControl']} label="End of Day"/>
+				<code>{endday}</code>
+				<code>isoDate: {endday && isoDate(endday)}</code>
+				<code>isoDateTZ: {endday && isoDateTZ(endday)}</code>
 			</WidgetExample>
 
 			<WidgetExample name="Date with full iso value" keywords={baseKeywords}>
