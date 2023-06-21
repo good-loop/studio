@@ -12,6 +12,7 @@ import SubCard from './SubCard';
 import { stopEvent } from '../base/utils/miscutils';
 import { setTimeZone, getTimeZone, dateStr, dateTimeString, printDateShort, isoDateTZ, isoDate, asDate, dayStartTZ, dayEndTZ } from '../base/utils/date-utils';
 import PropControlTimezone from '../base/components/propcontrols/PropControlTimezone';
+import PropControlPercentage from '../base/components/propcontrols/PropControlPercentage';
 
 let baseKeywords = 'propcontrol input';
 
@@ -239,6 +240,11 @@ const SimpleInputs = () => {
 
 			<WidgetExample name="int Number" keywords={baseKeywords}>
 				<PropControl type="number" prop="myint" path={['widget', 'Number']} label="Counter" int />
+			</WidgetExample>
+
+			<WidgetExample name="percentage" keywords={baseKeywords}>
+				<PropControlPercentage prop="myp" path={['widget', 'Number']} label="Percentage" />
+				Stored value: {getValue(["widget","Number","myp"])}
 			</WidgetExample>
 
 			{/* <WidgetExample name="Autocomplete simple" keywords={baseKeywords}>
