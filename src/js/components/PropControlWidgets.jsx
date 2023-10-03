@@ -178,7 +178,7 @@ const DateWidgets = () => {
 
 	}
 	return (
-		<SubCard title="Date Widgets">
+		<SubCard title="Date Widgets!">
 			{/* <WidgetExample name="Date TimeZone Logic" keywords={baseKeywords}>
 				<PropControl type="date" prop="tzdate" path={['widget', 'DateWidgets']}
 					label="TZ Date" help="Take a date" dflt={d} />
@@ -193,9 +193,9 @@ tz back {setTimeZone(tz)} <br/>
 dateStr(0) {dateStr(d)} <br/>
 printDateShort {printDateShort(d)} <br/>
 			</WidgetExample> */}
-			<WidgetExample name="Date input" keywords={baseKeywords}>
-				<PropControl type="date" prop="mydate" path={['widget', 'BasicTextPropControl']}
-					label="Date" help="Take a date" />
+			<WidgetExample name="Basic Date input" keywords={baseKeywords}>
+				<PropControl type="date" prop="basicdate" path={['widget', 'BasicDatePropControl']}
+					label="Basic Date" help="Take a date" />
 			</WidgetExample>
 
 			<WidgetExample name="ISO-Timezone" keywords={baseKeywords}>

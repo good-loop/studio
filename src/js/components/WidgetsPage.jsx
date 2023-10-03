@@ -23,7 +23,7 @@ const WidgetsPage = () => {
 	let f = getFilter();
 
 	return <>
-		<h1>Welcome to the Widget Studio</h1>
+		<h1>Welcome to the GL Widget Studio</h1>
 
 		<FormGroup>
 			<Label>Filter widgets</Label>

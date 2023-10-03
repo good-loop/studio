@@ -14,7 +14,7 @@ const fs = require('fs');
 // const { execSync } = require('child_process');
 
 
-const webDir = process.env.OUTPUT_WEB_DIR || 'web-portal';
+const webDir = process.env.OUTPUT_WEB_DIR || 'web';
 
 
 // Check for file "config/$HOSTNAME.js" so it can be require()d wherever needed to pull in host-specific overrides
