@@ -196,6 +196,7 @@ printDateShort {printDateShort(d)} <br/>
 			<WidgetExample name="Basic Date input" keywords={baseKeywords}>
 				<PropControl type="date" prop="basicdate" path={['widget', 'BasicDatePropControl']}
 					label="Basic Date" help="Take a date" />
+				<code>{DataStore.getValue(['widget', 'BasicDatePropControl', 'basicdate'])}</code>
 			</WidgetExample>
 
 			<WidgetExample name="ISO-Timezone" keywords={baseKeywords}>
