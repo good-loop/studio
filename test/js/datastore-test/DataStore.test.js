@@ -33,19 +33,20 @@ SJTest.run({
 });
 
 SJTest.run({
-	'DataStore: fetch': () => {
+	'DataStore: fetch': (a,b) => {
 		let path = ["misc","myval-f"];
 		let pv = DataStore.fetch(path, () => {
 			return {"name":"set-by-fetch"};
 		});
 		// await pv.promise;
 		pv.promise.then(v => {
-			console.log('DataStore: fetch', pv, pv.value, v);
+			console.log('DataStore: fetch', pv, pv.value, v,a,b);
 			assert(v.name==="set-by-fetch");
 			let v2 = DataStore.getValue(path);
 			assert(v2.name==="set-by-fetch");
+			a.setStatus("pass");
+			a.details = "FOO"
 		});
 		return "Check console for errors"; // How to do promise stuff in SJTest? TODO look in test.promise-value.js
 	}
 });
-
