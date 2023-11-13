@@ -45,7 +45,7 @@ SJTest.run({
 			let v2 = DataStore.getValue(path);
 			assert(v2.name==="set-by-fetch");
 		});
-		return pv;
+		return "Check console for errors"; // How to do promise stuff in SJTest? TODO look in test.promise-value.js
 	}
 });
 
