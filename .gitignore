@@ -12,3 +12,7 @@ logs
 .settings
 node.run.tests.for.studio.log
 package-lock.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
