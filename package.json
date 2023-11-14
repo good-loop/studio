@@ -38,7 +38,7 @@
     "compile": "webpack --config $PWD/webpack.config.js --progress --color && ./gitstamp.sh",
     "compile-watch": "webpack --config $PWD/webpack.config.js --progress --color --watch",
     "compile-watch-fast": "NO_PROD=true webpack --config $PWD/webpack.config.js --progress --color --watch",
-    "test": "ava",
+    "test": "playwright test",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
