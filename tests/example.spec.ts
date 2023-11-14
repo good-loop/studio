@@ -16,3 +16,14 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
+
+test('DataStore', async ({ page }) => {
+	await page.goto('http://127.0.0.1:3000/datastore-test/DataStore.test.html');
+    
+	// Expects page to have an OK
+	await expect(page.getByText("pass").first()).toBeVisible();
+
+	// TODO check for a fail
+  });
+  
