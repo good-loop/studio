@@ -61,7 +61,7 @@ const SelectDataItemCard = () => {
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngoold'))}</pre>
 		</WidgetExample>
 		<WidgetExample name="Select NGO embed" keywords={baseKeywords}>
-			<PropControl embed modelValueFromInput={norm} prop='selectngoEmbed' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
+			<PropControl embed prop='selectngoEmbed' path={['misc','crudtest']} type='DataItem' itemType='NGO' status={C.KStatus.PUBLISHED} detail='lite' sort='id' />
 			<pre>{JSON.stringify(DataStore.getValue('misc','crudtest','selectngoEmbed'))}</pre>
 		</WidgetExample>
 		<WidgetExample name="Select Test Agency canCreate" keywords={baseKeywords}>
