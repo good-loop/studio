@@ -24,7 +24,7 @@ test('DataStore', async ({ page }) => {
 	// Expects page to have an OK
 	await expect(page.getByText("pass").first()).toBeVisible();
 
-	// TODO check for a fail
-	
+	// check for a fail
+	await expect(page.getByTestId("results-done")).toContainText("pass");
   });
   
